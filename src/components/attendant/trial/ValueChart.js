@@ -122,9 +122,9 @@ export default function ValueChart({ xpData, xpConfig }) {
                     major: true,
                     callback: function (value, index, values) {
                         if (value === 1) {
-                            return 'High';
+                            return '1';
                         } else if (value === -1) {
-                            return 'Low';
+                            return '-1';
                         }
                         return '';
                     },
@@ -229,14 +229,14 @@ export default function ValueChart({ xpData, xpConfig }) {
             </Box>
             {xpConfig.treatment === 1 ?
                 <Box sx={{
-                    mt: 12,
+                    mt: 1,
                 }}>
                     <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />
                 </Box>
 
                 :
                 <Box sx={{
-                    mt: 12,
+                    mt: 1,
                     opacity: showVolumeChartS ? '1' : '0',
                     display: (xpConfig.hideVolumeChartWhenShowOutcome && !showVolumeChartInitialValueS && showMoneyOutcomeS) ? 'none' : 'block',
                 }} onClick={onClickAssetChart}>

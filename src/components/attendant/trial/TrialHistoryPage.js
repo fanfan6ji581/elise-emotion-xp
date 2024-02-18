@@ -197,10 +197,10 @@ const TrialHistoryPage = () => {
                 <Grid item xs={12}>
                     <Box sx={{ position: "relative" }}>
                         <Typography align="center" sx={{ position: "absolute", left: -38, top: 35 }}>
-                            High
+                            1
                         </Typography>
                         <Typography align="center" sx={{ position: "absolute", left: -38, top: 265 }}>
-                            Low
+                            -1
                         </Typography>
 
                         <Box sx={{ overflowX: "scroll" }}>
