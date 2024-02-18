@@ -1,0 +1,7 @@
+/* * {
+  box-sizing: border-box;
+} */
+
+.instant .MuiLinearProgress-bar {
+    transition: none;
+}
