@@ -24,7 +24,7 @@ export default function AdminAppBar() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Forcast XP
+            Emotion XP
           </Typography>
           {loginAdminS && <Button component={Link} to="/admin/dashboard" color="inherit">Dashboard</Button>}
           {loginAdminS && <Button color="inherit" onClick={onClickLogout}>Logout</Button>}

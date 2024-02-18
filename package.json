@@ -1,6 +1,6 @@
 {
-  "homepage": "https://unsw-forcast-xp.web.app",
-  "name": "forcast-experiment",
+  "homepage": "https://unsw-emotion-xp.web.app",
+  "name": "emotion-experiment",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
