@@ -1,39 +1,11 @@
-import * as _ from "lodash";
-
-// function fractionParse(a) {
-//     const split = a.split('/');
-//     return split[0] / split[1];
-// }
-
 function generateBalloonDataFromDataSeries(dataSeries) {
     const { asset, volume } = dataSeries;
-    const length = asset.length - 100;
-
-    // calculate aberration and shift
-    const balloonValues = _.slice(asset, 99);
-    const balloonSpeed = _.slice(volume, 99);
-    const aberration = Array.from({ length: length + 1 }).fill(0);
-    const shift = Array.from({ length: length + 1 }).fill(0);
-
-    for (let i = 1; i <= balloonValues.length; i++) {
-        if (balloonValues[i] * balloonValues[i - 1] < 0 &&
-            balloonSpeed[i - 1] === 0 &&
-            aberration[i - 1] === 0) {
-            aberration[i] = 1
-        }
-        if (balloonValues[i] * balloonValues[i - 1] < 0) {
-            shift[i] = 1
-        }
-    }
+    const length = asset.length;
 
     return {
         xpData: Object.assign({}, {
             asset,
             volume,
-            balloonValues,
-            balloonSpeed,
-            aberration,
-            shift,
         }),
         xpRecord: {
             // data recordings
@@ -50,44 +22,23 @@ function generateBalloonDataFromDataSeries(dataSeries) {
 
 function generateBalloonData(xp) {
     // hard code for training session
-    const asset = [1,1,1,1,-1,-1,-1,-1,-1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,-1,-1,-1,1,1,1,1,1,-1,-1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,-1,-1,-1,1,-1,1,1,-1,-1,1,1,1,1,1,-1,-1,-1,1,-1,1,-1,1,1,1,1,1,1,1,1,-1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,-1,1,1,1,-1,1,-1,-1,-1,-1,-1,-1,1,1,1,-1,-1,-1,-1,1,-1,-1,1,1,-1,1,1,-1,-1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,1,1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,1,1,1,-1,-1,-1,-1,1,1,1,1,-1,-1,-1,1,1,1,1,1,1,-1,-1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,1,1,-1,-1,-1,-1,1,1,-1,1,1,1,1,1,-1,1,-1,-1,-1,-1,1,1,1,1,-1,-1,1,1,1,-1,1,1,-1,1,1,-1,-1,-1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,1,1,-1,-1,-1,-1,1,1,1,1,-1,1,1,1,1,-1,1,-1,-1,1,1,-1,1,1,1,1,1,-1,-1,1,1,-1,-1            ];
-    const volume = [0,0,0,1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,2,0,1,2,3,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,1,2,3,4,0,1,2,0,0,0,1,0,1,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,1,2,3,4,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,1,2,3,0,1,2,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,1,2,0,1,0,0,0,0,0,0,1,0,0,0,0,1,2,3,4,0,0,0,1,0,0,0,1,0,1,2,0,0,0,0,1,2,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,0,0,0,1,2,0,0,0,0,0,1,2,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,2,3,0,0,1,2,0,1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,2,0,1,2,3,4,5,6,0,1,2,3,0,0,0,0,0,0,1,2,3,0,0,0,1,0,0,0,0,0,0,0,1,0,1,0,1,0,0];
-    const length = asset.length - 100;
-
-    // calculate aberration and shift
-    const balloonValues = _.slice(asset, 99);
-    const balloonSpeed = _.slice(volume, 99);
-    const aberration = Array.from({ length: length + 1 }).fill(0);
-    const shift = Array.from({ length: length + 1 }).fill(0);
-
-    for (let i = 1; i <= balloonValues.length; i++) {
-        if (balloonValues[i] * balloonValues[i - 1] < 0 &&
-            balloonSpeed[i - 1] === 0 &&
-            aberration[i - 1] === 0) {
-            aberration[i] = 1
-        }
-        if (balloonValues[i] * balloonValues[i - 1] < 0) {
-            shift[i] = 1
-        }
-    }
+    const asset = [1, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, 1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, -1, 1, -1, -1, 1, 1, 1, -1, 1, 1, -1, -1, -1, -1, -1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1];
+    const volume = [0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 2, 3, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 0, 1, 2, 3, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 1, 2, 0, 0, 1, 0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 2, 3, 4, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1];
+    const length = asset.length;
 
     return {
         xpData: Object.assign({}, {
-            balloonValues,
-            balloonSpeed,
             asset,
             volume,
-            aberration,
-            shift,
         }),
         xpRecord: {
             // data recordings
             trialIndex: -1,
-            reactionHistory: Array.from({ length: xp.numberOfTrials }).fill(null),
-            clickToShowChartHistory: Array.from({ length: xp.numberOfTrials }).fill(null),
-            choiceHistory: Array.from({ length: xp.numberOfTrials }).fill(null),
-            outcomeHistory: Array.from({ length: xp.numberOfTrials }).fill(null),
-            missHistory: Array.from({ length: xp.numberOfTrials }).fill(false),
+            reactionHistory: Array.from({ length }).fill(null),
+            clickToShowChartHistory: Array.from({ length }).fill(null),
+            choiceHistory: Array.from({ length }).fill(null),
+            outcomeHistory: Array.from({ length }).fill(null),
+            missHistory: Array.from({ length }).fill(false),
         },
         pickedOutcomeIndexes: [],
     };
@@ -101,10 +52,8 @@ function extractXpData(attendant, xpConfig) {
     } = attendant;
     const rows = []
     const {
-        balloonValues,
-        balloonSpeed,
-        aberration,
-        shift,
+        asset,
+        volume,
     } = xpData;
     const {
         reactionHistory,
@@ -130,14 +79,14 @@ function extractXpData(attendant, xpConfig) {
 
     const mcqs = calcuateCorrectness(attendant, xpConfig);
 
-    for (let i = 0; i < balloonValues.length; i++) {
+    for (let i = 0; i < asset.length; i++) {
         rows.push(Object.assign(
             {
                 id: i + 1,
-                value: balloonValues[i],
-                speed: balloonSpeed[i],
-                aberration: aberration[i],
-                shift: shift[i],
+                value: asset[i],
+                speed: volume[i],
+                // aberration: aberration[i],
+                // shift: shift[i],
                 reaction: reactionHistory[i],
                 choice: choiceHistory[i],
                 outcome: outcomeHistory[i],

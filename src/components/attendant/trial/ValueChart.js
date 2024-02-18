@@ -30,11 +30,11 @@ export default function ValueChart({ xpData, xpConfig }) {
     const dispatch = useDispatch();
     const showMoneyOutcomeS = useSelector(showMoneyOutcome);
     const trialIndexS = useSelector(trialIndex);
-    const { balloonValues, balloonSpeed, asset, volume } = xpData;
+    const { asset, volume } = xpData;
     const showVolumeChartS = useSelector(showVolumeChart);
     const showVolumeChartInitialValueS = useSelector(showVolumeChartInitialValue);
 
-    let originalLabels = Array.from({ length: trialIndexS + (showMoneyOutcomeS ? 2 : 2) }, (_, i) => i);
+    let originalLabels = Array.from({ length: trialIndexS + (showMoneyOutcomeS ? 1 : 0) }, (_, i) => i);
     let labels = _.clone(originalLabels);
     let lengthLimit = 50;
     let originalLabelLength = labels.length
@@ -46,9 +46,7 @@ export default function ValueChart({ xpData, xpConfig }) {
 
     // add history
     if (originalLabelLength < lengthLimit) {
-        labels = _.concat(Array.from({ length: lengthLimit - originalLabelLength },
-            (_, i) => '' //100 + labels.length - lengthLimit + i
-        ), labels)
+        labels = _.concat(labels, Array.from({ length: lengthLimit - originalLabelLength }, () => null))
     }
 
     if (labels.length > lengthLimit) {
@@ -59,19 +57,17 @@ export default function ValueChart({ xpData, xpConfig }) {
         originalLabels = originalLabels.slice(-lengthLimit);
     }
 
-    let dataValues1 = balloonValues && _.slice(balloonValues, originalLabels[0],
+    let dataValues1 = asset && _.slice(asset, originalLabels[0],
         Math.min(originalLabelLength, lengthLimit) + originalLabels[0]);
     if (originalLabelLength < lengthLimit) {
-        const historyValue1 = _.slice(asset, originalLabelLength + 100 - 1 - lengthLimit, 99);
-        dataValues1 = _.concat(historyValue1, dataValues1);
+        dataValues1 = _.concat(dataValues1, Array.from({ length: lengthLimit - originalLabelLength }, () => null));
     }
 
     if (!showMoneyOutcomeS && dataValues1) {
         dataValues1.pop();
     }
 
-
-    labels = labels.map(l => l === 0 ? '' : l)
+    labels = labels.map(l => l === null ? '' : l + 1)
 
     const data = {
         labels: labels,
@@ -85,11 +81,10 @@ export default function ValueChart({ xpData, xpConfig }) {
         ],
     };
 
-    let dataValues2 = balloonSpeed && _.slice(balloonSpeed, originalLabels[0],
+    let dataValues2 = volume && _.slice(volume, originalLabels[0],
         Math.min(originalLabelLength, lengthLimit) + originalLabels[0]);
     if (originalLabelLength < lengthLimit) {
-        const historyValue2 = _.slice(volume, originalLabelLength + 100 - 1 - lengthLimit, 99);
-        dataValues2 = _.concat(historyValue2, dataValues2);
+        dataValues2 = _.concat(dataValues2, Array.from({ length: lengthLimit - originalLabelLength }, () => null));
     }
 
     if (!showMoneyOutcomeS && dataValues2) {
@@ -158,7 +153,7 @@ export default function ValueChart({ xpData, xpConfig }) {
                     }
                 }
             }
-        }
+        },
     };
 
     const options2 = {
@@ -175,8 +170,8 @@ export default function ValueChart({ xpData, xpConfig }) {
                         size: 14,
                     },
                 },
-                suggestedMax: _.max(balloonSpeed),
-                suggestedMin: _.min(balloonSpeed),
+                suggestedMax: _.max(volume),
+                suggestedMin: _.min(volume),
             },
             x: {
                 ticks: {
@@ -237,8 +232,7 @@ export default function ValueChart({ xpData, xpConfig }) {
                 :
                 <Box sx={{
                     mt: 1,
-                    opacity: showVolumeChartS ? '1' : '0',
-                    display: (xpConfig.hideVolumeChartWhenShowOutcome && !showVolumeChartInitialValueS && showMoneyOutcomeS) ? 'none' : 'block',
+                    opacity: (xpConfig.hideVolumeChartWhenShowOutcome && !showVolumeChartInitialValueS && showMoneyOutcomeS) ? '0' : (showVolumeChartS ? '1' : '0'),
                 }} onClick={onClickAssetChart}>
                     <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />
                 </Box>

@@ -32,14 +32,12 @@ const gameSlice = createSlice({
             // keep mul history
             state.choiceHistory[trialIndex] = choice || "";
             state.missHistory[trialIndex] = missed;
-            console.log(`recordChoice has trialIndex: ${trialIndex}, xpData.asset[${trialIndex + 100}]: ${xpData.asset[trialIndex + 100]} xpData.shift[${trialIndex + 2}]: ${xpData.shift[trialIndex + 2]}`)
-            // const isShift = xpData.shift[trialIndex + 1];
             let money = 0
             if (missed) {
                 money = -xpConfig.afkTimeoutCost;
             } else {
                 const choiceAmount = parseInt(choice);
-                const assetAmount = xpData.asset[trialIndex + 100];
+                const assetAmount = xpData.asset[trialIndex];
                 money = choiceAmount * assetAmount;
             }
 
@@ -85,11 +83,10 @@ const gameSlice = createSlice({
             const { xpConfig } = action.payload
             // random generated xpData
             const { xpData } = generateBalloonData(Object.assign({}, xpConfig,
-                { numberOfTrials: xpConfig.numberOfTrials + 100 }));
+                { numberOfTrials: xpConfig.numberOfTrials }));
 
             state.xpData = xpData;
-            state.xpData.balloonSpeed = state.xpData.balloonSpeed.map(v => v / 100);
-            state.xpData.volume = state.xpData.volume.map(v => v / 100);
+            // state.xpData.volume = state.xpData.volume.map(v => v / 100);
             // state.xpConfig = xpConfig;
 
             // reset
