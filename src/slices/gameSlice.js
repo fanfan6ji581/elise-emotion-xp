@@ -32,24 +32,15 @@ const gameSlice = createSlice({
             // keep mul history
             state.choiceHistory[trialIndex] = choice || "";
             state.missHistory[trialIndex] = missed;
-            console.log(`recordChoice has trialIndex: ${trialIndex}, xpData.shift[${trialIndex + 2}]: ${xpData.shift[trialIndex + 2]}`)
-            const isShift = xpData.shift[trialIndex + 1];
+            console.log(`recordChoice has trialIndex: ${trialIndex}, xpData.asset[${trialIndex + 100}]: ${xpData.asset[trialIndex + 100]} xpData.shift[${trialIndex + 2}]: ${xpData.shift[trialIndex + 2]}`)
+            // const isShift = xpData.shift[trialIndex + 1];
             let money = 0
             if (missed) {
                 money = -xpConfig.afkTimeoutCost;
             } else {
-                switch (choice) {
-                    case "shift":
-                        money = isShift ? 3 : -1;
-                        break;
-                    case "no shift":
-                        money = !isShift ? 1 : -3;
-                        break;
-                    case "skip":
-                    default:
-                        money = 0;
-                        break;
-                }
+                const choiceAmount = parseInt(choice);
+                const assetAmount = xpData.asset[trialIndex + 100];
+                money = choiceAmount * assetAmount;
             }
 
             state.outcomeHistory[trialIndex] = money;
@@ -64,7 +55,7 @@ const gameSlice = createSlice({
             }
 
             // should show outcome
-            if (missed || choice !== 'skip') {
+            if (missed || choice !== '0') {
                 state.showAfterClickDelay = true;
             } else {
                 // when click pass

@@ -121,9 +121,9 @@ export default function ValueChart({ xpData, xpConfig }) {
                     beginAtZero: true,
                     major: true,
                     callback: function (value, index, values) {
-                        if (value === 2) {
+                        if (value === 1) {
                             return 'High';
-                        } else if (value === -2) {
+                        } else if (value === -1) {
                             return 'Low';
                         }
                         return '';
@@ -132,8 +132,8 @@ export default function ValueChart({ xpData, xpConfig }) {
                         size: 16,
                     },
                 },
-                suggestedMax: 2,
-                suggestedMin: -2
+                suggestedMax: 1,
+                suggestedMin: -1
             },
             x: {
                 ticks: {

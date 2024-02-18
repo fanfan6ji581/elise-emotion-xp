@@ -1,5 +1,6 @@
-import { Button, Grid, } from "@mui/material";
+import { Button, Grid, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import Xarrow from 'react-xarrows';
 import {
     showMoneyOutcome, recordChoice, setShowMoneyOutcome, showAfterClickDelay,
     choiceHistory
@@ -40,36 +41,58 @@ export default function Choice({ xpData, xpConfig }) {
 
     return (
         <>
-            <Grid container
-                sx={{ my: 5 }}
-            // style={(showAfterClickDelayS || showMoneyOutcomeS) ?
-            //     { filter: "grayscale(100%)", pointerEvents: "none" } : {}}
-            >
-                <Grid item xs={2} />
-                <Grid item xs={8} style={{ textAlign: "center" }}>
-                    <Button size="large" variant="contained" sx={{ mx: 5, width: 160, boxShadow: 5 }} onClick={() => clickedAction("shift")}
-                        disabled={choice !== 'shift' && (showAfterClickDelayS || showMoneyOutcomeS)}
-                        style={choice === 'shift' && (showAfterClickDelayS || showMoneyOutcomeS) ?
-                            { pointerEvents: "none" } : {}}
-                    >
-                        Switch
+            <Grid container sx={{ my: 5 }}>
+                <Grid item xs={12} sx={{ mb: 4, textAlign: "center" }} >
+                    {/* <Button size="large" variant="outlined" sx={{ mx: 22, width: 100 }} id="sell">
+                        Sell
                     </Button>
-                    <Button size="large" variant="contained" sx={{ mx: 5, width: 160 }} onClick={() => clickedAction("no shift")}
-                        disabled={choice !== 'no shift' && (showAfterClickDelayS || showMoneyOutcomeS)}
-                        style={choice === 'no shift' && (showAfterClickDelayS || showMoneyOutcomeS) ?
-                            { pointerEvents: "none" } : {}}
-                    >
-                        No Switch
-                    </Button>
-                    <Button size="large" variant="contained" sx={{ mx: 5, width: 160 }} onClick={() => clickedAction("skip")}
-                        disabled={choice !== 'skip' && (showAfterClickDelayS || showMoneyOutcomeS)}
-                        style={choice === 'skip' && (showAfterClickDelayS || showMoneyOutcomeS) ?
-                            { pointerEvents: "none" } : {}}
-                    >
-                        Skip
-                    </Button>
+                    <Button size="large" variant="outlined" sx={{ mx: 22, width: 100 }} id="buy">
+                        Buy
+                    </Button> */}
+                    <Box id="sell" sx={{
+                        display: 'inline-block',
+                        mx: 22,
+                        width: 100,
+                        height: 40,
+                        bgcolor: 'background.paper',
+                        border: 1,
+                        borderColor: 'text.secondary',
+                        textAlign: 'center',
+                        lineHeight: '40px', // Align text vertically
+                    }}>
+                        Sell
+                    </Box>
+                    <Box id="buy" sx={{
+                        display: 'inline-block',
+                        mx: 22,
+                        width: 100,
+                        height: 40,
+                        bgcolor: 'background.paper',
+                        border: 1,
+                        borderColor: 'text.primary',
+                        textAlign: 'center',
+                        lineHeight: '40px', // Align text vertically
+                    }}>
+                        Buy
+                    </Box>
+                </Grid>
+                <Grid item xs={12} style={{ textAlign: "center" }}>
+                    {['-20', '-10', '0', '10', '20'].map((val, index) => (
+                        <Button key={val} size="large" variant="contained" sx={{ mx: 3, width: 100 }} onClick={() => clickedAction(val)}
+                            disabled={choice !== val && (showAfterClickDelayS || showMoneyOutcomeS)}
+                            id={`choice${val}`}
+                        >
+                            {val !== '0' ? val : 'Pass'}
+                        </Button>
+                    ))}
                 </Grid>
             </Grid>
+
+            <Xarrow start="sell" end="choice-20" startAnchor="bottom" endAnchor="top" path="straight" headSize={0} />
+            <Xarrow start="sell" end="choice-10" startAnchor="bottom" endAnchor="top" path="straight" headSize={0} />
+            <Xarrow start="buy" end="choice10" startAnchor="bottom" endAnchor="top" path="straight" headSize={0} />
+            <Xarrow start="buy" end="choice20" startAnchor="bottom" endAnchor="top" path="straight" headSize={0} />
+
         </>
     )
 }
