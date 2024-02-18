@@ -116,7 +116,7 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
           <TrialTimerProgress />
           <Grid container>
             <Grid item xs={12}>
-              <Box sx={{ height: 64, my: 1 }}>
+              <Box>
                 <MoneyOutcome xpData={xpData} xpConfig={xpConfig} />
               </Box>
             </Grid>

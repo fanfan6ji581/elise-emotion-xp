@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import coins from '../../../assets/coins.png';
 import coinsdown from '../../../assets/coinsdown.png';
 import { motion } from "framer-motion";
-import { Box, Typography, CardMedia, CardContent } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { showMoneyOutcome, outcomeHistory, missHistory, trialIndex, nextTrial } from "../../../slices/gameSlice";
 import { useEffect, useRef } from "react";
 
@@ -49,14 +49,13 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
     return (
         <>
             <motion.div variants={changeMoneyVariants} animate={(trialIndexS % 2 === 0) ? "left" : "left"}>
-                <Box sx={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'center' }}>
-                    <CardMedia
-                        component="img"
-                        sx={{ width: 64, height: 64 }}
-                        src={(moneyEarned < 0 || missedTrial) ? coinsdown : coins}
-                        alt="coins" />
-                    <CardContent>
-                        <Typography variant="h5" align="center">
+                <Box sx={{ position: 'absolute', width: '100%', left: 0 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', mt:3 }}>
+                        <Box component="img"
+                            sx={{ width: 42, height: 42, mr: 2 }}
+                            src={(moneyEarned < 0 || missedTrial) ? coinsdown : coins}
+                            alt="coins" />
+                        <Typography variant="h5">
                             {
                                 missedTrial ?
                                     `Missed trial, you lost -$${afkTimeoutCost}!` :
@@ -65,7 +64,7 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
                                         `You just won $${moneyEarned}`
                             }
                         </Typography>
-                    </CardContent>
+                    </Box>
                 </Box>
             </motion.div>
         </>

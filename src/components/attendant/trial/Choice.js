@@ -51,12 +51,13 @@ export default function Choice({ xpData, xpConfig }) {
                     </Button> */}
                     <Box id="sell" sx={{
                         display: 'inline-block',
-                        mx: 22,
+                        mx: 27,
                         width: 100,
                         height: 40,
-                        bgcolor: 'background.paper',
+                        bgcolor: 'primary.main',
+                        color: 'white',
                         border: 1,
-                        borderColor: 'text.secondary',
+                        borderRadius: '4px',
                         textAlign: 'center',
                         lineHeight: '40px', // Align text vertically
                     }}>
@@ -64,12 +65,13 @@ export default function Choice({ xpData, xpConfig }) {
                     </Box>
                     <Box id="buy" sx={{
                         display: 'inline-block',
-                        mx: 22,
+                        mx: 27,
                         width: 100,
                         height: 40,
-                        bgcolor: 'background.paper',
+                        bgcolor: 'primary.main',
+                        color: 'white',
                         border: 1,
-                        borderColor: 'text.primary',
+                        borderRadius: '4px',
                         textAlign: 'center',
                         lineHeight: '40px', // Align text vertically
                     }}>
@@ -78,7 +80,7 @@ export default function Choice({ xpData, xpConfig }) {
                 </Grid>
                 <Grid item xs={12} style={{ textAlign: "center" }}>
                     {['-20', '-10', '0', '10', '20'].map((val, index) => (
-                        <Button key={val} size="large" variant="contained" sx={{ mx: 3, width: 100 }} onClick={() => clickedAction(val)}
+                        <Button key={val} size="large" variant="contained" sx={{ mx: 5, width: 100 }} onClick={() => clickedAction(val)}
                             disabled={choice !== val && (showAfterClickDelayS || showMoneyOutcomeS)}
                             id={`choice${val}`}
                         >
