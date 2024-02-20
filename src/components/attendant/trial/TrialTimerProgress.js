@@ -1,6 +1,7 @@
 import { LinearProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  trialIndex,
   timerProgress,
   recordChoice,
   showMoneyOutcome,
@@ -19,6 +20,7 @@ export default function TrialTimer() {
   const showAfterClickDelayS = useSelector(showAfterClickDelay);
   const xpConfig = useSelector(xpConfigS);
   const timerInterval = useRef(null);
+  const trialIndexS = useSelector(trialIndex);
 
   const restartGameTimer = () => {
     clearInterval(timerInterval.current);
@@ -26,7 +28,8 @@ export default function TrialTimer() {
     dispatch(setProgressStartTime(progressStartTime.current));
     timerInterval.current = setInterval(() => {
       const timePassed = Date.now() - progressStartTime.current;
-      const progress = Math.round((timePassed * 100) / xpConfig.afkTimeout);
+      console.log(trialIndexS)
+      const progress = Math.round((timePassed * 100) / xpConfig.afkTimeout / ((trialIndexS === 0 ? 2 : 1)));
       dispatch(setTimerProgress(progress));
     }, 30);
   };

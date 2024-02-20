@@ -37,7 +37,7 @@ const gameSlice = createSlice({
                 money = -xpConfig.afkTimeoutCost;
             } else {
                 const choiceAmount = parseInt(choice);
-                const assetAmount = xpData.asset[trialIndex];
+                const assetAmount = xpData.asset[trialIndex + 10];
                 money = choiceAmount * assetAmount;
             }
 
@@ -103,7 +103,7 @@ const gameSlice = createSlice({
             state.showVolumeChart = state.showVolumeChartInitialValue
         },
         reset: (state) => {
-            state.trialIndex = -1;
+            state.trialIndex = 0;
             state.choiceHistory = [];
             state.outcomeHistory = [];
             state.missHistory = [];

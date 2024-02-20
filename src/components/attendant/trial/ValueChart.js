@@ -33,7 +33,9 @@ export default function ValueChart({ xpData, xpConfig }) {
     const showVolumeChartS = useSelector(showVolumeChart);
     const showVolumeChartInitialValueS = useSelector(showVolumeChartInitialValue);
 
-    let originalLabels = Array.from({ length: trialIndexS + (showMoneyOutcomeS ? 1 : 0) }, (_, i) => i);
+    const historyLength = 10;
+
+    let originalLabels = Array.from({ length: historyLength + trialIndexS + (showMoneyOutcomeS ? 1 : 0) }, (_, i) => i);
     let labels = _.clone(originalLabels);
     let lengthLimit = 50;
     let originalLabelLength = labels.length
@@ -43,8 +45,8 @@ export default function ValueChart({ xpData, xpConfig }) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [showVolumeChartS])
 
-    // add history
     if (originalLabelLength < lengthLimit) {
+        // append empty ones
         labels = _.concat(labels, Array.from({ length: lengthLimit - originalLabelLength }, () => null))
     }
 
@@ -66,7 +68,7 @@ export default function ValueChart({ xpData, xpConfig }) {
         dataValues1.pop();
     }
 
-    labels = labels.map(l => l === null ? '' : l + 1)
+    labels = labels.map(l => l === null ? '' : l < historyLength ? '' : l - historyLength + 1)
 
     const data = {
         labels: labels,
