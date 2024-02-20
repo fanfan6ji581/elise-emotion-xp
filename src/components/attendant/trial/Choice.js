@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Xarrow from 'react-xarrows';
 import {
     showMoneyOutcome, recordChoice, setShowMoneyOutcome, showAfterClickDelay,
-    choiceHistory
+    choiceHistory, missHistory, trialIndex
 } from "../../../slices/gameSlice";
 import { useEffect, useRef, useState } from 'react';
 import { blue, grey } from '@mui/material/colors'; // Import grey from MUI colors
@@ -13,9 +13,13 @@ export default function Choice({ xpData, xpConfig }) {
     const showMoneyOutcomeS = useSelector(showMoneyOutcome);
     const showAfterClickDelayS = useSelector(showAfterClickDelay);
     const choiceHistoryS = useSelector(choiceHistory);
+    const missHistoryS = useSelector(missHistory);
     const loadingInterval = useRef(null);
     const { choiceDelay } = xpConfig;
     const [choice, setChoice] = useState('')
+    const trialIndexS = useSelector(trialIndex);
+
+    const missedTrial = missHistoryS[trialIndexS];
 
     const clickedAction = (choice) => {
         setChoice(choice);
@@ -41,6 +45,9 @@ export default function Choice({ xpData, xpConfig }) {
 
     // Function to determine the color of the arrows
     const getArrowColor = (value) => {
+        if (missedTrial) {
+            return grey[300];
+        }
         if ((showAfterClickDelayS || showMoneyOutcomeS)) {
             if (choice === '-10' || choice === '-20' || choice === '10' || choice === '20') {
                 return choice === value ? blue[700] : grey[300];
@@ -54,10 +61,10 @@ export default function Choice({ xpData, xpConfig }) {
             <Grid container sx={{ my: 5 }}>
                 <Grid item xs={12} sx={{ mb: 4, textAlign: "center" }} >
                     <Button id="sell" size="large" variant="contained" sx={{ mx: 27, width: 100 }}
-                        disabled={choice > 0 && (showAfterClickDelayS || showMoneyOutcomeS)}
+                        disabled={missedTrial || (choice > 0 && (showAfterClickDelayS || showMoneyOutcomeS))}
                     >Sell</Button>
                     <Button id="buy" size="large" variant="contained" sx={{ mx: 27, width: 100 }}
-                        disabled={choice < 0 && (showAfterClickDelayS || showMoneyOutcomeS)}
+                        disabled={missedTrial || (choice < 0 && (showAfterClickDelayS || showMoneyOutcomeS))}
                     >Buy</Button>
                 </Grid>
                 <Grid item xs={12} style={{ textAlign: "center" }}>

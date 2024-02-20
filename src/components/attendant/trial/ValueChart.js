@@ -10,7 +10,7 @@ import {
     Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { trialIndex, showMoneyOutcome, showVolumeChart, showVolumeChartInitialValue, doShowVolumeChart } from "../../../slices/gameSlice";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -228,27 +228,42 @@ export default function ValueChart({ xpData, xpConfig }) {
     }
 
     return (
-        <Box style={{
-            position: "relative"
-        }}>
-            <Box sx={{ mt: 3 }}>
-                <Line data={data} options={options} />
+        <>
+            <Box style={{ position: "relative" }}>
+                <Box sx={{ mt: 3 }}>
+                    <Line data={data} options={options} />
+                </Box>
+                <Typography variant="p" sx={{ position: "absolute", top: 110, left: -40, width: 70, textAlign: 'center' }}>
+                    Asset History
+                </Typography>
             </Box>
-            {xpConfig.treatment === 1 ?
-                <Box sx={{
-                    mt: 5,
-                }}>
-                    <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />
-                </Box>
 
-                :
-                <Box sx={{
-                    mt: 5,
-                    opacity: (xpConfig.hideVolumeChartWhenShowOutcome && !showVolumeChartInitialValueS && showMoneyOutcomeS) ? '0' : (showVolumeChartS ? '1' : '0'),
-                }} onClick={onClickAssetChart}>
-                    <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />
-                </Box>
-            }
-        </Box>
+            <Box style={{ position: "relative" }}>
+                <>
+                    {xpConfig.treatment === 1 ?
+                        <Box sx={{
+                            mt: 5,
+                        }}>
+                            <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />
+                            <Typography variant="p" sx={{ position: "absolute", top: 110, left: -40, width: 70, textAlign: 'center' }}>
+                                Indicator History
+                            </Typography>
+                        </Box>
+
+                        :
+                        <Box sx={{
+                            mt: 5,
+                            opacity: (xpConfig.hideVolumeChartWhenShowOutcome && !showVolumeChartInitialValueS && showMoneyOutcomeS) ? '0' : (showVolumeChartS ? '1' : '0'),
+                        }} onClick={onClickAssetChart}>
+                            <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />
+                            <Typography variant="p" sx={{ position: "absolute", top: 110, left: -40, width: 70, textAlign: 'center' }}>
+                                Indicator History
+                            </Typography>
+                        </Box>
+                    }
+                </>
+
+            </Box>
+        </>
     );
 }
