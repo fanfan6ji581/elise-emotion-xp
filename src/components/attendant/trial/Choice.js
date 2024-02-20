@@ -1,4 +1,4 @@
-import { Button, Grid, Box } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import Xarrow from 'react-xarrows';
 import {
@@ -6,6 +6,7 @@ import {
     choiceHistory
 } from "../../../slices/gameSlice";
 import { useEffect, useRef, useState } from 'react';
+import { blue, grey } from '@mui/material/colors'; // Import grey from MUI colors
 
 export default function Choice({ xpData, xpConfig }) {
     const dispatch = useDispatch();
@@ -38,45 +39,26 @@ export default function Choice({ xpData, xpConfig }) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [showAfterClickDelayS, showMoneyOutcomeS, choiceHistoryS])
 
+    // Function to determine the color of the arrows
+    const getArrowColor = (value) => {
+        if ((showAfterClickDelayS || showMoneyOutcomeS)) {
+            if (choice === '-10' || choice === '-20' || choice === '10' || choice === '20') {
+                return choice === value ? blue[700] : grey[300];
+            }
+        }
+        return blue[700]; // Default color
+    }
 
     return (
         <>
             <Grid container sx={{ my: 5 }}>
                 <Grid item xs={12} sx={{ mb: 4, textAlign: "center" }} >
-                    {/* <Button size="large" variant="outlined" sx={{ mx: 22, width: 100 }} id="sell">
-                        Sell
-                    </Button>
-                    <Button size="large" variant="outlined" sx={{ mx: 22, width: 100 }} id="buy">
-                        Buy
-                    </Button> */}
-                    <Box id="sell" sx={{
-                        display: 'inline-block',
-                        mx: 27,
-                        width: 100,
-                        height: 40,
-                        bgcolor: 'primary.main',
-                        color: 'white',
-                        border: 1,
-                        borderRadius: '4px',
-                        textAlign: 'center',
-                        lineHeight: '40px', // Align text vertically
-                    }}>
-                        Sell
-                    </Box>
-                    <Box id="buy" sx={{
-                        display: 'inline-block',
-                        mx: 27,
-                        width: 100,
-                        height: 40,
-                        bgcolor: 'primary.main',
-                        color: 'white',
-                        border: 1,
-                        borderRadius: '4px',
-                        textAlign: 'center',
-                        lineHeight: '40px', // Align text vertically
-                    }}>
-                        Buy
-                    </Box>
+                    <Button id="sell" size="large" variant="contained" sx={{ mx: 27, width: 100 }}
+                        disabled={choice > 0 && (showAfterClickDelayS || showMoneyOutcomeS)}
+                    >Sell</Button>
+                    <Button id="buy" size="large" variant="contained" sx={{ mx: 27, width: 100 }}
+                        disabled={choice < 0 && (showAfterClickDelayS || showMoneyOutcomeS)}
+                    >Buy</Button>
                 </Grid>
                 <Grid item xs={12} style={{ textAlign: "center" }}>
                     {['-20', '-10', '0', '10', '20'].map((val, index) => (
@@ -90,11 +72,10 @@ export default function Choice({ xpData, xpConfig }) {
                 </Grid>
             </Grid>
 
-            <Xarrow start="sell" end="choice-20" startAnchor="bottom" endAnchor="top" path="straight" headSize={0} />
-            <Xarrow start="sell" end="choice-10" startAnchor="bottom" endAnchor="top" path="straight" headSize={0} />
-            <Xarrow start="buy" end="choice10" startAnchor="bottom" endAnchor="top" path="straight" headSize={0} />
-            <Xarrow start="buy" end="choice20" startAnchor="bottom" endAnchor="top" path="straight" headSize={0} />
-
+            <Xarrow start="sell" end="choice-20" startAnchor="bottom" endAnchor="top" path="straight" headSize={0} color={getArrowColor('-20')} />
+            <Xarrow start="sell" end="choice-10" startAnchor="bottom" endAnchor="top" path="straight" headSize={0} color={getArrowColor('-10')} />
+            <Xarrow start="buy" end="choice10" startAnchor="bottom" endAnchor="top" path="straight" headSize={0} color={getArrowColor('10')} />
+            <Xarrow start="buy" end="choice20" startAnchor="bottom" endAnchor="top" path="straight" headSize={0} color={getArrowColor('20')} />
         </>
     )
 }

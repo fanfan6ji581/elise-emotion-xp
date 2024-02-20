@@ -1,4 +1,4 @@
-import { Container, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Countdown from 'react-countdown';
 
 const TrainingTimer = ({ trainingSessionSeconds, onFinish, text }) => {
@@ -11,11 +11,11 @@ const TrainingTimer = ({ trainingSessionSeconds, onFinish, text }) => {
     return (
         <>
             {
-                <Container maxWidth="lg" sx={{ mt: 3 }}>
+                <Box sx={{ position: 'absolute', top: 10, right: 10 }}>
                     <Typography variant="body1" textAlign="center" sx={{ mr: 1 }}>
                         {text ? text : "Training time left"}: <Countdown date={Date.now() + trainingSessionSeconds * 1000} renderer={renderer} onComplete={onFinish} />
                     </Typography>
-                </Container>
+                </Box>
             }
         </>
 

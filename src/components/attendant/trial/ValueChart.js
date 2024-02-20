@@ -12,7 +12,6 @@ import {
 import { Line } from 'react-chartjs-2';
 import { Box } from "@mui/material";
 import { trialIndex, showMoneyOutcome, showVolumeChart, showVolumeChartInitialValue, doShowVolumeChart } from "../../../slices/gameSlice";
-import questionMarkImg from "../../../assets/question-mark.png";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -75,8 +74,8 @@ export default function ValueChart({ xpData, xpConfig }) {
             {
                 label: 'Asset history',
                 data: dataValues1,
-                backgroundColor: 'rgb(14,133,255)',
-                borderColor: 'rgba(99,104,255,0.2)',
+                backgroundColor: 'rgb(0,0,0)',
+                borderColor: 'rgba(0,0,0,0.2)',
             },
         ],
     };
@@ -124,9 +123,16 @@ export default function ValueChart({ xpData, xpConfig }) {
                         return '';
                     },
                     font: {
-                        size: 16,
+                        size: 32,
                     },
                 },
+                // title: {
+                //     display: true,
+                //     labelString: 'probability',
+                //     font: {
+                //         size: 32,
+                //     },
+                // },
                 suggestedMax: 1,
                 suggestedMin: -1
             },
@@ -144,12 +150,12 @@ export default function ValueChart({ xpData, xpConfig }) {
                 display: false,
             },
             legend: {
-                display: true,
+                display: false,
                 onClick: () => {
                 },
                 labels: {
                     font: {
-                        size: 16
+                        size: 12
                     }
                 }
             }
@@ -163,12 +169,25 @@ export default function ValueChart({ xpData, xpConfig }) {
         },
         scales: {
             y: {
-                display: false,
+                grid: {
+                    display: false
+                },
+                // display: false,
                 ticks: {
-                    // beginAtZero: true,
-                    font: {
-                        size: 14,
+                    beginAtZero: true,
+                    major: true,
+                    callback: function (value, index, values) {
+                        // if (value === 1) {
+                        //     return '1';
+                        // } else if (value === -1) {
+                        //     return '-1';
+                        // }
+                        return ' ';
                     },
+                    font: {
+                        size: 24,
+                    },
+
                 },
                 suggestedMax: _.max(volume),
                 suggestedMin: _.min(volume),
@@ -187,7 +206,7 @@ export default function ValueChart({ xpData, xpConfig }) {
                 display: false,
             },
             legend: {
-                display: true,
+                display: false,
                 onClick: () => {
                 },
                 labels: {
@@ -210,28 +229,19 @@ export default function ValueChart({ xpData, xpConfig }) {
         <Box style={{
             position: "relative"
         }}>
-            {!showMoneyOutcomeS &&
-                <img id="questionMarkImg" src={questionMarkImg} alt="question" style={{
-                    height: 80,
-                    position: "absolute",
-                    right: -30,
-                    top: 100,
-                }} />
-            }
-
-            <Box>
+            <Box sx={{ mt: 3 }}>
                 <Line data={data} options={options} />
             </Box>
             {xpConfig.treatment === 1 ?
                 <Box sx={{
-                    mt: 1,
+                    mt: 5,
                 }}>
                     <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />
                 </Box>
 
                 :
                 <Box sx={{
-                    mt: 1,
+                    mt: 5,
                     opacity: (xpConfig.hideVolumeChartWhenShowOutcome && !showVolumeChartInitialValueS && showMoneyOutcomeS) ? '0' : (showVolumeChartS ? '1' : '0'),
                 }} onClick={onClickAssetChart}>
                     <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />
