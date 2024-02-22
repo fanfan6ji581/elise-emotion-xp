@@ -97,8 +97,8 @@ export default function ValueChart({ xpData, xpConfig }) {
             {
                 label: 'Volume history',
                 data: dataValues2,
-                backgroundColor: 'rgb(141,168,181)',
-                borderColor: 'rgba(99,104,255,0.2)',
+                backgroundColor: 'rgb(11,11,11)',
+                borderColor: 'rgba(11,11,11,0.1)',
             },
         ],
     };
@@ -230,7 +230,7 @@ export default function ValueChart({ xpData, xpConfig }) {
     return (
         <>
             <Box style={{ position: "relative" }}>
-                <Box sx={{ mt: 3 }}>
+                <Box sx={{ mt: 4 }}>
                     <Line data={data} options={options} />
                 </Box>
                 <Typography variant="p" sx={{ position: "absolute", top: 110, left: -40, width: 70, textAlign: 'center' }}>
@@ -242,7 +242,7 @@ export default function ValueChart({ xpData, xpConfig }) {
                 <>
                     {xpConfig.treatment === 1 ?
                         <Box sx={{
-                            mt: 5,
+                            mt: 8,
                         }}>
                             <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />
                             <Typography variant="p" sx={{ position: "absolute", top: 110, left: -40, width: 70, textAlign: 'center' }}>
@@ -252,7 +252,7 @@ export default function ValueChart({ xpData, xpConfig }) {
 
                         :
                         <Box sx={{
-                            mt: 5,
+                            mt: 8,
                             opacity: (xpConfig.hideVolumeChartWhenShowOutcome && !showVolumeChartInitialValueS && showMoneyOutcomeS) ? '0' : (showVolumeChartS ? '1' : '0'),
                         }} onClick={onClickAssetChart}>
                             <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />
