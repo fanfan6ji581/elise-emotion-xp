@@ -50,18 +50,23 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
         <>
             <motion.div variants={changeMoneyVariants} animate={(trialIndexS % 2 === 0) ? "left" : "left"}>
                 <Box sx={{ position: 'absolute', width: '100%', left: 0 }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', mt:3 }}>
-                        <Box component="img"
-                            sx={{ width: 42, height: 42, mr: 2 }}
-                            src={(moneyEarned < 0 || missedTrial) ? coinsdown : coins}
-                            alt="coins" />
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', mt: 3 }}>
+                        {moneyEarned !== 0 && (
+                            <Box component="img"
+                                sx={{ width: 42, height: 42, mr: 2 }}
+                                src={(moneyEarned < 0 || missedTrial) ? coinsdown : coins}
+                                alt="coins" />
+                        )}
                         <Typography variant="h5">
                             {
                                 missedTrial ?
                                     `Missed trial, you lost -$${afkTimeoutCost}!` :
                                     moneyEarned < 0 ?
                                         `You just lost $${-moneyEarned}` :
-                                        `You just won $${moneyEarned}`
+                                        moneyEarned === 0 ?
+                                            `You just get $${moneyEarned}`
+                                            :
+                                            `You just won $${moneyEarned}`
                             }
                         </Typography>
                     </Box>

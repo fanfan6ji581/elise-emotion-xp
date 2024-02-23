@@ -240,29 +240,16 @@ export default function ValueChart({ xpData, xpConfig }) {
 
             <Box style={{ position: "relative" }}>
                 <>
-                    {xpConfig.treatment === 1 ?
-                        <Box sx={{
-                            mt: 8,
-                        }}>
-                            <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />
-                            <Typography variant="p" sx={{ position: "absolute", top: 110, left: -40, width: 70, textAlign: 'center' }}>
-                                Indicator History
-                            </Typography>
-                        </Box>
-
-                        :
-                        <Box sx={{
-                            mt: 8,
-                            opacity: (xpConfig.hideVolumeChartWhenShowOutcome && !showVolumeChartInitialValueS && showMoneyOutcomeS) ? '0' : (showVolumeChartS ? '1' : '0'),
-                        }} onClick={onClickAssetChart}>
-                            <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />
-                            <Typography variant="p" sx={{ position: "absolute", top: 110, left: -40, width: 70, textAlign: 'center' }}>
-                                Indicator History
-                            </Typography>
-                        </Box>
-                    }
+                    <Box sx={{
+                        mt: 8,
+                        opacity: (xpConfig.hideVolumeChartWhenShowOutcome && !showVolumeChartInitialValueS && showMoneyOutcomeS) ? '0' : (showVolumeChartS ? '1' : '0'),
+                    }} onClick={onClickAssetChart}>
+                        <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />
+                        <Typography variant="p" sx={{ position: "absolute", top: 110, left: -40, width: 70, textAlign: 'center' }}>
+                            Indicator History
+                        </Typography>
+                    </Box>
                 </>
-
             </Box>
         </>
     );

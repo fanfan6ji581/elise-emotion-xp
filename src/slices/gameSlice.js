@@ -52,15 +52,17 @@ const gameSlice = createSlice({
                 state.reactionHistory[trialIndex] = Date.now() - state.progressStartTime;
             }
 
+            state.showAfterClickDelay = true;
+
             // should show outcome
-            if (missed || choice !== '0') {
-                state.showAfterClickDelay = true;
-            } else {
-                // when click pass
-                state.timerProgress = 0;
-                state.trialIndex++;
-                state.showVolumeChart = state.showVolumeChartInitialValue
-            }
+            // if (missed || choice !== '0') {
+            //     state.showAfterClickDelay = true;
+            // } else {
+            //     // when click pass
+            //     state.timerProgress = 0;
+            //     state.trialIndex++;
+            //     state.showVolumeChart = state.showVolumeChartInitialValue
+            // }
         },
         setShowMoneyOutcome: (state, action) => {
             state.showMoneyOutcome = action.payload;
