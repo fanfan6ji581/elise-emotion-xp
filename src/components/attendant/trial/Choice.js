@@ -52,6 +52,9 @@ export default function Choice({ xpData, xpConfig }) {
             if (choice === '-10' || choice === '-20' || choice === '10' || choice === '20') {
                 return choice === value ? blue[700] : grey[300];
             }
+            if (choice === '0') {
+                return grey[300];
+            }
         }
         return blue[700]; // Default color
     }
@@ -61,10 +64,10 @@ export default function Choice({ xpData, xpConfig }) {
             <Grid container sx={{ my: 5 }}>
                 <Grid item xs={12} sx={{ mb: 4, textAlign: "center" }} >
                     <Button id="sell" size="large" variant="contained" sx={{ mx: 27, width: 100 }}
-                        disabled={missedTrial || (choice > 0 && (showAfterClickDelayS || showMoneyOutcomeS))}
+                        disabled={missedTrial || (choice >= 0 && (showAfterClickDelayS || showMoneyOutcomeS))}
                     >Sell</Button>
                     <Button id="buy" size="large" variant="contained" sx={{ mx: 27, width: 100 }}
-                        disabled={missedTrial || (choice < 0 && (showAfterClickDelayS || showMoneyOutcomeS))}
+                        disabled={missedTrial || (choice <= 0 && (showAfterClickDelayS || showMoneyOutcomeS))}
                     >Buy</Button>
                 </Grid>
                 <Grid item xs={12} style={{ textAlign: "center" }}>
