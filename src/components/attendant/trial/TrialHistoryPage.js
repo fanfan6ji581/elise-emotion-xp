@@ -67,7 +67,7 @@ const TrialHistoryPage = () => {
         labels: labels,
         datasets: [
             {
-                label: 'Asset history',
+                label: 'Asset Trend',
                 data: balloonValues,
                 backgroundColor: 'rgb(14,133,255)',
                 borderColor: 'rgba(99,104,255,0.2)',
@@ -79,7 +79,7 @@ const TrialHistoryPage = () => {
         labels: labels,
         datasets: [
             {
-                label: 'Volume history',
+                label: 'Indicator',
                 data: balloonSpeed,
                 backgroundColor: 'rgb(141,168,181)',
                 borderColor: 'rgba(99,104,255,0.2)',

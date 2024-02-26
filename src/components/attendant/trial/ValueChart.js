@@ -74,7 +74,7 @@ export default function ValueChart({ xpData, xpConfig }) {
         labels: labels,
         datasets: [
             {
-                label: 'Asset history',
+                label: 'Asset Trend',
                 data: dataValues1,
                 backgroundColor: 'rgb(0,0,0)',
                 borderColor: 'rgba(0,0,0,0.2)',
@@ -234,7 +234,10 @@ export default function ValueChart({ xpData, xpConfig }) {
                     <Line data={data} options={options} />
                 </Box>
                 <Typography variant="p" sx={{ position: "absolute", top: 110, left: -40, width: 70, textAlign: 'center' }}>
-                    Asset History
+                    Asset Trend
+                </Typography>
+                <Typography variant="p" sx={{ position: "absolute", bottom: -2, left: 120, width: 70, textAlign: 'center' }}>
+                    Day #
                 </Typography>
             </Box>
 
@@ -246,7 +249,10 @@ export default function ValueChart({ xpData, xpConfig }) {
                     }} onClick={onClickAssetChart}>
                         <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />
                         <Typography variant="p" sx={{ position: "absolute", top: 110, left: -40, width: 70, textAlign: 'center' }}>
-                            Indicator History
+                            Indicator
+                        </Typography>
+                        <Typography variant="p" sx={{ position: "absolute", bottom: -2, left: 120, width: 70, textAlign: 'center' }}>
+                            Day #
                         </Typography>
                     </Box>
                 </>
