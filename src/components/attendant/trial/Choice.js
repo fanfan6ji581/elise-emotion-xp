@@ -76,7 +76,7 @@ export default function Choice({ xpData, xpConfig }) {
                             disabled={choice !== val && (showAfterClickDelayS || showMoneyOutcomeS)}
                             id={`choice${val}`}
                         >
-                            {val !== '0' ? val : 'Pass'}
+                            {val !== '0' ? (val > 0 ? '+' + val : val) : 'Pass'}
                         </Button>
                     ))}
                 </Grid>
