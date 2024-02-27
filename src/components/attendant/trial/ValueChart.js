@@ -184,7 +184,7 @@ export default function ValueChart({ xpData, xpConfig }) {
                         // } else if (value === -1) {
                         //     return '-1';
                         // }
-                        return ' ';
+                        return '  ';
                     },
                     font: {
                         size: 24,
