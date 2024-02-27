@@ -118,7 +118,7 @@ export default function ValueChart({ xpData, xpConfig }) {
                     major: true,
                     callback: function (value, index, values) {
                         if (value === 1) {
-                            return '1';
+                            return '+1';
                         } else if (value === -1) {
                             return '-1';
                         }
@@ -236,7 +236,7 @@ export default function ValueChart({ xpData, xpConfig }) {
                 <Typography variant="p" sx={{ position: "absolute", top: 110, left: -40, width: 70, textAlign: 'center' }}>
                     Asset Trend
                 </Typography>
-                <Typography variant="p" sx={{ position: "absolute", bottom: -2, left: 120, width: 70, textAlign: 'center' }}>
+                <Typography variant="p" sx={{ position: "absolute", bottom: -30, left: 560, width: 70, textAlign: 'center' }}>
                     Day #
                 </Typography>
             </Box>
@@ -251,7 +251,7 @@ export default function ValueChart({ xpData, xpConfig }) {
                         <Typography variant="p" sx={{ position: "absolute", top: 110, left: -40, width: 70, textAlign: 'center' }}>
                             Indicator
                         </Typography>
-                        <Typography variant="p" sx={{ position: "absolute", bottom: -2, left: 120, width: 70, textAlign: 'center' }}>
+                        <Typography variant="p" sx={{ position: "absolute", bottom: -30, left: 560, width: 70, textAlign: 'center' }}>
                             Day #
                         </Typography>
                     </Box>
