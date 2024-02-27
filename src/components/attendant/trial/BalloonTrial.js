@@ -110,8 +110,7 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
       <Grid container justifyContent="center">
         <Grid item xs={12}>
           <Typography variant="h5" align="center" sx={{ mt: 2, mb: 1 }}>
-            {isTrainingMode && <>Training</>} Trial: {trialIndexS + 1}/
-            {xpConfig.numberOfTrials}
+            Day: {trialIndexS + 1}/{xpConfig.numberOfTrials}
           </Typography>
           <TrialTimerProgress />
           <Grid container>
