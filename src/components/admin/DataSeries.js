@@ -3,7 +3,7 @@ import Form from '@rjsf/mui';
 import validator from "@rjsf/validator-ajv8";
 import { doc, writeBatch, } from "firebase/firestore";
 import db from "../../database/firebase";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
     Grid, Typography, Button, Backdrop, CircularProgress
 } from "@mui/material";
@@ -43,6 +43,7 @@ const DataSeries = ({ xp }) => {
         asset: '',
         volume: '',
     });
+    const formRef = useRef(null);
 
     const columns = [
         { field: 'name', headerName: 'Name', width: 100 },
@@ -73,6 +74,9 @@ const DataSeries = ({ xp }) => {
 
         // clear
         setFormData({ name: '', asset: '', volume: '' });
+        if (formRef.current) {
+            formRef.current.reset();
+        }
         await fetchDatas();
     };
 
@@ -135,7 +139,7 @@ const DataSeries = ({ xp }) => {
                 </Grid>
                 <Grid item xs={3}>
                     <Typography>Add Data </Typography>
-                    <Form schema={schema} onSubmit={onAddData} formData={formData} validator={validator} />
+                    <Form ref={formRef} schema={schema} onSubmit={onAddData} formData={formData} validator={validator} />
 
                 </Grid>
             </Grid>
