@@ -147,7 +147,7 @@ const DashboardPage = () => {
             clickToShowVolumeChart: true,
             enablePlaying: false,
             enableSignUpContinue: false,
-            treatment: 1,
+            treatment: 3,
             hideVolumeChartWhenShowOutcome: false,
         };
 

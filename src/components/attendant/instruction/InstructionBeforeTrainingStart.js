@@ -1,11 +1,11 @@
 import { Container, Box, Typography, Button, Grid, } from "@mui/material";
 import { Link, useParams } from "react-router-dom"
-import { useSelector } from "react-redux";
-import { xpConfigS } from "../../../slices/gameSlice";
+// import { useSelector } from "react-redux";
+// import { xpConfigS } from "../../../slices/gameSlice";
 
 const BeforeTrainingStart = () => {
     const { alias } = useParams();
-    const xpConfig = useSelector(xpConfigS);
+    // const xpConfig = useSelector(xpConfigS);
 
     return (
         <Container maxWidth="md">
@@ -17,17 +17,13 @@ const BeforeTrainingStart = () => {
                     </Typography>
 
                     <Typography variant="h6" sx={{ my: 5 }}>
-                        The training session you're going to do is just to familiarize yourself with the game interface.
-                        Your choices won't be recorded and hence we won't be showing you the history for the asset in the previous 100 days, as your choices during that training do not matter.
+                        This short training is just to familiarize yourself with the game interface. Your choices won't be recorded and do not matter for your payment.
 
                     </Typography>
 
-                    {xpConfig.treatment !== 1 &&
-                        <Typography variant="h6" sx={{ my: 5 }}>
-                            Please recall that you can make the volume chart appear on screen by clicking anywhere on the blank space below the asset chart, and the volume chart will instantaneously appear on screen.
-                            Please try it during that training!
-                        </Typography>
-                    }
+                    <Typography variant="h6" sx={{ my: 5 }}>
+                        Please recall that you can make the indicator chart appear on screen by clicking anywhere on the blank space below the asset chart, and the indicator chart will instantaneously appear on screen. We strongly encourage you to try this function during this training!
+                    </Typography>
 
                     <Box textAlign="center" sx={{ my: 10 }}>
                         <Button component={Link} variant="contained" size="large" to={`/xp/${alias}/instruction-ready`} sx={{ mx: 2 }}>Prev</Button>

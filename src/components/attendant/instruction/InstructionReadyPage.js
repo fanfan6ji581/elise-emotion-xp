@@ -31,7 +31,7 @@ const Instruction4Page = () => {
     }, [])
 
     return (
-        <Container maxWidth="md">
+        <Container maxWidth="lg">
             <Grid container>
                 <Grid item xs={12}>
 
@@ -40,8 +40,7 @@ const Instruction4Page = () => {
                     </Typography>
 
                     <Typography variant="h6" sx={{ my: 5 }}>
-                        Remember that if you play well, you have fair chances to win the maximal amount (${xpConfig.treatment === 1 ? 150 : 100} AUD). However, the game is hard, and its pace is quick: you have only {xpConfig.afkTimeout / 1000} seconds to make your decision on each trial. If you do not reply within the allowed time,
-                        <b style={{ fontSize: 24 }}> you lose ${xpConfig.afkTimeoutCost}</b> and move to the next trial. Have a short training session to learn how to play the game!
+                        You have only 10 seconds to make your decision on each trial. If you do not reply within the allowed time, you lose $1 and move to the next trial. After 10 missed trials the game automatically stops, so make sure you keep up with the pace 😊.
                     </Typography>
 
                     <Box textAlign="center" sx={{ my: 10 }}>

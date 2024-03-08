@@ -5,21 +5,17 @@ import {
   Typography,
   Button,
   Divider,
-  Alert,
-  AlertTitle
 } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
-import { xpConfigS } from "../../../slices/gameSlice";
-import { useSelector } from "react-redux";
-import image1 from "../../../assets/image1.png";
-import image4 from "../../../assets/image4.png";
-import image6 from "../../../assets/image6.png";
-import image7 from "../../../assets/image7.png";
-import image8 from "../../../assets/image8.png";
+// import { xpConfigS } from "../../../slices/gameSlice";
+// import { useSelector } from "react-redux";
+import image1 from "../../../assets/1.png";
+import image2 from "../../../assets/2.png";
+import image10 from "../../../assets/10.png";
 
 const Instruction1Page = () => {
   const { alias } = useParams();
-  const xpConfig = useSelector(xpConfigS);
+  // const xpConfig = useSelector(xpConfigS);
   return (
     <Container maxWidth="lg">
       <Grid container>
@@ -30,113 +26,24 @@ const Instruction1Page = () => {
 
           <Grid container alignItems="center" sx={{ my: 5 }}>
             <Grid item xs={12}>
-              <Typography variant="h6" sx={{ my: 5 }}>
-                If you play well you can earn a lot of money in this game (up to $100 AUD), so please read the
-                following instructions very carefully and ask any clarifying questions to the experimenter.
+              <Typography variant="h6" sx={{ my: 3 }}>
+                If you play well you can earn a lot of money in this game (up to $100), so please read the following instructions very carefully.
               </Typography>
-              <Typography variant="h6" sx={{ my: 5 }}>
-                In the game, there is a financial asset that randomly switches between 2 states, say <b>high</b> and <b>low</b>.
+              <Typography variant="h6" sx={{ my: 3 }}>
+                In this game, there is a financial asset whose value fluctuates every day. Some days the value increases, some days it decreases, like this for example:
               </Typography>
             </Grid>
 
-            <Grid item xs={6} sx={{ textAlign: "center" }}>
+            <Grid item xs={2} />
+            <Grid item xs={8} sx={{ textAlign: "center" }}>
               <Box component="img" alt="" src={image1} sx={{ boxShadow: 0, width: '100%' }} />
             </Grid>
-            <Grid item xs={6}>
-              <Typography variant="h6" sx={{ my: 5, ml: 5 }}>
-                There are two types of switches. Some of the switches are "<b>regime shifts</b>": they usually last for several days, as shown in the picture. Others are <b>"aberrations"</b>: the value switches back immediately (see for example, trial 18).
+            <Grid item xs={12}>
+              <Typography variant="h6" sx={{ my: 3 }}>
+                A value of “+1” for a given day indicates an <i>uptrend</i> : asset value has <i>increased</i> on that day (e.g, see Day # 5). A value “-1” indicates a <i>downtrend</i>: asset value has <i>decreased</i> on that day (e.g., Day # 10).
               </Typography>
-            </Grid>
-
-          </Grid>
-          <Divider />
-
-          <Grid container alignItems="center" sx={{ my: 10 }}>
-            <Grid item xs={8} sx={{ textAlign: "center" }}>
-              <Box component="img" alt="" src={image8} sx={{ width: '100%', boxShadow: 3 }} />
-            </Grid>
-            <Grid item xs={4}>
-              <Typography variant="h6" sx={{ ml: 5 }}>
-                At the beginning of the game, you'll see what's happened with the asset in the last 100 days.
-              </Typography>
-              <Typography variant="h6" sx={{ mt: 5, ml: 5 }}>
-                You will also be shown the history for a volume indicator over the same period.
-                This kind of indicator is commonly present on trading screens in the real world.
-              </Typography>
-            </Grid>
-
-            <Grid item xs={12} alignItems="center">
-              <Box sx={{ mt: 3, border: 1, p: 2, boxShadow: 3 }}>
-                <Typography variant="h5" >
-                  We are showing you this because your job is to <b>forecast</b> in real time on each of {xpConfig.numberOfTrials} trials
-                  whether a switch is going to occur over the next day, and <b>there is a pattern linking the volume indicator to the regime shifts.</b>
-
-                  <br />
-                  <br />
-                  If you manage to identify what the pattern is, you may track the value of the volume indicator to forecast the regime shifts by differentiating them from aberrations, which can greatly improve your performance.
-                  (more on this below 😄)
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid>
-
-          <Divider />
-
-          <Grid container alignItems="center" sx={{ my: 10 }}>
-            <Grid item xs={6} sx={{ textAlign: "center" }}>
-              <Box component="img" alt="" src={image4} sx={{ boxShadow: 3, width: '100%' }} />
-            </Grid>
-            <Grid item xs={6}>
-              <ul>
-                <li>
-                  <Typography variant="h6" sx={{ my: 3 }}>
-                    If you forecast no switch and turn out to be right, you win $1,
-                    but if you're wrong (that is, a switch happens), you lose $3.
-                  </Typography>
-                </li>
-                <li>
-                  <Typography variant="h6" sx={{ my: 3 }}>
-                    If you forecast a switch and turn out to be right, you win $3, but if you're wrong (that is, no switch happens), you lose $1.
-                  </Typography>
-                </li>
-                <li>
-                  <Typography variant="h6" sx={{ my: 3 }}>
-                    If you choose to skip, you get $0 (i.e., you don't earn any money but cannot lose either.)
-                  </Typography>
-                </li>
-                <li>
-                  <Typography variant="h6" sx={{ my: 3 }}>
-                    Please remember this payoff rule. You can also write it down.
-                  </Typography>
-                </li>
-              </ul>
-            </Grid>
-          </Grid>
-
-          <Divider />
-
-          <Grid container alignItems="center" sx={{ mt: 10, mb: 5 }}>
-            <Typography variant="h4">
-              The Pattern
-            </Typography>
-            <Typography variant="h6" sx={{ my: 5 }}>
-              Here is the pattern linking the volume indicator to the regime shifts: when volume departs from
-              its baseline value (0), this signals that <Typography display="inline" variant="span" sx={{ color: 'error.main' }}>a regime shift is going to occur sometime in the coming
-                trials</Typography>, i.e., the player enters <Typography display="inline" sx={{ color: 'error.main' }} fontSize={28}>"the dangerous zone"</Typography>.
-            </Typography>
-          </Grid>
-
-          <Grid container alignItems="" sx={{ my: 5 }}>
-            <Grid item xs={6} sx={{ textAlign: "center" }}>
-              <Box component="img" alt="" src={image6} sx={{ boxShadow: 0, width: '100%' }} />
-            </Grid>
-            <Grid item xs={6}>
-              <Typography variant="h6" sx={{ my: 5, ml: 5 }}>
-                In this example, you can see that the volume variable departs from its baseline value at Trial 6:
-                this is the first trial in <Typography display="inline" sx={{ color: 'error.main' }} fontSize={20}>the dangerous zone</Typography>.
-              </Typography>
-              <Typography variant="h6" sx={{ my: 5, ml: 5 }}>
-                You can see the shift occurs at Trial 10: the value shifts to High, and the volume indicator reverts to its baseline value, which means that it is no longer in the dangerous zone.
+              <Typography variant="h6" sx={{ my: 3 }}>
+                As you can see on the graph, the trend of the asset usually remains the same for several days, meaning the asset alternates between uptrend phases of and downtrend phases. For example, from Day #9 to Day #18, the asset features a downtrend; from Day #19 to Day #26, it features an uptrend. However, occasionally, the trend changes for only one day and then returns to its current level (see, for example, the downtrend on Day #2, or the uptrend on Day #35).
               </Typography>
             </Grid>
           </Grid>
@@ -144,31 +51,85 @@ const Instruction1Page = () => {
           <Divider />
 
           <Grid container alignItems="center" sx={{ my: 5 }}>
-            <Grid item xs={6} sx={{ textAlign: "center" }}>
-              <Box component="img" alt="" src={image7} sx={{ boxShadow: 0, width: '100%' }} />
+            <Grid item xs={12}>
+              <Typography variant="h5"><b>Principle of the Game</b></Typography>
             </Grid>
-            <Grid item xs={6}>
-              <Typography variant="h6" sx={{ my: 5, ml: 5 }}>
-                The volume indicator thus allows you to tell when a switch is an aberration vs. a regime shift.
+            <Grid item xs={12}>
+              <Typography variant="h6" sx={{ my: 3 }}>
+                Your job is to decide whether to take a position—either buy or sell—in the asset in each of 300 days, so you will be playing 300 trials overall (1 trial = 1 day). If you do not want to take a position in the asset, you should choose to pass, which guarantees you to get $0 (i.e., you cannot lose any money, but you cannot win money either).
               </Typography>
-              <Typography variant="h6" sx={{ my: 5, ml: 5 }}>
-                For example here, at Trial 18, the value has switched but the volume indicator is at its baseline value.
-                This is an aberration and the value immediately switches back to its previous value (here, Low) at Trial 19.
+              <Typography variant="h6" >
+                If you choose to take a position in the asset on a given day, you win money if:
               </Typography>
-              <Typography variant="h6" sx={{ my: 5, ml: 5 }}>
-                In contrast, at Trial 12 a regime shift occurs (after 2 trials in the dangerous zone: Trials 10-11).
+              <ul>
+                <li>
+                  <Typography variant="h6">
+                    You choose to buy the asset, and then the asset features an uptrend (+1);
+                  </Typography>
+                </li>
+                <li>
+                  <Typography variant="h6">
+                    You choose to sell the asset, and then the asset features a downtrend (-1).
+                  </Typography>
+                </li>
+              </ul>
+              <Typography variant="h6">
+                You lose money otherwise. How much money is lost or won depends on the size of your position, see next. 😊
               </Typography>
             </Grid>
           </Grid>
 
-          <Alert icon={false} severity="warning">
-            <AlertTitle sx={{ textAlign: 'center', fontSize: 32 }}>Important Note</AlertTitle>
-            <Typography variant="h6">
-              The probability of a regime shift while in the dangerous zone is constant.
-              The probability of an aberration while outside the dangerous zone is constant too.
-              This means that the two probabilities are fixed and they do not change during the task depending on how you play.
-            </Typography>
-          </Alert>
+          <Divider />
+
+          <Grid container alignItems="center" sx={{ my: 5 }}>
+            <Grid item xs={12}>
+              <Typography variant="h5"><b>Your Payoff</b></Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h6" sx={{ my: 3 }}>
+                When you decide to buy the asset on a given day, you tell the computer whether you want to buy 10 shares or 20 shares; likewise, in case of a sell decision, you tell the computer how many shares you want to sell. The action set looks like this on the user interface (you simply click on your chosen option on each trial):
+              </Typography>
+
+            </Grid>
+            <Grid item xs={1} />
+            <Grid item xs={10} sx={{ textAlign: "center" }}>
+              <Box component="img" alt="" src={image2} sx={{ width: '100%' }} />
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h6" sx={{ my: 3 }}>
+                The outcome on each trial, in case of a buy/sell decision, is:
+              </Typography>
+              <Grid item xs={1} />
+              <Grid item xs={10} sx={{ textAlign: "center" }}>
+                <Box component="img" alt="" src={image10} sx={{ width: '100%' }} />
+              </Grid>
+
+              <Typography variant="h6" align="center" sx={{ my: 0 }}>
+                Note: -$10 (-$20) means a loss of $10 ($20): $10 ($20) is subtracted from your net accumulated outcomes.
+              </Typography>
+
+              <Typography variant="h6" sx={{ my: 3 }}>
+                That is, you win if your position (“+1” for buy, “-1” for sell) matches the trend realized on the next day.
+              </Typography>
+              <Typography variant="h6" sx={{ my: 3 }}>
+                After you’ve made your decision on a given day, you see the realization of the asset trend on the next day, and your corresponding outcome. Then you proceed immediately to the next trial (no break). The computer records all the outcomes you got across trials, and your final earnings directly reflect your net accumulated outcomes in the game, so you should really try to do your best on each trial, as you can potentially earn very significant earnings (more details below).
+              </Typography>
+            </Grid>
+          </Grid>
+
+          <Divider />
+
+          <Grid container alignItems="center" sx={{ my: 5 }}>
+            <Grid item xs={12}>
+              <Typography variant="h5"><b>How to Play the Game in Practice</b></Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h6" sx={{ my: 3 }}>
+                [Please click here to see the video that will be inserted in the online instructions provided to the participants in the lab.]
+              </Typography>
+              {/* Link or button to video here */}
+            </Grid>
+          </Grid>
 
           <Box textAlign="center" sx={{ my: 10 }}>
             <Button
@@ -183,7 +144,7 @@ const Instruction1Page = () => {
         </Grid>
       </Grid>
 
-    </Container>
+    </Container >
   );
 };
 

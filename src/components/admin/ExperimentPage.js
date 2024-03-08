@@ -105,14 +105,12 @@ const Experiment = () => {
                 </Grid>
                 <Grid item>
                     <Stack direction="column">
-                        <FormControl fullWidth>
+                        <FormControl fullWidth sx={{display: 'none'}}>
                             <InputLabel>Treatment</InputLabel>
                             <Select label="Treatment"
                                 value={treatment}
                                 onChange={onSwitchTreatment}
                             >
-                                <MenuItem value={1}>Treatment 1</MenuItem>
-                                <MenuItem value={2}>Treatment 2</MenuItem>
                                 <MenuItem value={3}>Treatment 3</MenuItem>
                             </Select>
                         </FormControl>
