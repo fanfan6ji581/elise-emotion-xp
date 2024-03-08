@@ -1,4 +1,3 @@
-import * as _ from "lodash";
 import { useSelector } from "react-redux";
 import { loginAttendant } from "../../slices/attendantSlice";
 import { Container, Grid, Typography, Backdrop, CircularProgress } from "@mui/material";
@@ -11,14 +10,15 @@ import { getXp } from "../../database/xp";
 export default function PaymentPage() {
     const { alias } = useParams();
     const loginAttendantS = useSelector(loginAttendant);
-    const [earning, setEarning] = useState("...");
+    const [finalEarning, setFinalEarning] = useState("...");
+    const [adjustedEarning, setAdjustedEarning] = useState("...");
     const [loadingOpen, setLoadingOpen] = useState(true);
     const [xp, setXp] = useState({});
 
     const fetchXP = async () => {
         const xp = await getXp(alias);
         setXp(xp);
-        await calculateFinalOutcomes(xp);
+        await calculateFinalOutcomes();
     }
 
     useEffect(() => {
@@ -26,7 +26,7 @@ export default function PaymentPage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const calculateFinalOutcomes = async (xp) => {
+    const calculateFinalOutcomes = async () => {
         const attendantRef = doc(db, "attendant", loginAttendantS.id);
         const docSnap = await getDoc(attendantRef);
         if (!docSnap.exists()) {
@@ -34,56 +34,71 @@ export default function PaymentPage() {
         }
 
         const attendant = docSnap.data();
-        let { xpRecord, pickedOutcomeIndexes, finalEarning } = attendant;
+        let { xpRecord, pickedOutcomeIndexes, finalEarning, adjustedEarning } = attendant;
         const { outcomeHistory, missHistory } = xpRecord;
 
-        if (finalEarning) {
-            setEarning(finalEarning);
+        if (finalEarning && adjustedEarning) {
+            setFinalEarning(attendant.finalEarning)
+            setAdjustedEarning(adjustedEarning);
             setLoadingOpen(false);
             return;
         }
 
-        // check if pickedOutcomeIndexes is calculated already
-        let shuffledIndex = outcomeHistory.map((_, idx) => (idx)).filter(i => outcomeHistory[i] !== null);
-        shuffledIndex = _.shuffle(shuffledIndex);
-        const length = Math.round(shuffledIndex.length * (xp.percentageEarning || 40) / 100);
-        const pickedIndex = shuffledIndex.slice(0, length);
-        pickedOutcomeIndexes = pickedIndex.sort((a, b) => a - b);
+        const validOutcomes = outcomeHistory.map((outcome, index) => ({ outcome, index })).filter(item => item.outcome !== null);
+        if (validOutcomes.length < 100) {
+            console.warn("Not enough outcomes to pick a contiguous block of 100 trials.");
+            setLoadingOpen(false);
+            return;
+        }
 
-        // when miss too much, ignore result
+        const maxStartIndex = validOutcomes.length - 100;
+        const startIndex = Math.floor(Math.random() * (maxStartIndex + 1));
+        const endIndex = startIndex + 100;
+        pickedOutcomeIndexes = validOutcomes.slice(startIndex, endIndex).map(item => item.index).sort((a, b) => a - b);
+
         if (missHistory.filter(x => x).length >= xp.missLimit) {
-            setEarning(0);
-            await updateDoc(attendantRef, { missTooMuch: true, finalEarning: 0, pickedOutcomeIndexes });
+            await updateDoc(attendantRef, { missTooMuch: true, finalEarning: 0, adjustedEarning: 10, pickedOutcomeIndexes });
             setLoadingOpen(false);
             return;
         }
 
         const sumEarning = pickedOutcomeIndexes.reduce((a, b) => a + outcomeHistory[b], 0);
-        const cap = xp.treatment === 1 ? 150 : 100;
-        const earning = Math.min(cap, sumEarning);
-        await updateDoc(attendantRef, { finalEarning: earning, pickedOutcomeIndexes });
-        setEarning(earning);
-        setLoadingOpen(false);
-    }
+        finalEarning = 0.5 * sumEarning - 680;
 
+        if (finalEarning <= 5) {
+            adjustedEarning = 10;
+        } else if (finalEarning > 5 && finalEarning < 95) {
+            adjustedEarning = finalEarning + 5;
+        } else if (finalEarning >= 95) {
+            adjustedEarning = 100;
+        }
+
+        await updateDoc(attendantRef, { finalEarning: finalEarning, adjustedEarning: adjustedEarning, pickedOutcomeIndexes });
+        setFinalEarning(finalEarning)
+        setAdjustedEarning(adjustedEarning);
+        setLoadingOpen(false);
+    };
 
 
     return (
-        <Container maxWidth="md">
+        <Container maxWidth="lg">
             <Grid container justifyContent="center">
                 <Grid item xs={1} />
-                <Grid item xs={8} sx={{ textAlign: 'center' }}>
+                <Grid item xs={10} sx={{ textAlign: 'center' }}>
                     <Typography variant="h4" align="center" sx={{ my: 5 }}>
                         Game over!
                     </Typography>
 
-                    <Typography variant="body1" sx={{ my: 5 }}>
-                        The game is over. The computer just randomly selected {xp.percentageEarning}%
-                        of the trials you played and computed your net accumulated outcomes at these trials.
+                    <Typography variant="h6" sx={{ my: 5 }}>
+                        The game is over. The computer randomly selected 100 consecutive trials from the task and computed your net accumulated outcomes across these consecutive trials.
                     </Typography>
 
-                    <Typography variant="body1" sx={{ my: 5 }}>
-                        Your earnings are <b>${earning}</b>. Please wait, the experimenter will come shortly.
+                    <Typography variant="h6" sx={{ my: 5 }}>
+                        We take 50% of these outcomes and deduct a threshold of $680, which results in your initial earnings being ${Math.max(0, finalEarning)}. So your final earnings (including the show-up fee) are ${adjustedEarning}.
+                    </Typography>
+
+                    <Typography variant="h6" sx={{ my: 5 }}>
+                        Please wait, the experimenter will come shortly.
                     </Typography>
 
                     <Backdrop

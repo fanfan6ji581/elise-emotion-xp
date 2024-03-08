@@ -34,7 +34,7 @@ const StartGamePage = () => {
 
             <Box textAlign="center" sx={{ py: 15 }}>
                 <Button component={Link} variant="contained" size="large"
-                    to={`/xp/${alias}/trial-history`}
+                    to={`/xp/${alias}/count-down`}
                     disabled={!xp || !xp.enablePlaying}
                 >Start Game</Button>
                 {

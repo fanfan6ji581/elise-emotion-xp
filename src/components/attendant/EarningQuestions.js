@@ -64,7 +64,14 @@ const EarningQuestionPage = () => {
     });
   };
 
-  const handleTextChange = (event) => {
+  const handleTextChange4 = (event) => {
+    setAnswers({
+      ...answers,
+      question4: event.target.value,
+    });
+  };
+
+  const handleTextChange5 = (event) => {
     setAnswers({
       ...answers,
       question5: event.target.value,
@@ -76,42 +83,40 @@ const EarningQuestionPage = () => {
       label: "Did you follow a clear strategy during the game?",
       options: [
         "Yes, I have a clear strategy throughout the game.",
-        "Yes, but I gave up after some trials.",
-        "No",
+        "Yes, but I found myself greatly deviating from my initial strategy at some point during the game.",
+        "Yes, I had a strategy in the beginning but gave up after some trials.",
+        "No, I didn’t have a clear strategy."
       ],
       name: "question1",
     },
     {
-      label: "Assuming you did follow a clear strategy (if not, please click NA), does that strategy match the strategy you had in mind when you started the game?",
+      label: "Did you use the indicator chart during the game?",
       options: [
-        "Yes",
-        "No",
-        "I didn't have a strategy when I started the game.",
-        "NA",
+        "Yes, throughout the game.",
+        "Yes, but I stopped after some trials.",
+        "No.",
+        "I don't remember.",
       ],
       name: "question2",
     },
     {
-      label: "Did you use the volume chart during the game?",
+      label: "Did you find the indicator chart useful? (If you did not use the indicator chart, please click NA)",
       options: [
-        "Yes, throughout the game.",
-        "Yes, but I stopped after some trials.",
+        "Yes",
         "No",
-        "I don't remember.",
+        "NA",
       ],
       name: "question3",
     },
     {
-      label: "Did you find the volume chart useful? (If you did not use the volume chart, please click NA)",
+      label: "Please describe your strategy during the game. If applicable, please describe how you used the indicator chart to deal with shifts and aberrations. (If you don’t have a strategy, please click NA) ",
       options: [
-        "Yes",
-        "No",
         "NA",
       ],
       name: "question4",
     },
     {
-      label: "If applicable, please describe how you used the volume chart to make forecasts.",
+      label: "If you think you didn’t give your best performance during the task, please describe any mistakes you have made. (If you are generally satisfied with your performance, please click NA)",
       options: [
         "NA",
       ],
@@ -122,9 +127,9 @@ const EarningQuestionPage = () => {
   return (
     <Container maxWidth="lg">
       <Grid container justifyContent="center">
-        <Grid item xs={6} sx={{ my: 5 }}>
+        <Grid item xs={12} sx={{ my: 5 }}>
           <Typography variant="h4" align="center">
-            Did you follow your original strategy, and if you did, how well did it work?
+            Tell us about your strategy during the task.
           </Typography>
         </Grid>
       </Grid>
@@ -149,6 +154,24 @@ const EarningQuestionPage = () => {
                   />
                 ))}
               </RadioGroup>
+
+              {idx === 3 && <>
+                <Grid item xs={12} sx={{ my: 1 }}>
+                  <FormControl fullWidth>
+                    <TextField
+                      sx={{ ml: 3 }}
+                      fullWidth
+                      id="question4"
+                      label="Your reply is very important to help us interpret the experimental data so we would be very grateful if you could provide us with some details here 🙏"
+                      multiline
+                      rows={4}
+                      value={answers.question4}
+                      onChange={handleTextChange4}
+                    />
+                  </FormControl>
+                </Grid>
+              </>}
+
             </FormControl>
           ))}
 
@@ -158,11 +181,11 @@ const EarningQuestionPage = () => {
                 sx={{ ml: 3 }}
                 fullWidth
                 id="question5"
-                label="If applicable, please describe how you used the volume chart to make forecasts."
+                label="Your reply is very important to help us interpret the experimental data so we would be very grateful if you could provide us with some details here 🙏"
                 multiline
                 rows={4}
                 value={answers.question5}
-                onChange={handleTextChange}
+                onChange={handleTextChange5}
               />
             </FormControl>
           </Grid>

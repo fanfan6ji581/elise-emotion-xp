@@ -1,7 +1,7 @@
 import { Container, Box, Typography, Button, Backdrop, CircularProgress, Grid, } from "@mui/material";
 import { Link, useParams } from "react-router-dom"
 import { loginAttendant } from "../../../slices/attendantSlice";
-import { xpConfigS } from "../../../slices/gameSlice";
+// import { xpConfigS } from "../../../slices/gameSlice";
 import { useSelector } from "react-redux";
 import { doc, getDoc } from "firebase/firestore";
 import db from "../../../database/firebase";
@@ -10,7 +10,7 @@ import { useEffect, useState } from "react"
 const Instruction4Page = () => {
     const { alias } = useParams();
     const loginAttendantS = useSelector(loginAttendant);
-    const xpConfig = useSelector(xpConfigS);
+    // const xpConfig = useSelector(xpConfigS);
     const [attendant, setAttendant] = useState(null);
     const [loadingOpen, setLoadingOpen] = useState(true);
 

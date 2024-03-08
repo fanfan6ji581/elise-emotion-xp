@@ -58,7 +58,6 @@ const columns = [
   { field: 'mcq9', headerName: 'mcq9', width: 50 },
   { field: 'mcq10', headerName: 'mcq10', width: 60 },
   { field: 'mcq11', headerName: 'mcq11', width: 60 },
-  { field: 'mcq12', headerName: 'mcq12', width: 60 },
   { field: 'strategy', headerName: 'strategy', width: 80 },
   // { field: 'strategy2', headerName: 'strategy2', width: 80 },
   { field: 'earningQuiz1', headerName: 'earningQuiz1', width: 200 },
@@ -85,7 +84,8 @@ const AttendentDataTable = ({ attendant, xp }) => {
 
   return (
     <>
-      <p>Final picked earning: ${attendant.finalEarning}</p>
+      <p>Final picked earning ($xx): ${attendant.finalEarning}</p>
+      <p>Adjusted picked earning ($yy): ${attendant.adjustedEarning}</p>
       {attendant.xpRecord.outcomeHistory &&
         <p>Accumulate earning: ${attendant.xpRecord.outcomeHistory.reduce((accumulator, currentValue) => accumulator + currentValue, 0)}</p>
       }
