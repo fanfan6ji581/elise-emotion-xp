@@ -83,13 +83,13 @@ const InstructionHowToPlayPage = () => {
 
 
             <Grid container alignItems="center" sx={{ my: 5 }}>
+                <Grid item xs={6} sx={{ textAlign: "center" }}>
+                    <Box component="img" alt="" src={image5} sx={{ width: '100%' }} />
+                </Grid>
                 <Grid item xs={6}>
                     <Typography variant="h6" sx={{ my: 5, ml: 5 }}>
                         You can see the indicator departs from the baseline (0) in Day #14. This means  the probability that the asset trend is going to shift on the next day (Day #15) is 0.7. That is, there are very high (70%) chances of a shift and small (30%) chances of no shift. It turns out the asset trend does not shift in Day #15, so the indicator continues to increase on that day. The chances that the asset trend is going to shift on the next day (Day #16) are as high as before (70% chances). You can see the shift happens to occur in Day #16 and the indicator falls back to 0 as the new phase (an uptrend here) begins.
                     </Typography>
-                </Grid>
-                <Grid item xs={6} sx={{ textAlign: "center" }}>
-                    <Box component="img" alt="" src={image5} sx={{ width: '100%' }} />
                 </Grid>
             </Grid>
 
@@ -101,7 +101,7 @@ const InstructionHowToPlayPage = () => {
                 </Grid>
                 <Grid item xs={10}>
                     <Typography variant="h6" sx={{ my: 5, ml: 5 }}>
-                        Sometimes during the game, the asset trend suddenly switches while the indicator is at 0! This kind of switch is not a real shift but an <b>“aberration”</b>: the asset trend always shifts back to the previous value. See the example below.
+                        Sometimes during the game, the asset trend suddenly switches while the indicator is at 0! This kind of switch which rarely occurs (0.1 probability, i.e., 10% chances) is not a real shift but an <b>“aberration”</b>: the asset trend always shifts back to the previous value. See the example below.
                     </Typography>
                 </Grid>
             </Grid>
