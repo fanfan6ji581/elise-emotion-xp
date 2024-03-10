@@ -18,6 +18,11 @@ const InstructionHowToPlayPage = () => {
     const { alias } = useParams();
     // const xpConfig = useSelector(xpConfigS);
 
+    useEffect(() => {
+        // Scroll to the top of the page when the component is mounted
+        window.scrollTo(0, 0);
+    }, []); // Empty dependency array means this effect runs only once on mount
+
     return (
         <Container maxWidth="lg">
 
