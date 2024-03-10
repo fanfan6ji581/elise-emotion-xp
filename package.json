@@ -38,6 +38,7 @@
     "react-scripts": "5.0.1",
     "react-text-transition": "^3.0.2",
     "react-xarrows": "^2.0.2",
+    "react-youtube": "^10.1.0",
     "util": "^0.12.5"
   },
   "scripts": {

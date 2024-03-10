@@ -1,3 +1,4 @@
+import YouTube from 'react-youtube';
 import {
   Container,
   Box,
@@ -123,11 +124,22 @@ const Instruction1Page = () => {
             <Grid item xs={12}>
               <Typography variant="h5"><b>How to Play the Game in Practice</b></Typography>
             </Grid>
-            <Grid item xs={12}>
-              <Typography variant="h6" sx={{ my: 3 }}>
-                [Please click here to see the video that will be inserted in the online instructions provided to the participants in the lab.]
-              </Typography>
-              {/* Link or button to video here */}
+            <Grid item xs={12} sx={{ my: 5, textAlign: "center" }}>
+              {/* Embed YouTube Video */}
+              <YouTube videoId="H7C-QOQBsQs" opts={{
+                height: '640', // Adjust the video height as needed
+                width: '80%',  // Adjust the video width as needed
+                playerVars: {
+                  autoplay: 0,  // Use 1 to autoplay the video
+                  // You can add more player variables here as needed
+                  modestbranding: 1, // This limits YouTube branding
+                },
+              }}
+                onReady={(event) => {
+                  // Attempt to set the video quality
+                  event.target.setPlaybackQuality('hd720'); // This is just an example
+                }}
+              />
             </Grid>
           </Grid>
 
