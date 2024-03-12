@@ -294,7 +294,7 @@ const QuizPage = () => {
                 </RadioGroup>
 
                 <Typography variant="h5" sx={{ mt: 3 }}>
-                    4. When the indicator is at baseline value 0, aberrations may occur but they are rare events (with only 10% chance).
+                    4. When the indicator is at baseline value 0, aberrations may occur but they are rare events (with less than 10% chance).
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
