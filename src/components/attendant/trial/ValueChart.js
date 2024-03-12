@@ -53,11 +53,11 @@ export default function ValueChart({ xpData, xpConfig }) {
     }
 
     if (labels.length > lengthLimit) {
-        labels = labels.slice(-lengthLimit );
+        labels = labels.slice(-lengthLimit);
     }
 
     if (originalLabels.length > lengthLimit) {
-        originalLabels = originalLabels.slice(-lengthLimit );
+        originalLabels = originalLabels.slice(-lengthLimit);
     }
 
     let dataValues1 = asset && _.slice(asset, originalLabels[0],
@@ -82,14 +82,15 @@ export default function ValueChart({ xpData, xpConfig }) {
     };
 
     let dataValues2 = volume && _.slice(volume, originalLabels[0],
-        Math.min(originalLabelLength, lengthLimit) + originalLabels[0]);
+        Math.min(originalLabelLength, lengthLimit) + originalLabels[0] - (showMoneyOutcomeS ? 0 : 1));
     if (originalLabelLength < lengthLimit) {
         dataValues2 = _.concat(dataValues2, Array.from({ length: lengthLimit - originalLabelLength }, () => null));
     }
 
-    if (!showMoneyOutcomeS && dataValues2) {
-        dataValues2.pop();
-    }
+    // if (!showMoneyOutcomeS && dataValues2) {
+    //     dataValues2.pop();
+    // }
+
     const data2 = {
         labels: labels,
         datasets: [
