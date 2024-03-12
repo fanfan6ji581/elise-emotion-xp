@@ -35,7 +35,9 @@ export default function ValueChart({ xpData, xpConfig }) {
 
     const historyLength = 10;
 
-    let originalLabels = Array.from({ length: historyLength + trialIndexS + (showMoneyOutcomeS ? 1 : 0) }, (_, i) => i);
+    // when trialIndexS == 0, originalLabels should have 10 history + 1 label with no value
+
+    let originalLabels = Array.from({ length: historyLength + trialIndexS + 1 }, (_, i) => i);
     let labels = _.clone(originalLabels);
     let lengthLimit = 50;
     let originalLabelLength = labels.length
@@ -51,22 +53,19 @@ export default function ValueChart({ xpData, xpConfig }) {
     }
 
     if (labels.length > lengthLimit) {
-        labels = labels.slice(-lengthLimit);
+        labels = labels.slice(-lengthLimit );
     }
 
     if (originalLabels.length > lengthLimit) {
-        originalLabels = originalLabels.slice(-lengthLimit);
+        originalLabels = originalLabels.slice(-lengthLimit );
     }
 
     let dataValues1 = asset && _.slice(asset, originalLabels[0],
-        Math.min(originalLabelLength, lengthLimit) + originalLabels[0]);
+        Math.min(originalLabelLength, lengthLimit) + originalLabels[0] - (showMoneyOutcomeS ? 0 : 1));
     if (originalLabelLength < lengthLimit) {
         dataValues1 = _.concat(dataValues1, Array.from({ length: lengthLimit - originalLabelLength }, () => null));
     }
 
-    if (!showMoneyOutcomeS && dataValues1) {
-        dataValues1.pop();
-    }
 
     labels = labels.map(l => l === null ? '' : l < historyLength ? '' : l - historyLength + 1)
 
