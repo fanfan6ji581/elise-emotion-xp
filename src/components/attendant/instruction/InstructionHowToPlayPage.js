@@ -107,7 +107,7 @@ const InstructionHowToPlayPage = () => {
                 </Grid>
                 <Grid item xs={10}>
                     <Typography variant="h6" sx={{ my: 5, ml: 5 }}>
-                        Sometimes during the game, the asset trend suddenly switches while the indicator is at 0! <b>This kind of switch which rarely occurs (0.1 probability, i.e., 10% chances)</b> is not a real shift but an “aberration”: the asset trend always shifts back to the previous value. See the example below.
+                        Sometimes during the game, the asset trend suddenly switches while the indicator is at 0! This kind of switch which rarely occurs (less than 10% chances, i.e., 0.1 probability) is not a real shift but an <b>“aberration”</b>: the asset trend always shifts back to the previous value. See the example below.
                     </Typography>
                 </Grid>
             </Grid>
