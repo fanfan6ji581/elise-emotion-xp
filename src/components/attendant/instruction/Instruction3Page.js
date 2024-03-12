@@ -44,7 +44,7 @@ const Instruction1Page = () => {
                 A value of “+1” for a given day indicates an <i>uptrend</i> : asset value has <i>increased</i> on that day (e.g, see Day # 5). A value “-1” indicates a <i>downtrend</i>: asset value has <i>decreased</i> on that day (e.g., Day # 10).
               </Typography>
               <Typography variant="h6" sx={{ my: 3 }}>
-                As you can see on the graph, the trend of the asset usually remains the same for several days, meaning the asset alternates between uptrend phases of and downtrend phases. For example, from Day #9 to Day #18, the asset features a downtrend; from Day #19 to Day #26, it features an uptrend. However, occasionally, the trend changes for only one day and then returns to its current level (see, for example, the downtrend on Day #2, or the uptrend on Day #35).
+                As you can see on the graph, the trend of the asset usually remains the same for several days, meaning the asset alternates between uptrend phases and downtrend phases. For example, from Day #9 to Day #18, the asset features a downtrend; from Day #19 to Day #26, it features an uptrend. However, occasionally, the trend changes for only one day and then returns to its current level (see, for example, the downtrend on Day #2, or the uptrend on Day #35).
               </Typography>
             </Grid>
           </Grid>
