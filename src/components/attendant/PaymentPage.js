@@ -97,7 +97,7 @@ export default function PaymentPage() {
                     </Typography>
 
                     <Typography variant="h6" sx={{ my: 5 }}>
-                        We take 50% of these outcomes and deduct a threshold of $680, which results in your initial earnings being ${typeof finalEarning === 'number' ? Math.max(0, finalEarning) : finalEarning}. So your final earnings (including the show-up fee) are ${adjustedEarning}.
+                        We take 50% of these outcomes and deduct a threshold of $680, which is ${typeof finalEarning === 'number' ? Math.max(0, finalEarning) : finalEarning}. So your final earnings (including the show-up fee) are <b>${adjustedEarning}</b>.
                     </Typography>
 
                     <Typography variant="h6" sx={{ my: 5 }}>
