@@ -37,27 +37,30 @@ export default function PaymentPage() {
         let { xpRecord, pickedOutcomeIndexes, finalEarning, adjustedEarning } = attendant;
         const { outcomeHistory, missHistory } = xpRecord;
 
-        if (finalEarning && adjustedEarning) {
+        if (typeof finalEarning !== 'undefined' && adjustedEarning) {
             setFinalEarning(attendant.finalEarning)
             setAdjustedEarning(adjustedEarning);
             setLoadingOpen(false);
             return;
         }
 
-        const validOutcomes = outcomeHistory.map((outcome, index) => ({ outcome, index })).filter(item => item.outcome !== null);
-        if (validOutcomes.length < 100) {
-            console.warn("Not enough outcomes to pick a contiguous block of 100 trials.");
+        if (missHistory.filter(x => x).length >= xp.missLimit) {
+            await updateDoc(attendantRef, { missTooMuch: true, finalEarning: 0, adjustedEarning: 10, pickedOutcomeIndexes });
+            setFinalEarning(0)
+            setAdjustedEarning(10);
             setLoadingOpen(false);
             return;
         }
 
+        const validOutcomes = outcomeHistory.map((outcome, index) => ({ outcome, index })).filter(item => item.outcome !== null);
+
         const maxStartIndex = validOutcomes.length - 100;
         const startIndex = Math.floor(Math.random() * (maxStartIndex + 1));
         const endIndex = startIndex + 100;
-        pickedOutcomeIndexes = validOutcomes.slice(startIndex, endIndex).map(item => item.index).sort((a, b) => a - b);
+        pickedOutcomeIndexes = validOutcomes.slice(startIndex, endIndex).map(item => item.index).sort((a, b) => a - b);       
 
-        if (missHistory.filter(x => x).length >= xp.missLimit) {
-            await updateDoc(attendantRef, { missTooMuch: true, finalEarning: 0, adjustedEarning: 10, pickedOutcomeIndexes });
+        if (validOutcomes.length < 100) {
+            console.warn("Not enough outcomes to pick a contiguous block of 100 trials.");
             setLoadingOpen(false);
             return;
         }
@@ -94,7 +97,7 @@ export default function PaymentPage() {
                     </Typography>
 
                     <Typography variant="h6" sx={{ my: 5 }}>
-                        We take 50% of these outcomes and deduct a threshold of $680, which results in your initial earnings being ${Math.max(0, finalEarning)}. So your final earnings (including the show-up fee) are ${adjustedEarning}.
+                        We take 50% of these outcomes and deduct a threshold of $680, which results in your initial earnings being ${typeof finalEarning === 'number' ? Math.max(0, finalEarning) : finalEarning}. So your final earnings (including the show-up fee) are ${adjustedEarning}.
                     </Typography>
 
                     <Typography variant="h6" sx={{ my: 5 }}>
