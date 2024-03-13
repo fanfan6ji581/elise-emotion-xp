@@ -52,21 +52,20 @@ export default function PaymentPage() {
             return;
         }
 
-        const validOutcomes = outcomeHistory.map((outcome, index) => ({ outcome, index })).filter(item => item.outcome !== null);
-
-        const maxStartIndex = validOutcomes.length - 100;
-        const startIndex = Math.floor(Math.random() * (maxStartIndex + 1));
-        const endIndex = startIndex + 100;
-        pickedOutcomeIndexes = validOutcomes.slice(startIndex, endIndex).map(item => item.index).sort((a, b) => a - b);       
-
-        if (validOutcomes.length < 100) {
-            console.warn("Not enough outcomes to pick a contiguous block of 100 trials.");
-            setLoadingOpen(false);
-            return;
+        let accumulatedOutcomes = [];
+        for (let i = 0; i < 20; i++) {
+            const maxStartIndex = outcomeHistory.length - 100;
+            const startIndex = Math.floor(Math.random() * (maxStartIndex + 1 + 10));
+            const sumEarning = outcomeHistory.slice(startIndex, startIndex + 100).reduce((a, b) => a + b, 0);
+            accumulatedOutcomes.push({ sumEarning, startIndex });
         }
 
-        const sumEarning = pickedOutcomeIndexes.reduce((a, b) => a + outcomeHistory[b], 0);
-        finalEarning = 0.5 * sumEarning - 680;
+        accumulatedOutcomes.sort((a, b) => a.sumEarning - b.sumEarning);
+        const medianOutcome = accumulatedOutcomes[Math.floor(accumulatedOutcomes.length / 2)].sumEarning;
+        const medianStartIndex = accumulatedOutcomes[Math.floor(accumulatedOutcomes.length / 2)].startIndex;
+        pickedOutcomeIndexes = Array.from({ length: 100 }, (_, i) => medianStartIndex + i);
+
+        finalEarning = 0.5 * medianOutcome - 750;
 
         if (finalEarning <= 5) {
             adjustedEarning = 10;
@@ -97,7 +96,7 @@ export default function PaymentPage() {
                     </Typography>
 
                     <Typography variant="h6" sx={{ my: 5 }}>
-                        We take 50% of these outcomes and deduct a threshold of $680, which is ${typeof finalEarning === 'number' ? Math.max(0, finalEarning) : finalEarning}. So your final earnings (including the show-up fee) are <b>${adjustedEarning}</b>.
+                        We take 50% of these outcomes and deduct a threshold of $750, which is ${typeof finalEarning === 'number' ? Math.max(0, finalEarning) : finalEarning}. So your final earnings (including the show-up fee) are <b>${adjustedEarning}</b>.
                     </Typography>
 
                     <Typography variant="h6" sx={{ my: 5 }}>
