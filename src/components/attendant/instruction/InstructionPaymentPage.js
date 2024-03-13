@@ -14,7 +14,7 @@ const Instruction3Page = () => {
             <Grid container justifyContent="center">
 
                 <Typography variant="h4" align="center" sx={{ my: 5 }}>
-                    How much money will you earn in this experiment?
+                    How much money you will earn in this experiment
                 </Typography>
 
                 <Typography variant="h6" sx={{ my: 2 }}>
