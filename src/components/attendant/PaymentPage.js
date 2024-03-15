@@ -54,7 +54,7 @@ export default function PaymentPage() {
 
         let accumulatedOutcomes = [];
 
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 100; i++) {
             const maxStartIndex = outcomeHistory.length;
             const startIndex = Math.floor(Math.random() * (maxStartIndex - 10 - 100));
             const sumEarning = outcomeHistory.slice(startIndex, startIndex + 100).reduce((a, b) => a + b, 0);
