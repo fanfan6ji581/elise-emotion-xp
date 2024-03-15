@@ -53,16 +53,18 @@ export default function PaymentPage() {
         }
 
         let accumulatedOutcomes = [];
-        for (let i = 0; i < 20; i++) {
-            const maxStartIndex = outcomeHistory.length - 100;
-            const startIndex = Math.floor(Math.random() * (maxStartIndex + 1 + 10 - 100));
+
+        for (let i = 0; i < 50; i++) {
+            const maxStartIndex = outcomeHistory.length;
+            const startIndex = Math.floor(Math.random() * (maxStartIndex - 10 - 100));
             const sumEarning = outcomeHistory.slice(startIndex, startIndex + 100).reduce((a, b) => a + b, 0);
             accumulatedOutcomes.push({ sumEarning, startIndex });
         }
 
         accumulatedOutcomes.sort((a, b) => a.sumEarning - b.sumEarning);
-        const medianOutcome = accumulatedOutcomes[Math.floor(accumulatedOutcomes.length / 2)].sumEarning;
-        const medianStartIndex = accumulatedOutcomes[Math.floor(accumulatedOutcomes.length / 2)].startIndex;
+        const quantileIndex = Math.ceil(0.6 * accumulatedOutcomes.length) - 1;
+        const medianOutcome = accumulatedOutcomes[quantileIndex].sumEarning;
+        const medianStartIndex = accumulatedOutcomes[quantileIndex].startIndex;
         pickedOutcomeIndexes = Array.from({ length: 100 }, (_, i) => medianStartIndex + i);
 
         finalEarning = 0.5 * medianOutcome - 750;
