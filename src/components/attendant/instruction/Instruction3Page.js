@@ -126,7 +126,7 @@ const Instruction1Page = () => {
             </Grid>
             <Grid item xs={12} sx={{ my: 5, textAlign: "center" }}>
               {/* Embed YouTube Video */}
-              <YouTube videoId="H7C-QOQBsQs" opts={{
+              <YouTube videoId="e433pL7fWKY" opts={{
                 height: '640', // Adjust the video height as needed
                 width: '80%',  // Adjust the video width as needed
                 playerVars: {
