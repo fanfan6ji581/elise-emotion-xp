@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { Typography, Button, Box } from "@mui/material";
+import { Typography, 
+    // Button, Box
+ } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import {
     xpConfigS,
@@ -33,9 +35,9 @@ const TrialBreakPage = () => {
             <Typography variant="h5" align="center" sx={{ pt: 10 }}>
                 <Countdown date={Date.now() + (countDown) * 1000} renderer={renderer} onComplete={onFinish} />
             </Typography>
-            <Box display="flex" justifyContent="center" alignItems="center" sx={{ mt: 3 }}>
+            {/* <Box display="flex" justifyContent="center" alignItems="center" sx={{ mt: 3 }}>
                 <Button variant="contained" sx={{ mt: 3 }} onClick={onFinish}>End the break now</Button>
-            </Box>
+            </Box> */}
         </>
     )
 }
