@@ -9,7 +9,7 @@ function generateBalloonDataFromDataSeries(dataSeries) {
         }),
         xpRecord: {
             // data recordings
-            trialIndex: -1,
+            trialIndex: 0,
             reactionHistory: Array.from({ length }).fill(null),
             clickToShowChartHistory: Array.from({ length }).fill(null),
             choiceHistory: Array.from({ length }).fill(null),
@@ -33,7 +33,7 @@ function generateBalloonData(xp) {
         }),
         xpRecord: {
             // data recordings
-            trialIndex: -1,
+            trialIndex: 0,
             reactionHistory: Array.from({ length }).fill(null),
             clickToShowChartHistory: Array.from({ length }).fill(null),
             choiceHistory: Array.from({ length }).fill(null),

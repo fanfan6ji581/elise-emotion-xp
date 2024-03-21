@@ -125,7 +125,7 @@ const gameSlice = createSlice({
                 reactionHistory,
                 clickToShowChartHistory
             } = xpRecord;
-            state.trialIndex = trialIndex + 1;
+            state.trialIndex = trialIndex;
             state.choiceHistory = choiceHistory;
             state.outcomeHistory = outcomeHistory;
             state.missHistory = missHistory;
