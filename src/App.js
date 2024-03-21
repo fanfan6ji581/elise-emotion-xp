@@ -16,6 +16,7 @@ import TrialPage from "./components/attendant/trial/TrialPage";
 import TrialTrainingPage from "./components/attendant/trial/TrialTrainingPage";
 import TrialHistoryPage from "./components/attendant/trial/TrialHistoryPage";
 import CountDownPage from './components/attendant/trial/TrialCountDownPage';
+import BreakPage from './components/attendant/trial/TrialBreakPage';
 import PaymentPage from "./components/attendant/PaymentPage";
 import InstructionPage from "./components/attendant/instruction/InstructionPage";
 import Instruction1Page from "./components/attendant/instruction/Instruction1Page";
@@ -76,6 +77,7 @@ function App() {
                                 <Route path="xp/:alias/strategy2" element={<StrategyPage2 />} />
                                 <Route path="xp/:alias/earning-questions" element={<EarningQuestions />} />
                                 <Route path="xp/:alias/count-down" element={<CountDownPage />} />
+                                <Route path="xp/:alias/trial-break" element={<BreakPage />} />
                                 <Route path="xp/:alias/start-game" element={<StartGamePage />} />
                                 <Route path="xp/:alias/trial-history" element={<TrialHistoryPage />} />
                                 <Route path="xp/:alias/pretask" element={<PretaskPage />} />

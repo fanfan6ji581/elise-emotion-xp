@@ -18,6 +18,7 @@ const initialState = {
     missHistory: [],
     reactionHistory: [],
     clickToShowChartHistory: [],
+    isTrialBreakTaken: false,
 };
 
 const gameSlice = createSlice({
@@ -123,7 +124,7 @@ const gameSlice = createSlice({
                 outcomeHistory,
                 missHistory,
                 reactionHistory,
-                clickToShowChartHistory
+                clickToShowChartHistory,
             } = xpRecord;
             state.trialIndex = trialIndex;
             state.choiceHistory = choiceHistory;
@@ -131,6 +132,7 @@ const gameSlice = createSlice({
             state.missHistory = missHistory;
             state.reactionHistory = reactionHistory;
             state.clickToShowChartHistory = clickToShowChartHistory;
+
             state.xpData = xpData;
             state.timerProgress = 0;
             state.showAfterClickDelay = false;
@@ -143,13 +145,16 @@ const gameSlice = createSlice({
         },
         doShowVolumeChart: (state) => {
             state.showVolumeChart = true
+        },
+        setIsTrialBreakTaken: (state, action) => {
+            state.isTrialBreakTaken = action.payload
         }
     },
 });
 
 export const { recordChoice, setProgressStartTime,
     setTimerProgress, nextTrial, onLogin, onLoginTraining,
-    setShowMoneyOutcome, reset, setXpConfig, doShowVolumeChart } = gameSlice.actions;
+    setShowMoneyOutcome, reset, setXpConfig, doShowVolumeChart, setIsTrialBreakTaken } = gameSlice.actions;
 
 export const trialIndex = (state) => state.game.trialIndex;
 export const showVolumeChart = (state) => state.game.showVolumeChart;
@@ -164,5 +169,6 @@ export const missHistory = (state) => state.game.missHistory;
 export const reactionHistory = (state) => state.game.reactionHistory;
 export const xpDataS = (state) => state.game.xpData;
 export const xpConfigS = (state) => state.game.xpConfig;
+export const isTrialBreakTaken = (state) => state.game.isTrialBreakTaken;
 
 export default gameSlice.reducer;

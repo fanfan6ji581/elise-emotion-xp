@@ -12,6 +12,7 @@ import {
   reset,
   xpConfigS,
   xpDataS,
+  isTrialBreakTaken,
   clickToShowChartHistory,
 } from "../../../slices/gameSlice";
 import { login } from "../../../slices/attendantSlice";
@@ -22,9 +23,12 @@ import MoneyOutcome from "./MoneyOutcome";
 import ValueChart from "./ValueChart";
 import { doc, updateDoc } from "firebase/firestore";
 import db from "../../../database/firebase";
+import { useNavigate, useParams } from "react-router-dom";
 
 const BalloonTrial = ({ isTrainingMode, onFinish }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { alias } = useParams();
   const loginAttendantS = useSelector(loginAttendant);
   const trialIndexS = useSelector(trialIndex);
   const choiceHistoryS = useSelector(choiceHistory);
@@ -32,6 +36,8 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
   const missHistoryS = useSelector(missHistory);
   const reactionHistoryS = useSelector(reactionHistory);
   const clickToShowChartHistoryS = useSelector(clickToShowChartHistory);
+  const isTrialBreakTakenS = useSelector(isTrialBreakTaken);
+
   const xpData = useSelector(xpDataS);
   const xpConfig = useSelector(xpConfigS);
 
@@ -70,15 +76,14 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
   }, []);
 
   useEffect(() => {
-    // store user click into database
-    // if (
-    //   choiceHistoryS[trialIndexS] ||
-    //   outcomeHistoryS[trialIndexS] ||
-    //   missHistoryS[trialIndexS] ||
-    //   reactionHistoryS[trialIndexS]
-    // ) {
+    // store user click into database   
     if (!isTrainingMode) {
       storeToDB();
+    }
+
+    if (!isTrainingMode && trialIndexS === xpConfig.numberOfTrials / 2 && !isTrialBreakTakenS) {
+      navigate(`/xp/${alias}/trial-break`);
+      return;
     }
 
     if (missHistoryS &&
@@ -89,7 +94,6 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
         onFinish();
       }
     }
-    // }
 
     if (trialIndexS >= xpConfig.numberOfTrials) {
       onFinish();
@@ -103,6 +107,7 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
     reactionHistoryS,
     clickToShowChartHistoryS,
     xpConfig,
+    isTrialBreakTakenS,
   ]);
 
   return (

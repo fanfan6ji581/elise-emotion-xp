@@ -95,6 +95,11 @@ const schema = {
             "title": "Hide Volume Chart when show outcome",
             default: false
         },
+        "trialBreakSeconds": {
+            "type": "integer",
+            "title": "Seconds of trial break in the middle",
+            "default": 180
+        },
     }
 };
 
