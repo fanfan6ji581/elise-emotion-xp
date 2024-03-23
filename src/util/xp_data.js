@@ -23,7 +23,7 @@ function generateBalloonDataFromDataSeries(dataSeries) {
 function generateBalloonData(xp) {
     // hard code for training sessio
     const asset = [1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, -1, 1, 1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, 1, -1, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, 1, 1, -1, -1, -1, -1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1];
-    const volume = [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,2,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,2,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,3,0,0,0,0,0,0,1,0,0,0,0,0,1,2,0,0,0,0,0,0,0,0,0,1,2,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,2,3,4,5,6,0,0,0,0,1,0,0,0,0,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,2,3,0,0,0,0,1,0,0,0,0,0,0,0,0,1,2,3,4,0,0,0,0,0,1,0,0,0,0,0,1,2,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0];
+    const volume = [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0];
     const length = asset.length;
 
     return {
@@ -50,6 +50,7 @@ function extractXpData(attendant, xpConfig) {
         xpData,
         xpRecord,
         pickedOutcomeIndexes,
+        breakPageTimeTakes,
     } = attendant;
     const rows = []
     const {
@@ -97,6 +98,9 @@ function extractXpData(attendant, xpConfig) {
                 clickToShowChart: clickToShowChartHistory[i] === null ? '' : clickToShowChartHistory[i] ? 1 : 0,
             },
             {
+                breakPageTimeTakes,
+            },
+            {
                 username: attendant.username,
                 gender: attendant.gender,
                 age: attendant.age,
@@ -122,90 +126,37 @@ const calcuateCorrectness = (attendant, xpConfig) => {
         return {};
     }
 
-    let solution;
-
-    switch (xpConfig.treatment) {
-        case 3:
-            solution = {
-                mcq1: 2,
-                mcq2: 1,
-                mcq3: 1,
-                mcq4: 1,
-                mcq5: 1,
-                mcq6: 2,
-                mcq7: 4,
-                mcq8: 2,
-                mcq9: 3,
-                mcq10: 1,
-                mcq11: 2,
-                mcq12: 1,
-            }
-            return {
-                mcq1: attendant.quizAnswers.mcq1 === solution.mcq1 ? 1 : 0,
-                mcq2: attendant.quizAnswers.mcq2 === solution.mcq2 ? 1 : 0,
-                mcq3: attendant.quizAnswers.mcq3 === solution.mcq3 ? 1 : 0,
-                mcq4: attendant.quizAnswers.mcq4 === solution.mcq4 ? 1 : 0,
-                mcq5: attendant.quizAnswers.mcq5 === solution.mcq5 ? 1 : 0,
-                mcq6: attendant.quizAnswers.mcq6 === solution.mcq6 ? 1 : 0,
-                mcq7: attendant.quizAnswers.mcq7 === solution.mcq7 ? 1 : 0,
-                mcq8: attendant.quizAnswers.mcq8 === solution.mcq8 ? 1 : 0,
-                mcq9: attendant.quizAnswers.mcq9 === solution.mcq9 ? 1 : 0,
-                mcq10: attendant.quizAnswers.mcq10 === solution.mcq10 ? 1 : 0,
-                mcq11: attendant.quizAnswers.mcq11 === solution.mcq11 ? 1 : 0,
-                mcq12: attendant.quizAnswers.mcq11 === solution.mcq12 ? 1 : 0,
-            };
-        case 2:
-            solution = {
-                mcq1: 2,
-                mcq2: 2,
-                mcq3: 3,
-                mcq4: 4,
-                mcq5: 1,
-                mcq6: 1,
-                mcq7: 1,
-                mcq8: 2,
-                mcq9: 1,
-                mcq10: 1,
-            }
-            return {
-                mcq1: attendant.quizAnswers.mcq1 === solution.mcq1 ? 1 : 0,
-                mcq2: attendant.quizAnswers.mcq2 === solution.mcq2 ? 1 : 0,
-                mcq3: attendant.quizAnswers.mcq3 === solution.mcq3 ? 1 : 0,
-                mcq4: attendant.quizAnswers.mcq4 === solution.mcq4 ? 1 : 0,
-                mcq5: attendant.quizAnswers.mcq5 === solution.mcq5 ? 1 : 0,
-                mcq6: attendant.quizAnswers.mcq6 === solution.mcq6 ? 1 : 0,
-                mcq7: attendant.quizAnswers.mcq7 === solution.mcq7 ? 1 : 0,
-                mcq8: attendant.quizAnswers.mcq8 === solution.mcq8 ? 1 : 0,
-                mcq9: attendant.quizAnswers.mcq9 === solution.mcq9 ? 1 : 0,
-                mcq10: attendant.quizAnswers.mcq10 === solution.mcq10 ? 1 : 0,
-            };
-        case 1:
-        default:
-            solution = {
-                mcq1: 2,
-                mcq2: 2,
-                mcq3: 3,
-                mcq4: 4,
-                mcq5: 1,
-                mcq6: 1,
-                mcq7: 2,
-                mcq8: 1,
-                mcq9: 1,
-            }
-
-            return {
-                mcq1: attendant.quizAnswers.mcq1 === solution.mcq1 ? 1 : 0,
-                mcq2: attendant.quizAnswers.mcq2 === solution.mcq2 ? 1 : 0,
-                mcq3: attendant.quizAnswers.mcq3 === solution.mcq3 ? 1 : 0,
-                mcq4: attendant.quizAnswers.mcq4 === solution.mcq4 ? 1 : 0,
-                mcq5: attendant.quizAnswers.mcq5 === solution.mcq5 ? 1 : 0,
-                mcq6: attendant.quizAnswers.mcq6 === solution.mcq6 ? 1 : 0,
-                mcq7: attendant.quizAnswers.mcq7 === solution.mcq7 ? 1 : 0,
-                mcq8: attendant.quizAnswers.mcq8 === solution.mcq8 ? 1 : 0,
-                mcq9: attendant.quizAnswers.mcq9 === solution.mcq9 ? 1 : 0,
-            }
+    let solution = {
+        mcq1: 2,
+        mcq2: 1,
+        mcq3: 1,
+        mcq4: 1,
+        mcq5: 1,
+        mcq6: 2,
+        mcq7: 4,
+        mcq8: 2,
+        mcq9: 3,
+        mcq10: 1,
+        mcq11: 2,
+        mcq12: 1,
+        mcq13: 1,
     }
 
+    return {
+        mcq1: attendant.quizAnswers.mcq1 === solution.mcq1 ? 1 : 0,
+        mcq2: attendant.quizAnswers.mcq2 === solution.mcq2 ? 1 : 0,
+        mcq3: attendant.quizAnswers.mcq3 === solution.mcq3 ? 1 : 0,
+        mcq4: attendant.quizAnswers.mcq4 === solution.mcq4 ? 1 : 0,
+        mcq5: attendant.quizAnswers.mcq5 === solution.mcq5 ? 1 : 0,
+        mcq6: attendant.quizAnswers.mcq6 === solution.mcq6 ? 1 : 0,
+        mcq7: attendant.quizAnswers.mcq7 === solution.mcq7 ? 1 : 0,
+        mcq8: attendant.quizAnswers.mcq8 === solution.mcq8 ? 1 : 0,
+        mcq9: attendant.quizAnswers.mcq9 === solution.mcq9 ? 1 : 0,
+        mcq10: attendant.quizAnswers.mcq10 === solution.mcq10 ? 1 : 0,
+        mcq11: attendant.quizAnswers.mcq11 === solution.mcq11 ? 1 : 0,
+        mcq12: attendant.quizAnswers.mcq12 === solution.mcq12 ? 1 : 0,
+        mcq13: attendant.quizAnswers.mcq13 === solution.mcq13 ? 1 : 0,
+    };
 }
 
 export {

@@ -10,7 +10,7 @@ import { getXp } from "../../database/xp";
 export default function PaymentPage() {
     const { alias } = useParams();
     const loginAttendantS = useSelector(loginAttendant);
-    const [finalEarning, setFinalEarning] = useState("...");
+    // const [finalEarning, setFinalEarning] = useState("...");
     const [adjustedEarning, setAdjustedEarning] = useState("...");
     const [loadingOpen, setLoadingOpen] = useState(true);
     const [xp, setXp] = useState({});
@@ -38,7 +38,7 @@ export default function PaymentPage() {
         const { outcomeHistory, missHistory } = xpRecord;
 
         if (typeof finalEarning !== 'undefined' && adjustedEarning) {
-            setFinalEarning(attendant.finalEarning)
+            // setFinalEarning(attendant.finalEarning)
             setAdjustedEarning(adjustedEarning);
             setLoadingOpen(false);
             return;
@@ -46,7 +46,7 @@ export default function PaymentPage() {
 
         if (missHistory.filter(x => x).length >= xp.missLimit) {
             await updateDoc(attendantRef, { missTooMuch: true, finalEarning: 0, adjustedEarning: 10, pickedOutcomeIndexes });
-            setFinalEarning(0)
+            // setFinalEarning(0)
             setAdjustedEarning(10);
             setLoadingOpen(false);
             return;
@@ -78,7 +78,7 @@ export default function PaymentPage() {
         }
 
         await updateDoc(attendantRef, { finalEarning: finalEarning, adjustedEarning: adjustedEarning, pickedOutcomeIndexes });
-        setFinalEarning(finalEarning)
+        // setFinalEarning(finalEarning)
         setAdjustedEarning(adjustedEarning);
         setLoadingOpen(false);
     };
@@ -98,7 +98,7 @@ export default function PaymentPage() {
                     </Typography>
 
                     <Typography variant="h6" sx={{ my: 5 }}>
-                        We take 50% of these outcomes and deduct a threshold of $750, which is ${typeof finalEarning === 'number' ? Math.max(0, finalEarning) : finalEarning}. So your final earnings (including the show-up fee) are <b>${adjustedEarning}</b>.
+                        We take 50% of these outcomes and deduct a threshold of $750. So your earnings in this experiment (including the $5 show-up reward) are <b>${adjustedEarning}</b>. Thanks very much for your participation, we're going to proceed with the payment procedure very soon
                     </Typography>
 
                     <Typography variant="h6" sx={{ my: 5 }}>

@@ -29,6 +29,7 @@ const QuizPage = () => {
     const [mcq10, setMcq10] = useState(0);
     const [mcq11, setMcq11] = useState(0);
     const [mcq12, setMcq12] = useState(0);
+    const [mcq13, setMcq13] = useState(0);
     const [correction, setCorrection] = useState({});
     const [disableForm, setDisableForm] = useState(false);
     const [loadingOpen, setLoadingOpen] = useState(true);
@@ -46,6 +47,7 @@ const QuizPage = () => {
         mcq10: 1,
         mcq11: 2,
         mcq12: 1,
+        mcq13: 1,
     }
 
     const solutionText = {
@@ -61,6 +63,7 @@ const QuizPage = () => {
         mcq10: 'correct answer',
         mcq11: 'correct answer. You can earn a significant amount of money in this experiment (up to $100 AUD) if you perform well in the task, but if you do not, expect to leave the lab with $10 AUD.',
         mcq12: `correct answer. The computer randomly selects 100 consecutive trials you played and computes your net accumulated outcomes in these trials, which determines your final payment. This means that each trial will potentially count for your payment, so try to do your very best on each trial!`,
+        mcq13: `correct answer. The "no deception rule" is a key principle in this lab, so all the information that we've provided to you about the game is correct! Please keep it in mind throughout the run of the game that you're going to perform, as it is key for your performance :-)`
     }
 
     const fetchAttdendantAnswer = async () => {
@@ -84,6 +87,7 @@ const QuizPage = () => {
             setMcq10(attendant.quizAnswers.mcq10);
             setMcq11(attendant.quizAnswers.mcq11);
             setMcq12(attendant.quizAnswers.mcq12);
+            setMcq13(attendant.quizAnswers.mcq13);
             validateForm(attendant.quizAnswers)
         }
     }
@@ -134,11 +138,13 @@ const QuizPage = () => {
                 return window.alert("Please fill question #11");
             case mcq12 === 0:
                 return window.alert("Please fill question #12");
+            case mcq13 === 0:
+                return window.alert("Please fill question #13");
             default:
                 break;
         }
 
-        const quizAnswers = { mcq1, mcq2, mcq3, mcq4, mcq5, mcq6, mcq7, mcq8, mcq9, mcq10, mcq11, mcq12 };
+        const quizAnswers = { mcq1, mcq2, mcq3, mcq4, mcq5, mcq6, mcq7, mcq8, mcq9, mcq10, mcq11, mcq12, mcq13 };
         const attendantRef = doc(db, "attendant", loginAttendantS.id);
         await updateDoc(attendantRef, { quizAnswers });
 
@@ -616,6 +622,43 @@ const QuizPage = () => {
                                         disableForm &&
                                         correction.mcq12 &&
                                         mcq12 === idx + 1 &&
+                                        <Grid item>
+                                            <ErrorOutlineIcon color="error" />
+                                        </Grid>
+                                    }
+                                </Grid>
+                            </Fragment>
+                        )
+                    }
+                </RadioGroup>
+
+                <Typography variant="h5" sx={{ mt: 3 }}>
+                    13. All the information provided in these instructions is correct. All aspects of the game are fixed and cannot change during the game.
+                </Typography>
+                <RadioGroup sx={{ mx: 3 }} >
+                    {
+                        ["True", "False"].map((v, idx) =>
+                            <Fragment key={idx}>
+                                <Grid container alignItems="center">
+                                    <Grid item xs={2}>
+                                        <FormControlLabel
+                                            control={<Radio disabled={disableForm}
+                                                value={idx + 1}
+                                                checked={mcq13 === idx + 1}
+                                                onChange={() => setMcq13(idx + 1)} />}
+                                            label={v} />
+                                    </Grid>
+                                    {
+                                        disableForm &&
+                                        solution.mcq13 === idx + 1 &&
+                                        <Grid item xs={10}>
+                                            <Alert severity="success">{solutionText.mcq13}</Alert>
+                                        </Grid>
+                                    }
+                                    {
+                                        disableForm &&
+                                        correction.mcq13 &&
+                                        mcq13 === idx + 1 &&
                                         <Grid item>
                                             <ErrorOutlineIcon color="error" />
                                         </Grid>

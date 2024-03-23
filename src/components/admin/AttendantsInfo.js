@@ -23,6 +23,7 @@ const columns = [
     { field: 'mcq10', headerName: 'mcq10', width: 60 },
     { field: 'mcq11', headerName: 'mcq11', width: 60 },
     { field: 'mcq12', headerName: 'mcq12', width: 60 },
+    { field: 'mcq13', headerName: 'mcq13', width: 60 },
     { field: 'strategy', headerName: 'strategy', width: 80 },
     // { field: 'strategy2', headerName: 'strategy2', width: 80 },
     { field: 'earningQuiz1', headerName: 'earningQuiz1', width: 200 },
