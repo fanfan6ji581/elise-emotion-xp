@@ -109,7 +109,7 @@ const EarningQuestionPage = () => {
       name: "question3",
     },
     {
-      label: "Please describe your strategy during the game. If applicable, please describe how you used the indicator chart to deal with shifts and aberrations. (If you don’t have a strategy, please click NA) ",
+      label: "Please describe your strategy during the game. If applicable, please describe how you used the indicator chart to deal with shifts and aberrations. If you changed your strategy during the game, please tell us a bit more. (If you don’t have a strategy, please click NA) ",
       options: [
         "NA",
       ],
