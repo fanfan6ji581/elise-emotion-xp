@@ -232,7 +232,7 @@ const TrialHistoryPage = () => {
                                         boxShadow: 2,
                                         mr: 1,
                                     }}></Box>
-                                    <Typography>Volume history</Typography>
+                                    <Typography>Indicator history</Typography>
                                 </Stack>
                             </Box>
                             <Box sx={{ width: 2300, mt: 9, mb: 2 }}>

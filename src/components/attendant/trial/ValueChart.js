@@ -95,7 +95,7 @@ export default function ValueChart({ xpData, xpConfig }) {
         labels: labels,
         datasets: [
             {
-                label: 'Volume history',
+                label: 'Indicator history',
                 data: dataValues2,
                 backgroundColor: 'rgb(11,11,11)',
                 borderColor: 'rgba(11,11,11,0.1)',
