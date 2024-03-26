@@ -22,7 +22,7 @@ const Instruction1Page = () => {
       <Grid container>
         <Grid item xs={12}>
           <Typography variant="h4" align="center" sx={{ my: 5 }}>
-            Welcome to the Financial Forecasting Game!
+            Welcome to the Financial Investing Game!
           </Typography>
 
           <Grid container alignItems="center" sx={{ my: 5 }}>
