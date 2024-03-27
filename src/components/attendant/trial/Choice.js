@@ -63,16 +63,16 @@ export default function Choice({ xpData, xpConfig }) {
         <>
             <Grid container sx={{ my: 5 }}>
                 <Grid item xs={12} sx={{ mb: 4, textAlign: "center" }} >
-                    <Button id="sell" size="large" variant="contained" sx={{ mx: 27, width: 100 }}
+                    <Button id="sell" size="large" variant="contained" sx={{ mx: 30, py: 2, width: 120 }}
                         disabled={missedTrial || (choice >= 0 && (showAfterClickDelayS || showMoneyOutcomeS))}
                     >Sell</Button>
-                    <Button id="buy" size="large" variant="contained" sx={{ mx: 27, width: 100 }}
+                    <Button id="buy" size="large" variant="contained" sx={{ mx: 30, py: 2, width: 120 }}
                         disabled={missedTrial || (choice <= 0 && (showAfterClickDelayS || showMoneyOutcomeS))}
                     >Buy</Button>
                 </Grid>
                 <Grid item xs={12} style={{ textAlign: "center" }}>
                     {['-20', '-10', '0', '10', '20'].map((val, index) => (
-                        <Button key={val} size="large" variant="contained" sx={{ mx: 5, width: 100 }} onClick={() => clickedAction(val)}
+                        <Button key={val} size="large" variant="contained" sx={{ mx: 5, py: 2, width: 120 }} onClick={() => clickedAction(val)}
                             disabled={choice !== val && (showAfterClickDelayS || showMoneyOutcomeS)}
                             id={`choice${val}`}
                         >

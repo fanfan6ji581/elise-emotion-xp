@@ -104,7 +104,7 @@ export default function ValueChart({ xpData, xpConfig }) {
     };
 
     const options = {
-        aspectRatio: 4,
+        aspectRatio: 4.5,
         animation: {
             duration: 0
         },
@@ -165,7 +165,7 @@ export default function ValueChart({ xpData, xpConfig }) {
     };
 
     const options2 = {
-        aspectRatio: 4,
+        aspectRatio: 4.5,
         animation: {
             duration: 0
         },
@@ -241,10 +241,11 @@ export default function ValueChart({ xpData, xpConfig }) {
                 </Typography>
             </Box>
 
+
             <Box style={{ position: "relative" }}>
                 <>
                     <Box sx={{
-                        mt: 8,
+                        mt: 40,
                         opacity: (xpConfig.hideVolumeChartWhenShowOutcome && !showVolumeChartInitialValueS && showMoneyOutcomeS) ? '0' : (showVolumeChartS ? '1' : '0'),
                     }} onClick={onClickAssetChart}>
                         <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />

@@ -118,21 +118,27 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
             Day: {trialIndexS + 1}/{xpConfig.numberOfTrials}
           </Typography>
           <TrialTimerProgress />
-          <Grid container>
-            <Grid item xs={12}>
-              <Box>
-                <MoneyOutcome xpData={xpData} xpConfig={xpConfig} />
-              </Box>
-            </Grid>
-          </Grid>
+
           <Grid container alignItems="center">
             {xpConfig && xpConfig.showChoiceButtonOnTop &&
               <Grid item xs={12}>
-                <Choice xpData={xpData} xpConfig={xpConfig} />
+                <Box sx={{ position: 'absolute', top: 450, left: 0 }}>
+                  <Choice xpData={xpData} xpConfig={xpConfig} />
+                </Box>
               </Grid>
             }
+            <Box sx={{ height: 40 }} />
+
             <Grid item xs={12}>
               <ValueChart xpData={xpData} xpConfig={xpConfig} />
+            </Grid>
+
+            <Grid container>
+              <Grid item xs={12} sx={{position: 'relative'}}>
+                <Box sx={{ position: 'absolute', top: -200, left: 0, width: '100%' }}>
+                  <MoneyOutcome xpData={xpData} xpConfig={xpConfig} />
+                </Box>
+              </Grid>
             </Grid>
             {xpConfig && !xpConfig.showChoiceButtonOnTop &&
               <Grid item xs={12}>
