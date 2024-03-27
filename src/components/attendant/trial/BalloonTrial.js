@@ -122,24 +122,30 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
           <Grid container alignItems="center">
             {xpConfig && xpConfig.showChoiceButtonOnTop &&
               <Grid item xs={12}>
-                <Box sx={{ position: 'absolute', top: 450, left: 0 }}>
+                <Box 
+                  sx={{ 
+                    // position: 'absolute', top: 450, left: 0
+                    width: '100%'
+                  }}
+                >
                   <Choice xpData={xpData} xpConfig={xpConfig} />
                 </Box>
               </Grid>
             }
-            <Box sx={{ height: 40 }} />
+            {/* <Box sx={{ height: 40 }} /> */}
+
+            <Grid container>
+              <Grid item xs={12} sx={{position: 'relative'}}>
+                <Box sx={{ position: 'absolute', top: 60, left: 0, width: '100%' }}>
+                  <MoneyOutcome xpData={xpData} xpConfig={xpConfig} />
+                </Box>
+              </Grid>
+            </Grid>
 
             <Grid item xs={12}>
               <ValueChart xpData={xpData} xpConfig={xpConfig} />
             </Grid>
 
-            <Grid container>
-              <Grid item xs={12} sx={{position: 'relative'}}>
-                <Box sx={{ position: 'absolute', top: -200, left: 0, width: '100%' }}>
-                  <MoneyOutcome xpData={xpData} xpConfig={xpConfig} />
-                </Box>
-              </Grid>
-            </Grid>
             {xpConfig && !xpConfig.showChoiceButtonOnTop &&
               <Grid item xs={12}>
                 <Choice xpData={xpData} xpConfig={xpConfig} />

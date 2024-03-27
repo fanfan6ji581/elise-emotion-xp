@@ -63,10 +63,10 @@ export default function Choice({ xpData, xpConfig }) {
         <>
             <Grid container sx={{ my: 5 }}>
                 <Grid item xs={12} sx={{ mb: 4, textAlign: "center" }} >
-                    <Button id="sell" size="large" variant="contained" sx={{ mx: 30, py: 2, width: 120 }}
+                    <Button id="sell" size="large" variant="contained" sx={{ mr: 29.5, py: 2, width: 120 }}
                         disabled={missedTrial || (choice >= 0 && (showAfterClickDelayS || showMoneyOutcomeS))}
                     >Sell</Button>
-                    <Button id="buy" size="large" variant="contained" sx={{ mx: 30, py: 2, width: 120 }}
+                    <Button id="buy" size="large" variant="contained" sx={{ ml: 29.5, py: 2, width: 120 }}
                         disabled={missedTrial || (choice <= 0 && (showAfterClickDelayS || showMoneyOutcomeS))}
                     >Buy</Button>
                 </Grid>
