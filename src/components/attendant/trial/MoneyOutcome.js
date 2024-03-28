@@ -13,7 +13,7 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
     const outcomeHistoryS = useSelector(outcomeHistory);
     const missHistoryS = useSelector(missHistory);
     const trialIndexS = useSelector(trialIndex);
-    const { afkTimeoutCost, outcomeShowTime } = xpConfig;
+    const { afkTimeoutCost, outcomeShowTime, useMultiColorChoiceButton } = xpConfig;
 
     const moneyEarned = outcomeHistoryS[trialIndexS];
     const missedTrial = missHistoryS[trialIndexS];
@@ -57,7 +57,7 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
                                 src={(moneyEarned < 0 || missedTrial) ? lossImg : profitImg}
                                 alt="profitImg" />
                         )}
-                        <Typography variant="h2" color={moneyEarned === 0 ? "" : moneyEarned > 0 ? "rgb(56, 142, 60)" : "error"}>
+                        <Typography variant="h2" color={useMultiColorChoiceButton ? moneyEarned === 0 ? "" : moneyEarned > 0 ? "rgb(56, 142, 60)" : "error" : ""}>
                             {
                                 missedTrial ?
                                     `Missed trial, you lost -$${afkTimeoutCost}!` :
