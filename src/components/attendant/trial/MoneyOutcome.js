@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import coins from '../../../assets/coins.png';
-import coinsdown from '../../../assets/coinsdown.png';
+import profitImg from '../../../assets/outcome_profits.png';
+import lossImg from '../../../assets/outcome_loss.png';
 import { motion } from "framer-motion";
 import { Box, Typography } from "@mui/material";
 import { showMoneyOutcome, outcomeHistory, missHistory, trialIndex, nextTrial } from "../../../slices/gameSlice";
@@ -53,11 +53,11 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', mt: 0 }}>
                         {moneyEarned !== 0 && (
                             <Box component="img"
-                                sx={{ width: 84, height: 84, mr: 2 }}
-                                src={(moneyEarned < 0 || missedTrial) ? coinsdown : coins}
-                                alt="coins" />
+                                sx={{ width: 164, mr: 3 }}
+                                src={(moneyEarned < 0 || missedTrial) ? lossImg : profitImg}
+                                alt="profitImg" />
                         )}
-                        <Typography variant="h3">
+                        <Typography variant="h2">
                             {
                                 missedTrial ?
                                     `Missed trial, you lost -$${afkTimeoutCost}!` :

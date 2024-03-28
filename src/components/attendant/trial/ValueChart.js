@@ -248,7 +248,7 @@ export default function ValueChart({ xpData, xpConfig }) {
             <Box style={{ position: "relative" }}>
                 <>
                     <Box sx={{
-                        mt: 12,
+                        mt: 6,
                         opacity: (xpConfig.hideVolumeChartWhenShowOutcome && !showVolumeChartInitialValueS && showMoneyOutcomeS) ? '0' : (showVolumeChartS ? '1' : '0'),
                     }} onClick={onClickAssetChart}>
                         <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />
