@@ -150,6 +150,7 @@ const DashboardPage = () => {
             treatment: 3,
             hideVolumeChartWhenShowOutcome: false,
             trialBreakSeconds: 180,
+            useMultiColorChoiceButton: false,
         };
 
         const resp = await addDoc(collection(db, "xp"), xp);

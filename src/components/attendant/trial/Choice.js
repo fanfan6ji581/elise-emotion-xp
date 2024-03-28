@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import Xarrow from 'react-xarrows';
 import {
     showMoneyOutcome, recordChoice, setShowMoneyOutcome, showAfterClickDelay,
-    choiceHistory, missHistory, trialIndex
+    choiceHistory, missHistory, trialIndex, outcomeHistory
 } from "../../../slices/gameSlice";
 import { useEffect, useRef, useState } from 'react';
-import { blue, grey } from '@mui/material/colors'; // Import grey from MUI colors
+import { blue, grey, red } from '@mui/material/colors'; // Import grey from MUI colors
 
 export default function Choice({ xpData, xpConfig }) {
     const dispatch = useDispatch();
@@ -15,11 +15,13 @@ export default function Choice({ xpData, xpConfig }) {
     const choiceHistoryS = useSelector(choiceHistory);
     const missHistoryS = useSelector(missHistory);
     const loadingInterval = useRef(null);
-    const { choiceDelay } = xpConfig;
+    const { choiceDelay, useMultiColorChoiceButton } = xpConfig;
     const [choice, setChoice] = useState('')
     const trialIndexS = useSelector(trialIndex);
+    const outcomeHistoryS = useSelector(outcomeHistory);
 
     const missedTrial = missHistoryS[trialIndexS];
+    const moneyEarned = outcomeHistoryS[trialIndexS];
 
     const clickedAction = (choice) => {
         setChoice(choice);
@@ -50,31 +52,66 @@ export default function Choice({ xpData, xpConfig }) {
         }
         if ((showAfterClickDelayS || showMoneyOutcomeS)) {
             if (choice === '-10' || choice === '-20' || choice === '10' || choice === '20') {
-                return choice === value ? blue[700] : grey[300];
+                return choice === value ?
+                    useMultiColorChoiceButton ? moneyEarned > 0 ? blue[700] : red[700] :
+                        "#242424" :
+                    grey[300];
             }
             if (choice === '0') {
                 return grey[300];
             }
         }
-        return blue[700]; // Default color
+        return "#242424";
+    }
+
+    const getParentButtonColor = (value) => {
+        if (!useMultiColorChoiceButton) {
+            return "black";
+        }
+
+        if (showMoneyOutcomeS) {
+            if (choice > 0 && value === "buy") {
+                return moneyEarned > 0 ? "primary" : "error"
+            }
+            if (choice < 0 && value === "sell") {
+                return moneyEarned > 0 ? "primary" : "error"
+            }
+        }
+        return "black";
+    }
+
+    const getButtonColor = (value) => {
+        if (!useMultiColorChoiceButton) {
+            return "black";
+        }
+
+        if (showMoneyOutcomeS) {
+            if (value === choice) {
+                return moneyEarned === 0 ? "black" : moneyEarned > 0 ? "primary" : "error"
+            }
+        }
+        return "black";
     }
 
     return (
         <>
             <Grid container sx={{ my: 5 }}>
                 <Grid item xs={12} sx={{ mb: 4, textAlign: "center" }} >
-                    <Button id="sell" size="large" variant="contained" sx={{ mr: 29.5, py: 2, width: 120 }}
+                    <Button id="sell" size="large" variant="contained" sx={{ mr: 32, py: 3, width: 140 }}
                         disabled={missedTrial || (choice >= 0 && (showAfterClickDelayS || showMoneyOutcomeS))}
+                        color={getParentButtonColor("sell")}
                     >Sell</Button>
-                    <Button id="buy" size="large" variant="contained" sx={{ ml: 29.5, py: 2, width: 120 }}
+                    <Button id="buy" size="large" variant="contained" sx={{ ml: 32, py: 3, width: 140 }}
                         disabled={missedTrial || (choice <= 0 && (showAfterClickDelayS || showMoneyOutcomeS))}
+                        color={getParentButtonColor("buy")}
                     >Buy</Button>
                 </Grid>
                 <Grid item xs={12} style={{ textAlign: "center" }}>
                     {['-20', '-10', '0', '10', '20'].map((val, index) => (
-                        <Button key={val} size="large" variant="contained" sx={{ mx: 5, py: 2, width: 120 }} onClick={() => clickedAction(val)}
+                        <Button key={val} size="large" variant="contained" sx={{ mx: 5, py: 3, width: 140 }} onClick={() => clickedAction(val)}
                             disabled={choice !== val && (showAfterClickDelayS || showMoneyOutcomeS)}
                             id={`choice${val}`}
+                            color={getButtonColor(val)}
                         >
                             {val !== '0' ? (val > 0 ? '+' + val : val) : 'Pass'}
                         </Button>

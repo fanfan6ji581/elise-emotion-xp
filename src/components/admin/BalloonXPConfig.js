@@ -100,6 +100,11 @@ const schema = {
             "title": "Seconds of trial break in the middle",
             "default": 180
         },
+        "useMultiColorChoiceButton": {
+            "type": "boolean",
+            "title": "Apply different button color for options",
+            "default": false
+        },
     }
 };
 

@@ -44,6 +44,14 @@ import StartPretaskPage from './components/attendant/pretask/StartPretaskPage';
 import AfterSignupWaitPage from './components/attendant/AfterSignupWaitPage';
 
 const theme = createTheme({
+    palette: {
+        black: {
+            main: '#242424', 
+            light: '#484848',
+            dark: '#000000',
+            contrastText: '#ffffff',
+        },
+    },
 });
 
 function App() {
