@@ -45,6 +45,9 @@ import AfterSignupWaitPage from './components/attendant/AfterSignupWaitPage';
 
 const theme = createTheme({
     palette: {
+        success: {
+            main: '#4caf50', // Example green color
+        },
         black: {
             main: '#242424', 
             light: '#484848',

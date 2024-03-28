@@ -6,7 +6,7 @@ import {
     choiceHistory, missHistory, trialIndex, outcomeHistory
 } from "../../../slices/gameSlice";
 import { useEffect, useRef, useState } from 'react';
-import { blue, grey, red } from '@mui/material/colors'; // Import grey from MUI colors
+import { green, grey, red } from '@mui/material/colors'; // Import grey from MUI colors
 
 export default function Choice({ xpData, xpConfig }) {
     const dispatch = useDispatch();
@@ -53,7 +53,7 @@ export default function Choice({ xpData, xpConfig }) {
         if ((showAfterClickDelayS || showMoneyOutcomeS)) {
             if (choice === '-10' || choice === '-20' || choice === '10' || choice === '20') {
                 return choice === value ?
-                    useMultiColorChoiceButton ? moneyEarned > 0 ? blue[700] : red[700] :
+                    useMultiColorChoiceButton ? moneyEarned > 0 ? green[700] : red[700] :
                         "#242424" :
                     grey[300];
             }
@@ -71,10 +71,10 @@ export default function Choice({ xpData, xpConfig }) {
 
         if (showMoneyOutcomeS) {
             if (choice > 0 && value === "buy") {
-                return moneyEarned > 0 ? "primary" : "error"
+                return moneyEarned > 0 ? "success" : "error"
             }
             if (choice < 0 && value === "sell") {
-                return moneyEarned > 0 ? "primary" : "error"
+                return moneyEarned > 0 ? "success" : "error"
             }
         }
         return "black";
@@ -87,7 +87,7 @@ export default function Choice({ xpData, xpConfig }) {
 
         if (showMoneyOutcomeS) {
             if (value === choice) {
-                return moneyEarned === 0 ? "black" : moneyEarned > 0 ? "primary" : "error"
+                return moneyEarned === 0 ? "black" : moneyEarned > 0 ? "success" : "error"
             }
         }
         return "black";
