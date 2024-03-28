@@ -57,7 +57,7 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
                                 src={(moneyEarned < 0 || missedTrial) ? lossImg : profitImg}
                                 alt="profitImg" />
                         )}
-                        <Typography variant="h2">
+                        <Typography variant="h2" color={moneyEarned == 0 ? "" : moneyEarned > 0 ? "primary" : "error"}>
                             {
                                 missedTrial ?
                                     `Missed trial, you lost -$${afkTimeoutCost}!` :
