@@ -71,10 +71,10 @@ export default function Choice({ xpData, xpConfig }) {
 
         if (showMoneyOutcomeS) {
             if (choice > 0 && value === "buy") {
-                return moneyEarned > 0 ? "success" : "error"
+                return moneyEarned > 0 ? "green" : "error"
             }
             if (choice < 0 && value === "sell") {
-                return moneyEarned > 0 ? "success" : "error"
+                return moneyEarned > 0 ? "green" : "error"
             }
         }
         return "black";
@@ -87,7 +87,7 @@ export default function Choice({ xpData, xpConfig }) {
 
         if (showMoneyOutcomeS) {
             if (value === choice) {
-                return moneyEarned === 0 ? "black" : moneyEarned > 0 ? "success" : "error"
+                return moneyEarned === 0 ? "black" : moneyEarned > 0 ? "green" : "error"
             }
         }
         return "black";
