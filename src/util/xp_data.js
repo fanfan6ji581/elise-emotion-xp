@@ -1,11 +1,12 @@
 function generateBalloonDataFromDataSeries(dataSeries) {
-    const { asset, volume } = dataSeries;
+    const { asset, volume, name } = dataSeries;
     const length = asset.length;
 
     return {
         xpData: Object.assign({}, {
             asset,
             volume,
+            dataSeriesName: name
         }),
         xpRecord: {
             // data recordings
@@ -56,6 +57,7 @@ function extractXpData(attendant, xpConfig) {
     const {
         asset,
         volume,
+        dataSeriesName,
     } = xpData;
     const {
         reactionHistory,
@@ -99,6 +101,7 @@ function extractXpData(attendant, xpConfig) {
             },
             {
                 breakPageTimeTakes,
+                dataSeriesName,
             },
             {
                 username: attendant.username,

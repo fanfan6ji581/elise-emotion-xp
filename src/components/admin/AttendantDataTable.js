@@ -45,6 +45,8 @@ const columns = [
   },
 
   { field: 'breakPageTimeTakes', headerName: 'Break Page ms', width: 120 },
+  { field: 'dataSeriesName', headerName: 'Data Series', width: 120 },
+  
   { field: 'gender', headerName: 'gender', width: 60 },
   { field: 'age', headerName: 'age', width: 60 },
   { field: 'major', headerName: 'major', width: 100 },
