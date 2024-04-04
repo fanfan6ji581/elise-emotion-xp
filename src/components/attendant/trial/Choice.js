@@ -95,8 +95,8 @@ export default function Choice({ xpData, xpConfig }) {
 
     return (
         <>
-            <Grid container sx={{ my: 8 }}>
-                <Grid item xs={12} sx={{ mb: 8, textAlign: "center" }} >
+            <Grid container sx={{ my: 3 }}>
+                <Grid item xs={12} sx={{ mb: 4, textAlign: "center" }} >
                     <Button id="sell" size="large" variant="contained" sx={{ mr: 32, py: 3.5, width: 160 }}
                         disabled={missedTrial || (choice >= 0 && (showAfterClickDelayS || showMoneyOutcomeS))}
                         color={getParentButtonColor("sell")}
