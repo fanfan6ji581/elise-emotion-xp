@@ -53,11 +53,11 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', mt: 0 }}>
                         {moneyEarned !== 0 && (
                             <Box component="img"
-                                sx={{ width: 164, mr: 3 }}
+                                sx={{ width: 200, mr: 3 }}
                                 src={(moneyEarned < 0 || missedTrial) ? lossImg : profitImg}
                                 alt="profitImg" />
                         )}
-                        <Typography variant="h2" color={useMultiColorChoiceButton ? moneyEarned === 0 ? "" : moneyEarned > 0 ? "rgb(56, 142, 60)" : "error" : ""}>
+                        <Typography variant="h1" color={useMultiColorChoiceButton ? moneyEarned === 0 ? "" : moneyEarned > 0 ? "rgb(56, 142, 60)" : "error" : ""}>
                             {
                                 missedTrial ?
                                     `Missed trial, you lost -$${afkTimeoutCost}!` :

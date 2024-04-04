@@ -95,20 +95,20 @@ export default function Choice({ xpData, xpConfig }) {
 
     return (
         <>
-            <Grid container sx={{ my: 5 }}>
-                <Grid item xs={12} sx={{ mb: 4, textAlign: "center" }} >
-                    <Button id="sell" size="large" variant="contained" sx={{ mr: 32, py: 3, width: 140 }}
+            <Grid container sx={{ my: 8 }}>
+                <Grid item xs={12} sx={{ mb: 8, textAlign: "center" }} >
+                    <Button id="sell" size="large" variant="contained" sx={{ mr: 32, py: 3.5, width: 160 }}
                         disabled={missedTrial || (choice >= 0 && (showAfterClickDelayS || showMoneyOutcomeS))}
                         color={getParentButtonColor("sell")}
                     >Sell</Button>
-                    <Button id="buy" size="large" variant="contained" sx={{ ml: 32, py: 3, width: 140 }}
+                    <Button id="buy" size="large" variant="contained" sx={{ ml: 32, py: 3.5, width: 160 }}
                         disabled={missedTrial || (choice <= 0 && (showAfterClickDelayS || showMoneyOutcomeS))}
                         color={getParentButtonColor("buy")}
                     >Buy</Button>
                 </Grid>
                 <Grid item xs={12} style={{ textAlign: "center" }}>
                     {['-20', '-10', '0', '10', '20'].map((val, index) => (
-                        <Button key={val} size="large" variant="contained" sx={{ mx: 5, py: 3, width: 140 }} onClick={() => clickedAction(val)}
+                        <Button key={val} size="large" variant="contained" sx={{ mx: 4, py: 3.5, width: 160 }} onClick={() => clickedAction(val)}
                             disabled={choice !== val && (showAfterClickDelayS || showMoneyOutcomeS)}
                             id={`choice${val}`}
                             color={getButtonColor(val)}
