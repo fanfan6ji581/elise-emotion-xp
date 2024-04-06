@@ -11,7 +11,9 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { Box, Typography } from "@mui/material";
-import { trialIndex, showMoneyOutcome, showVolumeChart, showVolumeChartInitialValue, doShowVolumeChart } from "../../../slices/gameSlice";
+import { trialIndex, showMoneyOutcome, showVolumeChart, 
+    // showVolumeChartInitialValue,
+     doShowVolumeChart } from "../../../slices/gameSlice";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -31,7 +33,7 @@ export default function ValueChart({ xpData, xpConfig }) {
     const trialIndexS = useSelector(trialIndex);
     const { asset, volume } = xpData;
     const showVolumeChartS = useSelector(showVolumeChart);
-    const showVolumeChartInitialValueS = useSelector(showVolumeChartInitialValue);
+    // const showVolumeChartInitialValueS = useSelector(showVolumeChartInitialValue);
 
     const historyLength = 10;
 
