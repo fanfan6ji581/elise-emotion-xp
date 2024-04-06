@@ -64,7 +64,7 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
                                     moneyEarned < 0 ?
                                         `You just lost $${-moneyEarned}` :
                                         moneyEarned === 0 ?
-                                            `You just get $${moneyEarned}`
+                                            `You just got $${moneyEarned}`
                                             :
                                             `You just won $${moneyEarned}`
                             }
