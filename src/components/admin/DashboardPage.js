@@ -151,6 +151,8 @@ const DashboardPage = () => {
             hideVolumeChartWhenShowOutcome: false,
             trialBreakSeconds: 180,
             useMultiColorChoiceButton: false,
+            winShift: 1,
+            loseShift: 1
         };
 
         const resp = await addDoc(collection(db, "xp"), xp);

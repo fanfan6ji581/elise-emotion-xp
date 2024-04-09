@@ -10,6 +10,7 @@ const initialState = {
     xpConfig: {},
     showVolumeChart: false,
     showVolumeChartInitialValue: false,
+    isOutComeShift: 0,
 
     // internal data
     xpData: {},
@@ -29,6 +30,7 @@ const gameSlice = createSlice({
         recordChoice: (state, action) => {
             const { xpData, xpConfig, trialIndex } = state;
             const { choice, missed } = action.payload;
+            let shift = 0;
 
             // keep mul history
             state.choiceHistory[trialIndex] = choice || "";
@@ -39,7 +41,18 @@ const gameSlice = createSlice({
             } else {
                 const choiceAmount = parseInt(choice);
                 const assetAmount = xpData.asset[trialIndex + 10];
+                shift = xpData.shift[trialIndex + 10];
                 money = choiceAmount * assetAmount;
+
+                if (shift) {
+                    if (money > 0) {
+                        money *= xpConfig.winShift;
+                    }
+                    if (money < 0) {
+                        money *= xpConfig.loseShift;
+                    }
+                }
+
             }
 
             state.outcomeHistory[trialIndex] = money;
@@ -54,6 +67,7 @@ const gameSlice = createSlice({
             }
 
             state.showAfterClickDelay = true;
+            state.isOutComeShift = shift;
 
             // should show outcome
             // if (missed || choice !== '0') {
@@ -164,6 +178,7 @@ export const timerProgress = (state) => state.game.timerProgress;
 export const showMoneyOutcome = (state) => state.game.showMoneyOutcome;
 export const choiceHistory = (state) => state.game.choiceHistory;
 export const outcomeHistory = (state) => state.game.outcomeHistory;
+export const isOutComeShift = (state) => state.game.isOutComeShift;
 export const clickToShowChartHistory = (state) => state.game.clickToShowChartHistory;
 export const missHistory = (state) => state.game.missHistory;
 export const reactionHistory = (state) => state.game.reactionHistory;

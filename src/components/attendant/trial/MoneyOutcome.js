@@ -3,7 +3,7 @@ import profitImg from '../../../assets/outcome_profits.png';
 import lossImg from '../../../assets/outcome_loss.png';
 import { motion } from "framer-motion";
 import { Box, Typography } from "@mui/material";
-import { showMoneyOutcome, outcomeHistory, missHistory, trialIndex, nextTrial } from "../../../slices/gameSlice";
+import { showMoneyOutcome, outcomeHistory, missHistory, trialIndex, nextTrial, isOutComeShift } from "../../../slices/gameSlice";
 import { useEffect, useRef } from "react";
 
 export default function MoneyOutcome({ xpData, xpConfig }) {
@@ -13,6 +13,8 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
     const outcomeHistoryS = useSelector(outcomeHistory);
     const missHistoryS = useSelector(missHistory);
     const trialIndexS = useSelector(trialIndex);
+    const isOutComeShiftS = useSelector(isOutComeShift);
+    
     const { afkTimeoutCost, outcomeShowTime, useMultiColorChoiceButton } = xpConfig;
 
     const moneyEarned = outcomeHistoryS[trialIndexS];
@@ -62,11 +64,11 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
                                 missedTrial ?
                                     `Missed trial, you lost -$${afkTimeoutCost}!` :
                                     moneyEarned < 0 ?
-                                        `You just lost $${-moneyEarned}` :
+                                        `You just lost $${-moneyEarned} ${isOutComeShiftS ? "Shift" : ""}` :
                                         moneyEarned === 0 ?
                                             `You just got $${moneyEarned}`
                                             :
-                                            `You just won $${moneyEarned}`
+                                            `You just won $${moneyEarned} ${isOutComeShiftS ? "Shift" : ""}`
                             }
                         </Typography>
                     </Box>

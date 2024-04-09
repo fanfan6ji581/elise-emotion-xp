@@ -12,7 +12,7 @@ const columns = [
   { field: "value", headerName: "Value", width: 60 },
   { field: "speed", headerName: "Speed", width: 60 },
   // { field: "aberration", headerName: "Aberration", width: 80 },
-  // { field: "shift", headerName: "shift", width: 60 },
+  { field: "shift", headerName: "shift", width: 60 },
   { field: "reaction", headerName: "Reaction ms", width: 95 },
   { field: "choice", headerName: "choice", width: 120 },
   {

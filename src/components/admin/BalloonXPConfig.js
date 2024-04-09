@@ -12,26 +12,26 @@ const schema = {
         "aberrationChance",
     ],
     "properties": {
-        "dangerZoneChance": {
-            "type": "string",
-            "title": "prob_dangerous Probability that speed departs from threshold value (i.e., we enter the “dangerous zone preceding a regime shift)",
-            // "default": "1/6"
-        },
-        "lambda": {
-            "type": "string",
-            "title": "λ intensity",
-            // "default": "1/3"
-        },
-        "aberrationChance": {
-            "type": "string",
-            "title": "prob_aberration Probability of occurrence of an aberration",
-            // "default": "1/6"
-        },
-        "delta": {
-            "type": "integer",
-            "title": "∆ change_speed",
-            // "default": 100
-        },
+        // "dangerZoneChance": {
+        //     "type": "string",
+        //     "title": "prob_dangerous Probability that speed departs from threshold value (i.e., we enter the “dangerous zone preceding a regime shift)",
+        //     // "default": "1/6"
+        // },
+        // "lambda": {
+        //     "type": "string",
+        //     "title": "λ intensity",
+        //     // "default": "1/3"
+        // },
+        // "aberrationChance": {
+        //     "type": "string",
+        //     "title": "prob_aberration Probability of occurrence of an aberration",
+        //     // "default": "1/6"
+        // },
+        // "delta": {
+        //     "type": "integer",
+        //     "title": "∆ change_speed",
+        //     // "default": 100
+        // },
         "missLimit": {
             "type": "integer",
             "title": "when missed this many times, terminate the xp",
@@ -76,10 +76,10 @@ const schema = {
             "type": "integer",
             "title": "Seconds of how long the training session last (default is 120 seconds, 2 min)",
         },
-        "historySessionSeconds": {
-            "type": "integer",
-            "title": "Seconds of how long the display history page last (default is 120 seconds, 2 min)",
-        },
+        // "historySessionSeconds": {
+        //     "type": "integer",
+        //     "title": "Seconds of how long the display history page last (default is 120 seconds, 2 min)",
+        // },
         "showChoiceButtonOnTop": {
             "type": "boolean",
             "title": "Should show choice buttons on top of the charts",
@@ -104,6 +104,16 @@ const schema = {
             "type": "boolean",
             "title": "Apply different button color for options",
             "default": false
+        },
+        "winShift": {
+            "type": "integer",
+            "title": "Magnification for a win upon a shift",
+            "default": 1
+        },
+        "loseShift": {
+            "type": "integer",
+            "title": "Magnification for a loss upon a shift",
+            "default": 1
         },
     }
 };
