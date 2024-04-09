@@ -152,7 +152,8 @@ const DashboardPage = () => {
             trialBreakSeconds: 180,
             useMultiColorChoiceButton: false,
             winShift: 1,
-            loseShift: 1
+            loseShift: 1,
+            trialWindowLength: 50,
         };
 
         const resp = await addDoc(collection(db, "xp"), xp);

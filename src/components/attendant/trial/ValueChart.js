@@ -41,7 +41,7 @@ export default function ValueChart({ xpData, xpConfig }) {
 
     let originalLabels = Array.from({ length: historyLength + trialIndexS + 1 }, (_, i) => i);
     let labels = _.clone(originalLabels);
-    let lengthLimit = 50;
+    let lengthLimit = xpConfig.trialWindowLength || 50;
     let originalLabelLength = labels.length
 
     useEffect(() => {
@@ -193,8 +193,8 @@ export default function ValueChart({ xpData, xpConfig }) {
                     },
 
                 },
-                suggestedMax: _.max(volume),
-                suggestedMin: _.min(volume),
+                suggestedMax: _.max(dataValues2),
+                suggestedMin: _.min(dataValues2),
             },
             x: {
                 ticks: {
@@ -221,7 +221,6 @@ export default function ValueChart({ xpData, xpConfig }) {
             }
         }
     };
-
     const onClickAssetChart = () => {
         if (showMoneyOutcomeS) {
             return;
