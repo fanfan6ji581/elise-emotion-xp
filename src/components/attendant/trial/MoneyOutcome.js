@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import profitImg from '../../../assets/outcome_profits.png';
 import lossImg from '../../../assets/outcome_loss.png';
+import happySVG from '../../../assets/happy.svg';
+import sadSVG from '../../../assets/sad.svg';
 import { motion } from "framer-motion";
 import { Box, Typography } from "@mui/material";
 import { showMoneyOutcome, outcomeHistory, missHistory, trialIndex, nextTrial, isOutComeShift } from "../../../slices/gameSlice";
@@ -56,7 +58,7 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
                         {moneyEarned !== 0 && (
                             <Box component="img"
                                 sx={{ width: 200, mr: 3 }}
-                                src={(moneyEarned < 0 || missedTrial) ? lossImg : profitImg}
+                                src={missedTrial ? lossImg : (moneyEarned < 0 ? (isOutComeShiftS ? sadSVG : lossImg) : (isOutComeShiftS ? happySVG : profitImg))}
                                 alt="profitImg" />
                         )}
                         <Typography variant="h1" color={useMultiColorChoiceButton ? moneyEarned === 0 ? "" : moneyEarned > 0 ? "rgb(56, 142, 60)" : "error" : ""}>
@@ -64,11 +66,11 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
                                 missedTrial ?
                                     `Missed trial, you lost -$${afkTimeoutCost}!` :
                                     moneyEarned < 0 ?
-                                        `You just lost $${-moneyEarned} ${isOutComeShiftS ? "Shift" : ""}` :
+                                        `You just lost $${-moneyEarned}` :
                                         moneyEarned === 0 ?
                                             `You just got $${moneyEarned}`
                                             :
-                                            `You just won $${moneyEarned} ${isOutComeShiftS ? "Shift" : ""}`
+                                            `You just won $${moneyEarned}`
                             }
                         </Typography>
                     </Box>
