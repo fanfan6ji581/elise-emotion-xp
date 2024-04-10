@@ -74,8 +74,8 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
                             }
                         </Typography>
 
-                        {isOutComeShiftS && moneyEarned > 0 ? <><Box component="img" sx={{ width: 200 }} src={happySVG} /><Box component="img" sx={{ width: 200 }} src={happySVG} /></> : <></>}
-                        {isOutComeShiftS && moneyEarned < 0 ? <><Box component="img" sx={{ width: 200 }} src={sadSVG} /> <Box component="img" sx={{ width: 200 }} src={sadSVG} /> </> : <></>}
+                        {isOutComeShiftS && moneyEarned > 0 ? <><Box component="img" sx={{ width: 200 }} src={happySVG} /></> : <></>}
+                        {isOutComeShiftS && moneyEarned < 0 ? <><Box component="img" sx={{ width: 200 }} src={sadSVG} /> </> : <></>}
                     </Box>
                 </Box>
             </motion.div>
