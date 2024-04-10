@@ -42,7 +42,7 @@ const gameSlice = createSlice({
                 const choiceAmount = parseInt(choice);
                 const assetAmount = xpData.asset[trialIndex + 10];
                 shift = xpData.shift[trialIndex + 10];
-                money = choiceAmount * assetAmount;
+                money = choiceAmount * assetAmount * xpConfig.magnifyChoice / 10;
 
                 if (shift) {
                     if (money > 0) {

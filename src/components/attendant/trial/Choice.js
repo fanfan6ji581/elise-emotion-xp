@@ -93,6 +93,10 @@ export default function Choice({ xpData, xpConfig }) {
         return "black";
     }
 
+    const getMagnifiedValue = (value) => {
+        return value * xpConfig.magnifyChoice / 10;
+    }
+
     return (
         <>
             <Grid container sx={{ my: 3 }}>
@@ -113,7 +117,7 @@ export default function Choice({ xpData, xpConfig }) {
                             id={`choice${val}`}
                             color={getButtonColor(val)}
                         >
-                            {val !== '0' ? (val > 0 ? '+' + val : val) : 'Pass'}
+                            {val !== '0' ? (val > 0 ? '+' + getMagnifiedValue(val) : getMagnifiedValue(val)) : 'Pass'}
                         </Button>
                     ))}
                 </Grid>

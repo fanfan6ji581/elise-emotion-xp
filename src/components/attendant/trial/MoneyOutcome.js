@@ -16,7 +16,7 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
     const missHistoryS = useSelector(missHistory);
     const trialIndexS = useSelector(trialIndex);
     const isOutComeShiftS = useSelector(isOutComeShift);
-    
+
     const { afkTimeoutCost, outcomeShowTime, useMultiColorChoiceButton } = xpConfig;
 
     const moneyEarned = outcomeHistoryS[trialIndexS];
@@ -58,7 +58,7 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
                         {moneyEarned !== 0 && (
                             <Box component="img"
                                 sx={{ width: 200, mr: 3 }}
-                                src={missedTrial ? lossImg : (moneyEarned < 0 ? (isOutComeShiftS ? sadSVG : lossImg) : (isOutComeShiftS ? happySVG : profitImg))}
+                                src={missedTrial ? lossImg : (moneyEarned < 0 ? lossImg : profitImg)}
                                 alt="profitImg" />
                         )}
                         <Typography variant="h1" color={useMultiColorChoiceButton ? moneyEarned === 0 ? "" : moneyEarned > 0 ? "rgb(56, 142, 60)" : "error" : ""}>
@@ -73,6 +73,8 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
                                             `You just won $${moneyEarned}`
                             }
                         </Typography>
+                        {isOutComeShiftS && moneyEarned > 0 ? <><Box component="img" sx={{ width: 200 }} src={happySVG} /><Box component="img" sx={{ width: 200 }} src={happySVG} /></> : <></>}
+                        {isOutComeShiftS && moneyEarned < 0 ? <><Box component="img" sx={{ width: 200 }} src={sadSVG} /> <Box component="img" sx={{ width: 200 }} src={sadSVG} /> </> : <></>}
                     </Box>
                 </Box>
             </motion.div>

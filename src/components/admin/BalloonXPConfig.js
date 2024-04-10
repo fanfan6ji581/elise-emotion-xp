@@ -119,6 +119,11 @@ const schema = {
             "type": "integer",
             "title": "How many days should displayed in the trial",
             "default": 50
+        },
+        magnifyChoice: {
+            "type": "integer",
+            "title": "Magnification the choice",
+            "default": 10
         }
     }
 };

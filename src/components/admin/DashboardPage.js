@@ -154,6 +154,7 @@ const DashboardPage = () => {
             winShift: 1,
             loseShift: 1,
             trialWindowLength: 50,
+            magnifyChoice: 10,
         };
 
         const resp = await addDoc(collection(db, "xp"), xp);
