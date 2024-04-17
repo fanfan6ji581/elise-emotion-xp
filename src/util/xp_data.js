@@ -108,7 +108,7 @@ function extractXpData(attendant, xpConfig) {
                 value: asset[i + historyLength],
                 speed: volume[i + historyLength],
                 // aberration: aberration[i],
-                shift: shift[i + historyLength],
+                shift: shift ? shift[i + historyLength] : '-',
                 reaction: reactionHistory[i],
                 choice: choiceHistory[i],
                 outcome: outcomeHistory[i],
