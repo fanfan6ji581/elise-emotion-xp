@@ -31,6 +31,9 @@ const columns = [
     { field: 'earningQuiz3', headerName: 'earningQuiz3', width: 200 },
     { field: 'earningQuiz4', headerName: 'earningQuiz4', width: 200 },
     { field: 'earningQuiz5', headerName: 'earningQuiz5', width: 200 },
+    { field: 'finalEarning_$xx', headerName: 'finalEarning_$xx', width: 200 },
+    { field: 'adjustedEarning_$yy', headerName: 'adjustedEarning_$yy', width: 200 },
+  
 ];
 
 const AttendentsInfo = ({ attendants, xp }) => {

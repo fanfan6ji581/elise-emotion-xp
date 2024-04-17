@@ -136,6 +136,10 @@ function extractXpData(attendant, xpConfig) {
                 earningQuiz3: attendant?.earningQuiz?.question3,
                 earningQuiz4: attendant?.earningQuiz?.question4,
                 earningQuiz5: attendant?.earningQuiz?.question5,
+            },
+            {
+                'finalEarning_$xx': attendant.finalEarning,
+                'adjustedEarning_$yy': attendant.adjustedEarning,
             }
         ))
     }
