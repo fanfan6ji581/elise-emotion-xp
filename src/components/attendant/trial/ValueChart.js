@@ -91,10 +91,10 @@ export default function ValueChart({ xpData, xpConfig }) {
         dataValues2 = _.concat(dataValues2, Array.from({ length: lengthLimit - originalLabelLength }, () => null));
     }
 
-    let dataValues2After = _.slice(volume, originalLabels[0],
-        Math.min(originalLabelLength, lengthLimit) + 5 + originalLabels[0] - (showMoneyOutcomeS ? 0 : 1));
-    dataValues2After = dataValues2After.slice(-8);
-    console.log(dataValues2After)
+    // let dataValues2After = _.slice(volume, originalLabels[0],
+    //     Math.min(originalLabelLength, lengthLimit) + 5 + originalLabels[0] - (showMoneyOutcomeS ? 0 : 1));
+    // dataValues2After = dataValues2After.slice(-8);
+    // console.log(dataValues2After)
     
 
     const data2 = {
@@ -191,10 +191,8 @@ export default function ValueChart({ xpData, xpConfig }) {
                     },
 
                 },
-                // suggestedMax: _.max(dataValues2After),
-                // suggestedMin: _.min(dataValues2After),
-                max: _.max(dataValues2After) + 1,
-                min: _.min(dataValues2After),
+                suggestedMax: _.max(dataValues2),
+                suggestedMin: _.min(dataValues2),
             },
             x: {
                 ticks: {
