@@ -1,7 +1,6 @@
 function generateBalloonDataFromDataSeries(dataSeries) {
     const { asset, volume, name } = dataSeries;
     const length = asset.length;
-    console.log(length)
 
     const shift = Array.from({ length: length }).fill(0);
     for (let i = 1; i <= asset.length; i++) {

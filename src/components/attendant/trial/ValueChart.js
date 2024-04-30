@@ -11,9 +11,11 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { Box, Typography } from "@mui/material";
-import { trialIndex, showMoneyOutcome, showVolumeChart, 
+import {
+    trialIndex, showMoneyOutcome, showVolumeChart,
     // showVolumeChartInitialValue,
-     doShowVolumeChart } from "../../../slices/gameSlice";
+    doShowVolumeChart
+} from "../../../slices/gameSlice";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -89,9 +91,11 @@ export default function ValueChart({ xpData, xpConfig }) {
         dataValues2 = _.concat(dataValues2, Array.from({ length: lengthLimit - originalLabelLength }, () => null));
     }
 
-    // if (!showMoneyOutcomeS && dataValues2) {
-    //     dataValues2.pop();
-    // }
+    let dataValues2After = _.slice(volume, originalLabels[0],
+        Math.min(originalLabelLength, lengthLimit) + 5 + originalLabels[0] - (showMoneyOutcomeS ? 0 : 1));
+    dataValues2After = dataValues2After.slice(-8);
+    console.log(dataValues2After)
+    
 
     const data2 = {
         labels: labels,
@@ -176,16 +180,10 @@ export default function ValueChart({ xpData, xpConfig }) {
                 grid: {
                     display: false
                 },
-                // display: false,
                 ticks: {
                     beginAtZero: true,
                     major: true,
                     callback: function (value, index, values) {
-                        // if (value === 1) {
-                        //     return '1';
-                        // } else if (value === -1) {
-                        //     return '-1';
-                        // }
                         return '  ';
                     },
                     font: {
@@ -193,8 +191,10 @@ export default function ValueChart({ xpData, xpConfig }) {
                     },
 
                 },
-                suggestedMax: _.max(dataValues2),
-                suggestedMin: _.min(dataValues2),
+                // suggestedMax: _.max(dataValues2After),
+                // suggestedMin: _.min(dataValues2After),
+                max: _.max(dataValues2After) + 1,
+                min: _.min(dataValues2After),
             },
             x: {
                 ticks: {
