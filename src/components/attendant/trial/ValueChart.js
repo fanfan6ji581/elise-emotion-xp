@@ -5,12 +5,13 @@ import {
     LinearScale,
     PointElement,
     LineElement,
+    BarElement,
     Title,
     Tooltip,
     Legend,
     Filler,
 } from 'chart.js';
-import { Line } from 'react-chartjs-2';
+import { Line, Bar } from 'react-chartjs-2';
 import { Box, Typography } from "@mui/material";
 import {
     trialIndex, showMoneyOutcome, showVolumeChart,
@@ -25,6 +26,7 @@ ChartJS.register(
     LinearScale,
     PointElement,
     LineElement,
+    BarElement,
     Title,
     Tooltip,
     Legend,
@@ -45,7 +47,7 @@ export default function ValueChart({ xpData, xpConfig }) {
 
     let originalLabels = Array.from({ length: historyLength + trialIndexS + 1 }, (_, i) => i);
     let labels = _.clone(originalLabels);
-    let lengthLimit = xpConfig.trialWindowLength || 50;
+    let lengthLimit = xpConfig.trialWindowLength || 25;
     let originalLabelLength = labels.length
 
     useEffect(() => {
@@ -105,9 +107,14 @@ export default function ValueChart({ xpData, xpConfig }) {
             {
                 label: 'Indicator history',
                 data: dataValues2,
-                fill: true,  // Enable fill for area chart
-                backgroundColor: 'rgba(255, 99, 132, 0.2)', // Softer red with transparency
-                borderColor: 'rgba(255, 99, 132, 1)', // More vivid red for the border
+                // fill: true,  // Enable fill for area chart
+                // backgroundColor: 'rgba(255, 99, 132, 0.2)', // Softer red with transparency
+                // borderColor: 'rgba(255, 99, 132, 1)', // More vivid red for the border
+
+                backgroundColor: dataValues2.map(value => value === 0 ? 'rgba(255, 99, 132, 1)' : 'rgba(255, 99, 132, 0.5)'),
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: dataValues2.map(value => value === 0 ? 2 : 1),
+
             },
         ],
     };
@@ -219,7 +226,10 @@ export default function ValueChart({ xpData, xpConfig }) {
                     }
                 }
             }
-        }
+        },
+        minBarLength: 1,
+        barThickness: 45,
+        categorySpacing: 0,
     };
 
     const onClickAssetChart = () => {
@@ -253,7 +263,7 @@ export default function ValueChart({ xpData, xpConfig }) {
                         mt: 6,
                         opacity: (xpConfig.hideVolumeChartWhenShowOutcome && showMoneyOutcomeS) ? '0' : (showVolumeChartS ? '1' : '0'),
                     }} onClick={onClickAssetChart}>
-                        <Line style={{ paddingLeft: '25px' }} data={data2} options={options2} />
+                        <Bar style={{ paddingLeft: '25px' }} data={data2} options={options2} />
                         <Typography variant="p" sx={{ position: "absolute", top: 110, left: -40, width: 70, textAlign: 'center' }}>
                             Indicator
                         </Typography>
