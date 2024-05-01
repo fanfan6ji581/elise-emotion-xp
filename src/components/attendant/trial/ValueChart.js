@@ -8,6 +8,7 @@ import {
     Title,
     Tooltip,
     Legend,
+    Filler,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { Box, Typography } from "@mui/material";
@@ -26,7 +27,8 @@ ChartJS.register(
     LineElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
+    Filler
 );
 
 export default function ValueChart({ xpData, xpConfig }) {
@@ -95,7 +97,7 @@ export default function ValueChart({ xpData, xpConfig }) {
     //     Math.min(originalLabelLength, lengthLimit) + 5 + originalLabels[0] - (showMoneyOutcomeS ? 0 : 1));
     // dataValues2After = dataValues2After.slice(-8);
     // console.log(dataValues2After)
-    
+
 
     const data2 = {
         labels: labels,
@@ -103,8 +105,9 @@ export default function ValueChart({ xpData, xpConfig }) {
             {
                 label: 'Indicator history',
                 data: dataValues2,
-                backgroundColor: 'rgb(11,11,11)',
-                borderColor: 'rgba(11,11,11,0.1)',
+                fill: true,  // Enable fill for area chart
+                backgroundColor: 'rgba(255, 99, 132, 0.2)', // Softer red with transparency
+                borderColor: 'rgba(255, 99, 132, 1)', // More vivid red for the border
             },
         ],
     };
@@ -184,12 +187,11 @@ export default function ValueChart({ xpData, xpConfig }) {
                     beginAtZero: true,
                     major: true,
                     callback: function (value, index, values) {
-                        return '  ';
+                        return '  '; // Adjusted to show space as tick labels
                     },
                     font: {
                         size: 24,
                     },
-
                 },
                 suggestedMax: _.max(dataValues2),
                 suggestedMin: _.min(dataValues2),
@@ -219,6 +221,7 @@ export default function ValueChart({ xpData, xpConfig }) {
             }
         }
     };
+
     const onClickAssetChart = () => {
         if (showMoneyOutcomeS) {
             return;
