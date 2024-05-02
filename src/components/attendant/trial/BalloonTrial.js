@@ -136,7 +136,7 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
 
             <Grid container>
               <Grid item xs={12} sx={{position: 'relative'}}>
-                <Box sx={{ position: 'absolute', top: 380, left: 0, width: '100%' }}>
+                <Box sx={{ position: 'absolute', top: choiceHistoryS[trialIndexS] == 0 ? 380 : 150, left: 0, width: '100%' }}>
                   <MoneyOutcome xpData={xpData} xpConfig={xpConfig} />
                 </Box>
               </Grid>

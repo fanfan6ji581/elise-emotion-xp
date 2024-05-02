@@ -14,7 +14,7 @@ import {
 import { Line, Bar } from 'react-chartjs-2';
 import { Box, Typography } from "@mui/material";
 import {
-    trialIndex, showMoneyOutcome, showVolumeChart,
+    trialIndex, showMoneyOutcome, showVolumeChart, choiceHistory,
     // showVolumeChartInitialValue,
     doShowVolumeChart
 } from "../../../slices/gameSlice";
@@ -39,6 +39,7 @@ export default function ValueChart({ xpData, xpConfig }) {
     const trialIndexS = useSelector(trialIndex);
     const { asset, volume } = xpData;
     const showVolumeChartS = useSelector(showVolumeChart);
+    const choiceHistoryS = useSelector(choiceHistory);
     // const showVolumeChartInitialValueS = useSelector(showVolumeChartInitialValue);
 
     const historyLength = 10;
@@ -244,7 +245,7 @@ export default function ValueChart({ xpData, xpConfig }) {
             <Box style={{ position: "relative" }}>
                 <Box sx={{
                     mt: 4,
-                    opacity: showMoneyOutcomeS ? '1' : '1',
+                    opacity: showMoneyOutcomeS ? (choiceHistoryS[trialIndexS] == 0 ? '1' : '0') : '1',
                 }}>
                     <Line data={data} options={options} />
                     <Typography variant="p" sx={{ position: "absolute", top: 110, left: -40, width: 70, textAlign: 'center' }}>
