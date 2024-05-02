@@ -245,7 +245,7 @@ export default function ValueChart({ xpData, xpConfig }) {
             <Box style={{ position: "relative" }}>
                 <Box sx={{
                     mt: 4,
-                    opacity: showMoneyOutcomeS ? (choiceHistoryS[trialIndexS] == 0 ? '1' : '0') : '1',
+                    opacity: showMoneyOutcomeS ? (choiceHistoryS[trialIndexS] === 0 ? '1' : '0') : '1',
                 }}>
                     <Line data={data} options={options} />
                     <Typography variant="p" sx={{ position: "absolute", top: 110, left: -40, width: 70, textAlign: 'center' }}>
