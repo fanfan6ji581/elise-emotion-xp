@@ -48,7 +48,7 @@ export default function ValueChart({ xpData, xpConfig }) {
 
     let originalLabels = Array.from({ length: historyLength + trialIndexS + 1 }, (_, i) => i);
     let labels = _.clone(originalLabels);
-    let lengthLimit = xpConfig.trialWindowLength || 25;
+    let lengthLimit = xpConfig.trialWindowLength || 20;
     let originalLabelLength = labels.length
 
     useEffect(() => {
@@ -214,6 +214,9 @@ export default function ValueChart({ xpData, xpConfig }) {
             }
         },
         plugins: {
+            tooltip: {
+                enabled: false // Disable tooltips
+            },
             datalabels: {
                 display: false,
             },
