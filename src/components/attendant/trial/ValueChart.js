@@ -112,7 +112,7 @@ export default function ValueChart({ xpData, xpConfig }) {
                 // backgroundColor: 'rgba(255, 99, 132, 0.2)', // Softer red with transparency
                 // borderColor: 'rgba(255, 99, 132, 1)', // More vivid red for the border
 
-                backgroundColor: dataValues2.map(value => value === 0 ? 'rgba(255, 99, 132, 1)' : 'rgba(255, 99, 132, 0.5)'),
+                backgroundColor: dataValues2.map(value => value === 0 ? 'rgba(255, 99, 132, 1)' : 'rgba(255, 99, 132, 1)'),
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: dataValues2.map(value => value === 0 ? 2 : 1),
 
