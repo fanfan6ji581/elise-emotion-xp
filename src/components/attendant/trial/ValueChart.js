@@ -194,11 +194,12 @@ export default function ValueChart({ xpData, xpConfig }) {
                 ticks: {
                     beginAtZero: true,
                     major: true,
-                    callback: function (value, index, values) {
-                        return '  '; // Adjusted to show space as tick labels
-                    },
+                    stepSize: 1, // Ensure that the ticks are integer values only
+                    // callback: function (value, index, values) {
+                    //     return '  '; // Adjusted to show space as tick labels
+                    // },
                     font: {
-                        size: 24,
+                        size: 32,
                     },
                 },
                 suggestedMax: _.max(dataValues2),
