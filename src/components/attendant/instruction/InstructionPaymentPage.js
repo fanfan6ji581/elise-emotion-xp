@@ -26,7 +26,7 @@ const Instruction3Page = () => {
                 </Typography>
 
                 <Typography variant="h6" sx={{ my: 2 }}>
-                    <strong>Note:</strong> We will tell you the value of the percentage and threshold only after you’ve completed the task because the knowledge of these values beforehand could disturb you during the game and we want you to focus on doing your best on every single trial — recall that any trial could be selected for payment by the computer.
+                    <strong>Note:</strong> We will tell you the value of the percentage and threshold only after you’ve completed the task because the knowledge of these values beforehand could disturb you during the game and we want you to focus on doing your best <i>on every single trial</i> — recall that any trial could be selected for payment by the computer.
                 </Typography>
 
                 <Typography variant="h6" sx={{ my: 2 }}>

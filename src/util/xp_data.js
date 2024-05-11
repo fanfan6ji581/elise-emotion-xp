@@ -150,18 +150,18 @@ const calcuateCorrectness = (attendant, xpConfig) => {
         return {};
     }
 
-    let solution = {
+    const solution = {
         mcq1: 2,
         mcq2: 1,
         mcq3: 1,
         mcq4: 1,
         mcq5: 1,
-        mcq6: 2,
-        mcq7: 4,
-        mcq8: 2,
-        mcq9: 3,
+        mcq6: 4,
+        mcq7: 2,
+        mcq8: 1,
+        mcq9: 2,
         mcq10: 1,
-        mcq11: 2,
+        mcq11: 1,
         mcq12: 1,
         mcq13: 1,
     }
@@ -177,9 +177,9 @@ const calcuateCorrectness = (attendant, xpConfig) => {
         mcq8: attendant.quizAnswers.mcq8 === solution.mcq8 ? 1 : 0,
         mcq9: attendant.quizAnswers.mcq9 === solution.mcq9 ? 1 : 0,
         mcq10: attendant.quizAnswers.mcq10 === solution.mcq10 ? 1 : 0,
-        mcq11: attendant.quizAnswers.mcq11 === solution.mcq11 ? 1 : 0,
-        mcq12: attendant.quizAnswers.mcq12 === solution.mcq12 ? 1 : 0,
-        mcq13: attendant.quizAnswers.mcq13 === solution.mcq13 ? 1 : 0,
+        // mcq11: attendant.quizAnswers.mcq11 === solution.mcq11 ? 1 : 0,
+        // mcq12: attendant.quizAnswers.mcq12 === solution.mcq12 ? 1 : 0,
+        // mcq13: attendant.quizAnswers.mcq13 === solution.mcq13 ? 1 : 0,
     };
 }
 
