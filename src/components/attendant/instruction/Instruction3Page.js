@@ -113,14 +113,9 @@ const Instruction1Page = () => {
               <Typography variant="h6" sx={{ my: 3 }}>
                 The outcome on each trial, in case of a buy/sell decision is:
               </Typography>
-              <Grid item xs={1} />
-              <Grid item xs={10} sx={{ textAlign: "center" }}>
-                <Box component="img" alt="" src={image10} sx={{ width: '100%' }} />
+              <Grid item xs={12} sx={{ textAlign: 'center' }}>
+                <Box component="img" alt="" src={image10} sx={{ width: '80%' }} />
               </Grid>
-
-              <Typography variant="h6" align="center" sx={{ my: 0 }}>
-                Note: -$1 (-$2) means a loss of $1 ($2): $1 ($2) is subtracted from your net accumulated outcomes.
-              </Typography>
 
               <Typography variant="h6" sx={{ my: 3 }}>
                 That is, you win if your position (“+” for buy, “-” for sell) matches the trend realised on the next day.
@@ -130,9 +125,11 @@ const Instruction1Page = () => {
                 <Typography sx={{ color: 'error.main', fontSize: '1.25em' }} component="span"><b> magnified </b></Typography>
                 <b> by 20 times as  follows:</b>
               </Typography>
-              <Grid item xs={10} sx={{ textAlign: "center" }}>
-                <Box component="img" alt="" src={image11} sx={{ width: '100%' }} />
+
+              <Grid item xs={12} sx={{ textAlign: 'center' }}>
+                <Box component="img" alt="" src={image11} sx={{ width: '80%' }} />
               </Grid>
+
               <Typography variant="h6" sx={{ my: 3 }}>
                 What this means is that if you take a position on a shift day, you will win or lose $20 per
                 share you traded. In other words, your outcome will be magnified by 20 times.
