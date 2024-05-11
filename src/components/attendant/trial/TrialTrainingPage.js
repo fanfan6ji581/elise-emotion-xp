@@ -20,14 +20,14 @@ const BalloonTrialTrainingPage = () => {
             navigate(`/xp/${alias}/instruction-ready`);
         }
         if (e.ctrlKey && e.key === 'm') {
-            navigate(`/xp/${alias}/quiz`);
+            navigate(`/xp/${alias}/quiz3`);
         }
     }
 
     const onFinish = async () => {
         const attendantRef = doc(db, "attendant", loginAttendantS.id);
         await updateDoc(attendantRef, { isTrained: true });
-        navigate(`/xp/${alias}/quiz`)
+        navigate(`/xp/${alias}/quiz3`)
     }
 
     useEffect(() => {
