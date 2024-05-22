@@ -61,7 +61,7 @@ const columns = [
   { field: 'mcq8', headerName: 'mcq8', width: 50 },
   { field: 'mcq9', headerName: 'mcq9', width: 50 },
   { field: 'mcq10', headerName: 'mcq10', width: 60 },
-  // { field: 'mcq11', headerName: 'mcq11', width: 60 },
+  { field: 'mcq11', headerName: 'mcq11', width: 60 },
   // { field: 'mcq12', headerName: 'mcq12', width: 60 },
   // { field: 'mcq13', headerName: 'mcq13', width: 60 },
   { field: 'strategy', headerName: 'strategy', width: 80 },

@@ -153,7 +153,7 @@ const InstructionHowToPlayPage = () => {
                     <b>Note:</b> The outcome upon an aberration is normal <b>(NOT magnified)</b>, consistent with the fact
                     that aberrations are not real shifts as you are not in a dangerous zone. Therefore, in the above
                     example, the outcome upon Days #29 and #30 are normal and only the outcome on Day #35
-                    is magnified by 20 times. Moreover, aberrations are rare (less than 15% chance) and they can
+                    is magnified by 25 times. Moreover, aberrations are rare (less than 15% chance) and they can
                     occur only when the indicator is at baseline (0); they cannot occur in the dangerous zone.
                 </Typography>
             </Grid>

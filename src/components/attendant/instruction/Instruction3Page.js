@@ -123,7 +123,7 @@ const Instruction1Page = () => {
               <Typography variant="h6" sx={{ my: 3 }}>
                 This is for normal days. <b>When a shift occurs, the payoff is</b>
                 <Typography sx={{ color: 'error.main', fontSize: '1.25em' }} component="span"><b> magnified </b></Typography>
-                <b> by 20 times as  follows:</b>
+                <b> by 25 times as follows:</b>
               </Typography>
 
               <Grid item xs={12} sx={{ textAlign: 'center' }}>
@@ -131,8 +131,8 @@ const Instruction1Page = () => {
               </Grid>
 
               <Typography variant="h6" sx={{ my: 3 }}>
-                What this means is that if you take a position on a shift day, you will win or lose $20 per
-                share you traded. In other words, your outcome will be magnified by 20 times.
+                What this means is that if you take a position on a shift day, you will win or lose $25 per
+                share you traded. In other words, your outcome will be magnified by 25 times.
               </Typography>
 
               <Typography variant="h6" sx={{ my: 3 }}>
@@ -155,7 +155,7 @@ const Instruction1Page = () => {
             </Grid>
             <Grid item xs={12} sx={{ my: 5, textAlign: "center" }}>
               {/* Embed YouTube Video */}
-              <YouTube videoId="tGzIT6gMJIc" opts={{
+              <YouTube videoId="RqY2T1iE59w" opts={{
                 height: '640', // Adjust the video height as needed
                 width: '80%',  // Adjust the video width as needed
                 playerVars: {

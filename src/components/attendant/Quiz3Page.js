@@ -1,6 +1,6 @@
 import {
     Container, Box, Typography, Button, Alert, Grid,
-    FormControlLabel, RadioGroup, Radio, Backdrop, CircularProgress,
+    FormControlLabel, RadioGroup, Radio, Backdrop, CircularProgress, Link as MuiLink
 } from "@mui/material";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { useNavigate, useParams } from "react-router-dom"
@@ -35,35 +35,35 @@ const QuizPage = () => {
     const [loadingOpen, setLoadingOpen] = useState(true);
 
     const solution = {
-        mcq1: 2,
-        mcq2: 1,
+        mcq1: 1,
+        mcq2: 2,
         mcq3: 1,
         mcq4: 1,
         mcq5: 1,
-        mcq6: 4,
-        mcq7: 2,
-        mcq8: 1,
-        mcq9: 2,
-        mcq10: 1,
+        mcq6: 1,
+        mcq7: 4,
+        mcq8: 2,
+        mcq9: 1,
+        mcq10: 2,
         mcq11: 1,
         mcq12: 1,
         mcq13: 1,
     }
 
     const solutionText = {
-        mcq1: 'correct answer. You lose $1 AUD every time you do not reply within the allowed time.',
-        mcq2: 'correct answer. When the indicator departs from its baseline (0) value, this is the signal that a shift is going to occur sometime in the coming trials.',
-        mcq3: 'correct answer. If the asset trend shifts but the indicator is at baseline, it is certain that the trend will switch back next trial.',
-        mcq4: 'correct answer. The shift probability is fixed at 0.1 and the dangerous zone continues until the shift is realized.]',
-        mcq5: 'correct answer',
-        mcq6: 'correct answer. Upon a shift in the dangerous zone, the outcome will be magnified by 20 times.',
-        mcq7: 'correct answer. Aberrations are not real shifts, so the outcome will not be magnified.',
-        mcq8: 'correct answer',
-        mcq9: 'correct answer. You can earn a significant amount of money in this experiment (up to $100 AUD) if you perform well in the task, but if you do not, expect to leave the lab with $10 AUD.]',
-        mcq10: 'correct answer. The computer randomly selects 100 consecutive trials you played and computes your net accumulated outcomes in these trials, which determines your final payment. This means that each trial will potentially count for your payment, so try to do your very best on each trial!',
-        mcq11: 'correct answer. You can earn a significant amount of money in this experiment (up to $100 AUD) if you perform well in the task, but if you do not, expect to leave the lab with $10 AUD.',
-        mcq12: `correct answer. The computer randomly selects 100 consecutive trials you played and computes your net accumulated outcomes in these trials, which determines your final payment. This means that each trial will potentially count for your payment, so try to do your very best on each trial!`,
-        mcq13: `correct answer. The "no deception rule" is a key principle in this lab, so all the information that we've provided to you about the game is correct! Please keep it in mind throughout the run of the game that you're going to perform, as it is key for your performance :-)`
+        mcq1: 'correct answer. The expected value is (for each share traded) 0.9 x 1 – 0.1 x 25 <<0.',
+        mcq2: 'correct answer. You lose $1 AUD every time you do not reply within the allowed time.',
+        mcq3: 'correct answer. When the indicator departs from its baseline (0) value, this is the signal that a shift is going to occur sometime in the coming trials.',
+        mcq4: 'correct answer. If the asset trend shifts but the indicator is at baseline, it is certain that the trend will switch back next trial.',
+        mcq5: 'correct answer. The shift probability is fixed at 0.1 and the dangerous zone continues until the shift is realized.]',
+        mcq6: 'correct answer',
+        mcq7: 'correct answer. Upon a shift in the dangerous zone, the outcome will be magnified by 20 times.',
+        mcq8: 'correct answer. Aberrations are not real shifts, so the outcome will not be magnified.',
+        mcq9: 'correct answer',
+        mcq10: 'correct answer. You can earn a significant amount of money in this experiment (up to $100 AUD) if you perform well in the task, but if you do not, expect to leave the lab with $10 AUD.]',
+        mcq11: 'correct answer. The computer randomly selects 100 consecutive trials you played and computes your net accumulated outcomes in these trials, which determines your final payment. This means that each trial will potentially count for your payment, so try to do your very best on each trial!',
+        mcq12: 'correct answer. You can earn a significant amount of money in this experiment (up to $100 AUD) if you perform well in the task, but if you do not, expect to leave the lab with $10 AUD.',
+        mcq13: `correct answer. The computer randomly selects 100 consecutive trials you played and computes your net accumulated outcomes in these trials, which determines your final payment. This means that each trial will potentially count for your payment, so try to do your very best on each trial!`,
     }
 
     const fetchAttdendantAnswer = async () => {
@@ -134,8 +134,8 @@ const QuizPage = () => {
                 return window.alert("Please fill question #9");
             case mcq10 === 0:
                 return window.alert("Please fill question #10");
-            // case mcq11 === 0:
-            //     return window.alert("Please fill question #11");
+            case mcq11 === 0:
+                return window.alert("Please fill question #11");
             // case mcq12 === 0:
             //     return window.alert("Please fill question #12");
             // case mcq13 === 0:
@@ -188,12 +188,19 @@ const QuizPage = () => {
             </Alert>
 
             <form onSubmit={onSubmit}>
-                <Typography variant="h5" sx={{ mt: 3 }}>
-                    1. If I do not click anything within the allowed time, I proceed to the next trial without any penalty.
+                <Typography variant="h5" sx={{ mt: 3, mb: 0 }}>
+                    1. If it is now in a dangerous zone, the expected payoff of betting on the current asset trend (that is, choosing -1 or -2 on day 33 in the previous example) is:
+                </Typography>
+                <Typography variant="h6" sx={{ ml: 6, mt: -3, mb: 2 }}>
+                    <br />click&nbsp;
+                    <MuiLink component={Link} to={`/xp/${alias}/instruction-almost-ready-to-start`}>
+                        {'HERE'}
+                    </MuiLink>
+                    &nbsp;to go back to the previous example
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
-                        ["True", "False"].map((v, idx) =>
+                        ["Negative", "Positive", "I’m not quite sure"].map((v, idx) =>
                             <Fragment key={idx}>
                                 <Grid container alignItems="center" sx={{ mb: 1 }}>
                                     <Grid item>
@@ -226,18 +233,18 @@ const QuizPage = () => {
                 </RadioGroup>
 
                 <Typography variant="h5" sx={{ mt: 3 }}>
-                    2. Whenever I see the current indicator being above 0, I know that I am now in a dangerous zone where a shift may occur in the next trial with a shift probability 0.1.
+                    2. If I do not click anything within the allowed time, I proceed to the next trial without any penalty.
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
                         ["True", "False"].map((v, idx) =>
                             <Fragment key={idx}>
-                                <Grid container alignItems="center">
+                                <Grid container alignItems="center" sx={{ mb: 1 }}>
                                     <Grid item>
                                         <FormControlLabel
                                             control={<Radio disabled={disableForm}
                                                 value={idx + 1}
-                                                checked={mcq2 === idx + 1}
+                                                checked={mcq1 === idx + 1}
                                                 onChange={() => setMcq2(idx + 1)} />}
                                             label={v} />
                                     </Grid>
@@ -263,8 +270,7 @@ const QuizPage = () => {
                 </RadioGroup>
 
                 <Typography variant="h5" sx={{ mt: 3 }}>
-                    3. If the indicator value is currently 0, and the asset trend switches at this trial, it must be an
-                    aberration and the asset trend will surely switch back at the next trial.
+                    3. Whenever I see the current indicator being above 0, I know that I am now in a dangerous zone where a shift may occur in the next trial with a shift probability 0.1.
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
@@ -301,8 +307,8 @@ const QuizPage = () => {
                 </RadioGroup>
 
                 <Typography variant="h5" sx={{ mt: 3 }}>
-                    4. If the current indicator is at 1, i.e., I am in the dangerous zone, then, no matter how long this
-                    dangerous zone has lasted so far, the likelihood of a shift in the next trial is always 10%.
+                    4. If the indicator value is currently 0, and the asset trend switches at this trial, it must be an
+                    aberration and the asset trend will surely switch back at the next trial.
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
@@ -320,7 +326,7 @@ const QuizPage = () => {
                                     {
                                         disableForm &&
                                         solution.mcq4 === idx + 1 &&
-                                        <Grid item xs={10}>
+                                        <Grid item>
                                             <Alert severity="success">{solutionText.mcq4}</Alert>
                                         </Grid>
                                     }
@@ -338,15 +344,13 @@ const QuizPage = () => {
                     }
                 </RadioGroup>
 
-
                 <Typography variant="h5" sx={{ mt: 3 }}>
-                    5. If it is now in the dangerous zone and the current asset trend is <b>+1</b>, I choose to buy 2 shares (the
-                    choice <b>“+2”</b> on the interface), and then on the next day, the asset trend is still <b>+1</b>. In this case my
-                    payoff is
+                    5. If the current indicator is at 1, i.e., I am in the dangerous zone, then, no matter how long this
+                    dangerous zone has lasted so far, the likelihood of a shift in the next trial is always 10%.
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
-                        ["Win of $2", "Loss of $2", "Win of $40", "Loss of $40"].map((v, idx) =>
+                        ["True", "False"].map((v, idx) =>
                             <Fragment key={idx}>
                                 <Grid container alignItems="center">
                                     <Grid item>
@@ -360,7 +364,7 @@ const QuizPage = () => {
                                     {
                                         disableForm &&
                                         solution.mcq5 === idx + 1 &&
-                                        <Grid item>
+                                        <Grid item xs={10}>
                                             <Alert severity="success">{solutionText.mcq5}</Alert>
                                         </Grid>
                                     }
@@ -378,14 +382,15 @@ const QuizPage = () => {
                     }
                 </RadioGroup>
 
+
                 <Typography variant="h5" sx={{ mt: 3 }}>
-                    6. If it is now in the dangerous zone and the current asset trend is <b>+1</b>, I choose to buy 1 share (the
-                    choice “<b>+1</b>” on the interface), and then on the next day, the asset trend indeed shifts to <b>-1</b>. In this
-                    case my payoff is
+                    6. If it is now in the dangerous zone and the current asset trend is <b>+1</b>, I choose to buy 2 shares (the
+                    choice <b>“+2”</b> on the interface), and then on the next day, the asset trend is still <b>+1</b>. In this case my
+                    payoff is
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
-                        ["Win of $1", "Loss of $1", "Win of $20", "Loss of $20"].map((v, idx) =>
+                        ["Win of $2", "Loss of $2", "Win of $40", "Loss of $40"].map((v, idx) =>
                             <Fragment key={idx}>
                                 <Grid container alignItems="center">
                                     <Grid item>
@@ -418,8 +423,9 @@ const QuizPage = () => {
                 </RadioGroup>
 
                 <Typography variant="h5" sx={{ mt: 3 }}>
-                    7. If the current indicator is 0 and the current asset trend is <b>-1</b>, I choose to sell 1 shares (the choice “<b>-1</b>” on the interface), but on the next day, the asset trend suddenly switches to <b>+1</b>. In this case my
-                    payoff is
+                    7. If it is now in the dangerous zone and the current asset trend is <b>+1</b>, I choose to buy 1 share (the
+                    choice “<b>+1</b>” on the interface), and then on the next day, the asset trend indeed shifts to <b>-1</b>. In this
+                    case my payoff is
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
@@ -456,12 +462,12 @@ const QuizPage = () => {
                 </RadioGroup>
 
                 <Typography variant="h5" sx={{ mt: 3 }}>
-                    8. When the indicator is at baseline (0), aberrations can happen but they are rare with less than 15%
-                    chances.
+                    8. If the current indicator is 0 and the current asset trend is <b>-1</b>, I choose to sell 1 shares (the choice “<b>-1</b>” on the interface), but on the next day, the asset trend suddenly switches to <b>+1</b>. In this case my
+                    payoff is
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
-                        ["True", "False"].map((v, idx) =>
+                        ["Win of $1", "Loss of $1", "Win of $20", "Loss of $20"].map((v, idx) =>
                             <Fragment key={idx}>
                                 <Grid container alignItems="center">
                                     <Grid item>
@@ -494,14 +500,15 @@ const QuizPage = () => {
                 </RadioGroup>
 
                 <Typography variant="h5" sx={{ mt: 3 }}>
-                    9. No matter how well I performed, I can definitely leave the lab with no less than $25.
+                    9. When the indicator is at baseline (0), aberrations can happen but they are rare with less than 15%
+                chances.
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
                         ["True", "False"].map((v, idx) =>
                             <Fragment key={idx}>
                                 <Grid container alignItems="center">
-                                    <Grid item xs={2}>
+                                    <Grid item>
                                         <FormControlLabel
                                             control={<Radio disabled={disableForm}
                                                 value={idx + 1}
@@ -512,7 +519,7 @@ const QuizPage = () => {
                                     {
                                         disableForm &&
                                         solution.mcq9 === idx + 1 &&
-                                        <Grid item xs={10}>
+                                        <Grid item>
                                             <Alert severity="success">{solutionText.mcq9}</Alert>
                                         </Grid>
                                     }
@@ -531,7 +538,7 @@ const QuizPage = () => {
                 </RadioGroup>
 
                 <Typography variant="h5" sx={{ mt: 3 }}>
-                    10. I should focus on doing my best my best on every single trial as any trial may be selected by the computer at the end of the experiment.
+                    9. No matter how well I performed, I can definitely leave the lab with no less than $25.
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
@@ -567,9 +574,46 @@ const QuizPage = () => {
                     }
                 </RadioGroup>
 
+                <Typography variant="h5" sx={{ mt: 3 }}>
+                    11. I should focus on doing my best my best on every single trial as any trial may be selected by the computer at the end of the experiment.
+                </Typography>
+                <RadioGroup sx={{ mx: 3 }} >
+                    {
+                        ["True", "False"].map((v, idx) =>
+                            <Fragment key={idx}>
+                                <Grid container alignItems="center">
+                                    <Grid item xs={2}>
+                                        <FormControlLabel
+                                            control={<Radio disabled={disableForm}
+                                                value={idx + 1}
+                                                checked={mcq11 === idx + 1}
+                                                onChange={() => setMcq11(idx + 1)} />}
+                                            label={v} />
+                                    </Grid>
+                                    {
+                                        disableForm &&
+                                        solution.mcq11 === idx + 1 &&
+                                        <Grid item xs={10}>
+                                            <Alert severity="success">{solutionText.mcq11}</Alert>
+                                        </Grid>
+                                    }
+                                    {
+                                        disableForm &&
+                                        correction.mcq11 &&
+                                        mcq11 === idx + 1 &&
+                                        <Grid item>
+                                            <ErrorOutlineIcon color="error" />
+                                        </Grid>
+                                    }
+                                </Grid>
+                            </Fragment>
+                        )
+                    }
+                </RadioGroup>
+
 
                 <Box textAlign="center" sx={{ py: 3 }}>
-                    <Button component={Link} to={`/xp/${alias}/instruction-ready`} sx={{ mx: 3 }} variant="outlined" size="large">Prev</Button>
+                    <Button component={Link} to={`/xp/${alias}/instruction-almost-ready-to-start`} sx={{ mx: 3 }} variant="outlined" size="large">Prev</Button>
                     {!disableForm &&
                         <>
                             <Button disabled={disableForm} type="submit" variant="contained" size="large">Submit</Button>

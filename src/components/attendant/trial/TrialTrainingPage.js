@@ -27,7 +27,7 @@ const BalloonTrialTrainingPage = () => {
     const onFinish = async () => {
         const attendantRef = doc(db, "attendant", loginAttendantS.id);
         await updateDoc(attendantRef, { isTrained: true });
-        navigate(`/xp/${alias}/quiz3`)
+        navigate(`/xp/${alias}/instruction-almost-ready-to-start`)
     }
 
     useEffect(() => {

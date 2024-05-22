@@ -62,7 +62,7 @@ const Instruction4Page = () => {
                         <Box textAlign="center" sx={{ my: 10 }}>
                             <Button color="warning" component={Link} variant="outlined" size="large"
                                 sx={{ width: 240, padding: 3 }}
-                                to={`/xp/${alias}/quiz3`}>SKIP TRAINING</Button>
+                                to={`/xp/${alias}/instruction-almost-ready-to-start`}>SKIP TRAINING</Button>
                         </Box>
                     }
 
