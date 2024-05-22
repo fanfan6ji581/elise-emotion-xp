@@ -1,8 +1,7 @@
 import {
-    Container, Box, Typography, Button, Alert,
-    Grid, Stack, Divider
+    Container, Box, Typography, Button,    Grid,
 } from "@mui/material";
-import React, { useEffect } from 'react';
+import React from 'react';
 // import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom"
 // import { xpConfigS } from "../../../slices/gameSlice";

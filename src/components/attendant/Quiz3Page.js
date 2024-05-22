@@ -88,6 +88,9 @@ const QuizPage = () => {
             setMcq11(attendant.quizAnswers.mcq11);
             setMcq12(attendant.quizAnswers.mcq12);
             setMcq13(attendant.quizAnswers.mcq13);
+        }
+
+        if (attendant.submitted) {
             validateForm(attendant.quizAnswers)
         }
     }
@@ -146,10 +149,21 @@ const QuizPage = () => {
 
         const quizAnswers = { mcq1, mcq2, mcq3, mcq4, mcq5, mcq6, mcq7, mcq8, mcq9, mcq10, mcq11, mcq12, mcq13 };
         const attendantRef = doc(db, "attendant", loginAttendantS.id);
-        await updateDoc(attendantRef, { quizAnswers });
+        await updateDoc(attendantRef, { submitted: true, quizAnswers });
 
         validateForm(quizAnswers);
     }
+
+    const saveFormWithoutSubmit = async () => {
+        const quizAnswers = { mcq1, mcq2, mcq3, mcq4, mcq5, mcq6, mcq7, mcq8, mcq9, mcq10, mcq11, mcq12, mcq13 };
+        const attendantRef = doc(db, "attendant", loginAttendantS.id);
+        await updateDoc(attendantRef, { submitted: false, quizAnswers });
+    };
+
+    const handleLinkClick = async (path) => {
+        await saveFormWithoutSubmit();
+        navigate(path);
+    };
 
     const onKeyDown = (e) => {
         if (
@@ -168,6 +182,18 @@ const QuizPage = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    useEffect(() => {
+        const handleBeforeUnload = async (event) => {
+            await saveFormWithoutSubmit();
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <Container maxWidth="lg">
@@ -193,7 +219,7 @@ const QuizPage = () => {
                 </Typography>
                 <Typography variant="h6" sx={{ ml: 6, mt: -3, mb: 2 }}>
                     <br />click&nbsp;
-                    <MuiLink component={Link} to={`/xp/${alias}/instruction-almost-ready-to-start`}>
+                    <MuiLink onClick={() => handleLinkClick(`/xp/${alias}/instruction-almost-ready-to-start`)} sx={{cursor: 'pointer'}}>
                         {'HERE'}
                     </MuiLink>
                     &nbsp;to go back to the previous example
@@ -244,7 +270,7 @@ const QuizPage = () => {
                                         <FormControlLabel
                                             control={<Radio disabled={disableForm}
                                                 value={idx + 1}
-                                                checked={mcq1 === idx + 1}
+                                                checked={mcq2 === idx + 1}
                                                 onChange={() => setMcq2(idx + 1)} />}
                                             label={v} />
                                     </Grid>
@@ -613,7 +639,7 @@ const QuizPage = () => {
 
 
                 <Box textAlign="center" sx={{ py: 3 }}>
-                    <Button component={Link} to={`/xp/${alias}/instruction-almost-ready-to-start`} sx={{ mx: 3 }} variant="outlined" size="large">Prev</Button>
+                    <Button onClick={() => handleLinkClick(`/xp/${alias}/instruction-almost-ready-to-start`)} sx={{ mx: 3 }} variant="outlined" size="large">Prev</Button>
                     {!disableForm &&
                         <>
                             <Button disabled={disableForm} type="submit" variant="contained" size="large">Submit</Button>
