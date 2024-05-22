@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { Fragment, useEffect, useState } from "react";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import db from "../../database/firebase";
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 const QuizPage = () => {
     const { alias } = useParams();
