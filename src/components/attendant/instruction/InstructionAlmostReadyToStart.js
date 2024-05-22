@@ -51,7 +51,7 @@ const InstructionHowToPlayPage = () => {
 
             <Box textAlign="center" sx={{ my: 10 }}>
                 <Button component={Link} variant="contained" size="large" to={`/xp/${alias}/instruction-ready`} sx={{ mx: 2 }}>Prev</Button>
-                <Button component={Link} variant="contained" size="large" to={`/xp/${alias}/quiz3`} sx={{ mx: 2 }}>Next</Button>
+                <Button component={Link} variant="contained" size="large" to={`/xp/${alias}/start-quiz`} sx={{ mx: 2 }}>Next</Button>
             </Box>
         </Container>
     )
