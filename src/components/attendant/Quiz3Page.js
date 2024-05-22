@@ -564,7 +564,7 @@ const QuizPage = () => {
                 </RadioGroup>
 
                 <Typography variant="h5" sx={{ mt: 3 }}>
-                    9. No matter how well I performed, I can definitely leave the lab with no less than $25.
+                    10. No matter how well I performed, I can definitely leave the lab with no less than $25.
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
