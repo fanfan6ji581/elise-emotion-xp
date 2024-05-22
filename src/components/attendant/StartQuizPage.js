@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 // import { xpConfigS } from "../../slices/gameSlice";
 // import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"
-import { Container, Box, Button, Grid, } from "@mui/material";
+import { Container, Box, Button, Grid, Typography} from "@mui/material";
 import { Link } from 'react-router-dom';
 
 const QuizPage = () => {
@@ -18,6 +18,10 @@ const QuizPage = () => {
   return <>
     <Container maxWidth="lg">
       <Grid container>
+
+        <Grid item xs={12}>
+          <Typography textAlign="center" variant="h4" sx={{ my: 5 }}>Do not start the quiz unless instructed by the experimenter.</Typography>
+        </Grid>
 
         <Grid item xs={12}>
           <Box textAlign="center" sx={{ my: 10 }}>
