@@ -40,10 +40,10 @@ const InstructionHowToPlayPage = () => {
             </Grid>
 
             <Grid container alignItems="center" sx={{ my: 5 }}>
-                <Grid item xs={4} sx={{ textAlign: "center" }}>
+                <Grid item xs={5} sx={{ textAlign: "center" }}>
                     <Box component="img" alt="" src={image12} sx={{ width: '100%' }} />
                 </Grid>
-                <Grid item xs={8} sx={{ textAlign: "center" }}>
+                <Grid item xs={7} sx={{ textAlign: "center" }}>
                     <Box component="img" alt="" src={image13} sx={{ width: '100%' }} />
                     <Box component="img" alt="" src={image14} sx={{ width: '100%' }} />
                 </Grid>
