@@ -104,8 +104,8 @@ function extractXpData(attendant, xpConfig) {
         rows.push(Object.assign(
             {
                 id: i + 1,
-                value: asset[i + historyLength],
-                speed: volume[i + historyLength],
+                value: asset[i + historyLength - 1],
+                speed: volume[i + historyLength - 1],
                 // aberration: aberration[i],
                 shift: shift ? shift[i + historyLength] : '-',
                 reaction: reactionHistory[i],
@@ -142,6 +142,15 @@ function extractXpData(attendant, xpConfig) {
             }
         ))
     }
+
+    // push last one
+    rows.push(Object.assign(
+        {
+            id: asset.length - historyLength + 1,
+            value: asset[asset.length - 1],
+            speed: volume[asset.length - 1],
+        }
+    ))
     return rows;
 }
 
