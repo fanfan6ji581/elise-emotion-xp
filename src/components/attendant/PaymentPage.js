@@ -62,12 +62,12 @@ export default function PaymentPage() {
         }
 
         accumulatedOutcomes.sort((a, b) => a.sumEarning - b.sumEarning);
-        const quantileIndex = Math.ceil(0.6 * accumulatedOutcomes.length) - 1;
+        const quantileIndex = Math.ceil(0.5 * accumulatedOutcomes.length) - 1;
         const medianOutcome = accumulatedOutcomes[quantileIndex].sumEarning;
         const medianStartIndex = accumulatedOutcomes[quantileIndex].startIndex;
         pickedOutcomeIndexes = Array.from({ length: 100 }, (_, i) => medianStartIndex + i);
 
-        finalEarning = 0.5 * medianOutcome - 750;
+        finalEarning = 0.8 * medianOutcome - 120;
 
         if (finalEarning <= 5) {
             adjustedEarning = 10;
