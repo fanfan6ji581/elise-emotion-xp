@@ -57,7 +57,7 @@ const QuizPage = () => {
         mcq4: 'correct answer. If the asset trend shifts but the indicator is at baseline, it is certain that the trend will switch back next trial.',
         mcq5: 'correct answer. The shift probability is fixed at 0.1 and the dangerous zone continues until the shift is realized.]',
         mcq6: 'correct answer',
-        mcq7: 'correct answer. Upon a shift in the dangerous zone, the outcome will be magnified by 20 times.',
+        mcq7: 'correct answer. Upon a shift in the dangerous zone, the outcome will be magnified by 25 times.',
         mcq8: 'correct answer. Aberrations are not real shifts, so the outcome will not be magnified.',
         mcq9: 'correct answer',
         mcq10: 'correct answer. You can earn a significant amount of money in this experiment (up to $100 AUD) if you perform well in the task, but if you do not, expect to leave the lab with $10 AUD.]',
@@ -455,7 +455,7 @@ const QuizPage = () => {
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
-                        ["Win of $1", "Loss of $1", "Win of $20", "Loss of $20"].map((v, idx) =>
+                        ["Win of $1", "Loss of $1", "Win of $25", "Loss of $25"].map((v, idx) =>
                             <Fragment key={idx}>
                                 <Grid container alignItems="center">
                                     <Grid item>
@@ -493,7 +493,7 @@ const QuizPage = () => {
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
-                        ["Win of $1", "Loss of $1", "Win of $20", "Loss of $20"].map((v, idx) =>
+                        ["Win of $1", "Loss of $1", "Win of $25", "Loss of $25"].map((v, idx) =>
                             <Fragment key={idx}>
                                 <Grid container alignItems="center">
                                     <Grid item>
