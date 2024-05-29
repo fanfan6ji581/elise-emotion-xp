@@ -21,6 +21,7 @@ const Experiment = () => {
     const [pretask, setPretask] = useState(null);
     const [treatment, setTreatment] = useState(1);
     const [enablePlaying, setEnablePlaying] = useState(false);
+    const [enableQuiz, setEnableQuiz] = useState(false);
     const [enablePretaskPlaying, setEnablePretaskPlaying] = useState(false);
     const [enableSignUpContinue, setEnableSignUpContinue] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
@@ -34,6 +35,7 @@ const Experiment = () => {
         const xp = await getXp(alias);
         setXp(xp);
         setEnablePlaying(xp.enablePlaying);
+        setEnableQuiz(xp.enableQuiz);
         setEnableSignUpContinue(xp.enableSignUpContinue);
         if (xp.treatment) {
             setTreatment(xp.treatment);
@@ -58,6 +60,16 @@ const Experiment = () => {
             window.alert('Game play has been enabled');
         } else {
             window.alert('Game play has been disabled');
+        }
+    }
+
+    const onSwitchEnableQuiz = async (e, val) => {
+        await updateXp(xp.id, { enableQuiz: val });
+        setEnableQuiz(val);
+        if (val) {
+            window.alert('Quiz has been enabled');
+        } else {
+            window.alert('Quiz has been disabled');
         }
     }
 
@@ -118,6 +130,10 @@ const Experiment = () => {
                             <FormGroup>
                                 <FormControlLabel control={<Switch checked={enablePlaying} onChange={onSwitchEnablePlaying} />} label="Enable game play" />
                             </FormGroup>
+                            <FormGroup>
+                                <FormControlLabel control={<Switch checked={enableQuiz} onChange={onSwitchEnableQuiz} />} label="Enable quiz" />
+                            </FormGroup>
+
                             <FormGroup>
                                 <FormControlLabel control={<Switch checked={enablePretaskPlaying} onChange={onSwitchEnablePretaskPlaying} />} label="Enable pretask play" />
                             </FormGroup>

@@ -1,16 +1,18 @@
 import {
     Container, Box, Typography, Button, Alert, Grid,
-    FormControlLabel, RadioGroup, Radio, Backdrop, CircularProgress, Link as MuiLink
+    FormControlLabel, RadioGroup, Radio, Backdrop, CircularProgress, Link as MuiLink,
+    Dialog, DialogTitle, DialogContent, DialogActions,
 } from "@mui/material";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { useNavigate, useParams } from "react-router-dom"
 import { loginAttendant } from "../../slices/attendantSlice";
-// import { xpConfigS } from "../../slices/gameSlice";
 import { useSelector } from "react-redux";
 import { Fragment, useEffect, useState } from "react";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import db from "../../database/firebase";
-// import { Link } from 'react-router-dom';
+import image12 from "../../assets/12.png";
+import image13 from "../../assets/13.png";
+import image14 from "../../assets/14.png";
 
 const QuizPage = () => {
     const { alias } = useParams();
@@ -33,6 +35,15 @@ const QuizPage = () => {
     const [correction, setCorrection] = useState({});
     const [disableForm, setDisableForm] = useState(false);
     const [loadingOpen, setLoadingOpen] = useState(true);
+    const [open, setOpen] = useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const solution = {
         mcq1: 1,
@@ -215,14 +226,14 @@ const QuizPage = () => {
 
             <form onSubmit={onSubmit}>
                 <Typography variant="h5" sx={{ mt: 3, mb: 0 }}>
-                    1. If it is now in a dangerous zone, the expected payoff of betting on the current asset trend (that is, choosing -1 or -2 on day 33 in the previous example) is:
+                    1. In the dangerous zone, the expected payoff of betting on <b>the current asset trend (that is, choosing -1 or -2 on day 33 in the previous example)</b> is:
                 </Typography>
                 <Typography variant="h6" sx={{ ml: 6, mt: -3, mb: 2 }}>
                     <br />click&nbsp;
-                    <MuiLink onClick={() => handleLinkClick(`/xp/${alias}/instruction-almost-ready-to-start`)} sx={{cursor: 'pointer'}}>
+                    <MuiLink onClick={handleClickOpen} sx={{ cursor: 'pointer' }}>
                         {'HERE'}
                     </MuiLink>
-                    &nbsp;to go back to the previous example
+                    &nbsp;to check the previous example
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
@@ -333,8 +344,7 @@ const QuizPage = () => {
                 </RadioGroup>
 
                 <Typography variant="h5" sx={{ mt: 3 }}>
-                    4. If the indicator value is currently 0, and the asset trend switches at this trial, it must be an
-                    aberration and the asset trend will surely switch back at the next trial.
+                    4. If the indicator value is currently 0, and the asset trend switches at this trial, it must be an aberration and the asset trend will surely switch back at the next trial
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
@@ -371,8 +381,7 @@ const QuizPage = () => {
                 </RadioGroup>
 
                 <Typography variant="h5" sx={{ mt: 3 }}>
-                    5. If the current indicator is at 1, i.e., I am in the dangerous zone, then, no matter how long this
-                    dangerous zone has lasted so far, the likelihood of a shift in the next trial is always 10%.
+                    5. If the current indicator is at 1 (I am in the dangerous zone), then, no matter how long this dangerous zone has lasted so far, the likelihood of a shift in the next trial is always 10%
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
@@ -410,13 +419,11 @@ const QuizPage = () => {
 
 
                 <Typography variant="h5" sx={{ mt: 3 }}>
-                    6. If it is now in the dangerous zone and the current asset trend is <b>+1</b>, I choose to buy 2 shares (the
-                    choice <b>“+2”</b> on the interface), and then on the next day, the asset trend is still <b>+1</b>. In this case my
-                    payoff is
+                    6. Assume I am in the dangerous zone and the current asset trend is <b>+1</b>, if I choose to buy 2 share (the choice “<b>+2</b>” on the interface), and on the next day, the asset trend turns out to be <b>+1</b>, then my payoff is
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
-                        ["Win of $2", "Loss of $2", "Win of $40", "Loss of $40"].map((v, idx) =>
+                        ["Win of $2", "Loss of $2", "Win of $50", "Loss of $50"].map((v, idx) =>
                             <Fragment key={idx}>
                                 <Grid container alignItems="center">
                                     <Grid item>
@@ -449,9 +456,7 @@ const QuizPage = () => {
                 </RadioGroup>
 
                 <Typography variant="h5" sx={{ mt: 3 }}>
-                    7. If it is now in the dangerous zone and the current asset trend is <b>+1</b>, I choose to buy 1 share (the
-                    choice “<b>+1</b>” on the interface), and then on the next day, the asset trend indeed shifts to <b>-1</b>. In this
-                    case my payoff is
+                    7. Assume I am in the dangerous zone and the current asset trend is <b>+1</b>, if I choose to buy 1 share (the choice “<b>+1</b>” on the interface), and on the next day, the asset trend turns out to be <b>-1</b>, then my payoff is
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
@@ -488,8 +493,7 @@ const QuizPage = () => {
                 </RadioGroup>
 
                 <Typography variant="h5" sx={{ mt: 3 }}>
-                    8. If the current indicator is 0 and the current asset trend is <b>-1</b>, I choose to sell 1 shares (the choice “<b>-1</b>” on the interface), but on the next day, the asset trend suddenly switches to <b>+1</b>. In this case my
-                    payoff is
+                    8. Assume I am <b>NOT</b> in the dangerous zone and the current asset trend is <b>-1</b>, if I choose to sell 1 share (the choice “<b>-1</b>” on the interface), but on the next day, the asset trend turns out to be <b>+1</b>. In this case my payoff is
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
@@ -526,8 +530,7 @@ const QuizPage = () => {
                 </RadioGroup>
 
                 <Typography variant="h5" sx={{ mt: 3 }}>
-                    9. When the indicator is at baseline (0), aberrations can happen but they are rare with less than 15%
-                chances.
+                    9. When the indicator is at baseline (0), aberrations can happen but they are rare with less than 15% chances.
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
@@ -601,7 +604,7 @@ const QuizPage = () => {
                 </RadioGroup>
 
                 <Typography variant="h5" sx={{ mt: 3 }}>
-                    11. I should focus on doing my best my best on every single trial as any trial may be selected by the computer at the end of the experiment.
+                    11. I should focus on doing my best on every single trial as any trial may be selected for payment at the end of the experiment.
                 </Typography>
                 <RadioGroup sx={{ mx: 3 }} >
                     {
@@ -660,6 +663,32 @@ const QuizPage = () => {
             >
                 <CircularProgress color="inherit" />
             </Backdrop>
+
+            <Dialog open={open} onClose={handleClose} maxWidth="xl"
+                fullWidth
+                sx={{
+                    '& .MuiDialog-paper': {
+                        width: '90%',
+                        height: '90%',
+                        maxWidth: 'none',
+                    },
+                }}>
+                <DialogTitle>Here is an example to quickly remind you how the payoff works in the dangerous zone. Please double-check that all is clear to you, and if in doubt of anything, please ask!</DialogTitle>
+                <DialogContent>
+                    <Grid container alignItems="center" sx={{ my: 0 }}>
+                        <Grid item xs={5} sx={{ textAlign: "center" }}>
+                            <Box component="img" alt="" src={image12} sx={{ width: '100%' }} />
+                        </Grid>
+                        <Grid item xs={7} sx={{ textAlign: "center" }}>
+                            <Box component="img" alt="" src={image13} sx={{ width: '100%' }} />
+                            <Box component="img" alt="" src={image14} sx={{ width: '100%' }} />
+                        </Grid>
+                    </Grid>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Close</Button>
+                </DialogActions>
+            </Dialog>
         </Container>
     )
 }
