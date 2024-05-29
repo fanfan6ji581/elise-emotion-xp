@@ -673,14 +673,14 @@ const QuizPage = () => {
                         maxWidth: 'none',
                     },
                 }}>
-                <DialogTitle>Here is an example to quickly remind you how the payoff works in the dangerous zone. Please double-check that all is clear to you, and if in doubt of anything, please ask!</DialogTitle>
+                <DialogTitle>Here is an example to quickly remind you how the payoff works in the dangerous zone.</DialogTitle>
                 <DialogContent>
                     <Grid container alignItems="center" sx={{ my: 0 }}>
                         <Grid item xs={5} sx={{ textAlign: "center" }}>
                             <Box component="img" alt="" src={image12} sx={{ width: '100%' }} />
                         </Grid>
                         <Grid item xs={7} sx={{ textAlign: "center" }}>
-                            <Box component="img" alt="" src={image13} sx={{ width: '100%' }} />
+                            <Box component="img" alt="" src={image13} sx={{ width: '100%', mb: -2 }} />
                             <Box component="img" alt="" src={image14} sx={{ width: '100%' }} />
                         </Grid>
                     </Grid>
