@@ -12,7 +12,8 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import db from "../../database/firebase";
 import image12 from "../../assets/12.png";
 import image13 from "../../assets/13.png";
-import image14 from "../../assets/14.png";
+import image15 from "../../assets/15.png";
+import downArrowImg from "../../assets/down-arrow.png";
 
 const QuizPage = () => {
     const { alias } = useParams();
@@ -673,7 +674,7 @@ const QuizPage = () => {
                         maxWidth: 'none',
                     },
                 }}>
-                <DialogTitle>Here is an example to quickly remind you how the payoff works in the dangerous zone.</DialogTitle>
+                <DialogTitle>A Quick Reminder of the payoff in the dangerous zone</DialogTitle>
                 <DialogContent>
                     <Grid container alignItems="center" sx={{ my: 0 }}>
                         <Grid item xs={5} sx={{ textAlign: "center" }}>
@@ -681,7 +682,8 @@ const QuizPage = () => {
                         </Grid>
                         <Grid item xs={7} sx={{ textAlign: "center" }}>
                             <Box component="img" alt="" src={image13} sx={{ width: '100%', mb: -2 }} />
-                            <Box component="img" alt="" src={image14} sx={{ width: '100%' }} />
+                            <Box component="img" alt="" src={downArrowImg} sx={{ width: '40px' }} />
+                            <Box component="img" alt="" src={image15} sx={{ width: '100%' }} />
                         </Grid>
                     </Grid>
                 </DialogContent>

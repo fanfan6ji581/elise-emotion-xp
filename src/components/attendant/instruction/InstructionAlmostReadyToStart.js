@@ -8,7 +8,8 @@ import { loginAttendant } from "../../../slices/attendantSlice";
 // import { xpConfigS } from "../../../slices/gameSlice";
 import image12 from "../../../assets/12.png";
 import image13 from "../../../assets/13.png";
-import image14 from "../../../assets/14.png";
+import downArrowImg from "../../../assets/down-arrow.png";
+import image15 from "../../../assets/15.png";
 import TrainingTimer from '../trial/TrainingTimer';
 import { useState, useEffect } from "react";
 import { getAttendant, updateAttendant } from '../../../database/attendant';
@@ -50,8 +51,8 @@ const InstructionHowToPlayPage = () => {
 
                 <Grid container alignItems="center" sx={{ my: 1 }}>
                     <Grid item xs={12}>
-                        <Typography variant="h6" sx={{ my: 2 }}>
-                            Here is an example to quickly remind you how the payoff works in the dangerous zone. Please double-check that all is clear to you, and if in doubt of anything, please ask!
+                        <Typography variant="h5" sx={{ my: 2 }}>
+                        Here is an example to help you understand how the payoff works in the dangerous zone. Please study the information <b>VERY CAREFULLY</b>. If in doubt of anything, please ask us, we’re here to clarify things for you 😊
                         </Typography>
 
                     </Grid>
@@ -63,7 +64,8 @@ const InstructionHowToPlayPage = () => {
                     </Grid>
                     <Grid item xs={7} sx={{ textAlign: "center" }}>
                         <Box component="img" alt="" src={image13} sx={{ width: '100%' }} />
-                        <Box component="img" alt="" src={image14} sx={{ width: '100%' }} />
+                        <Box component="img" alt="" src={downArrowImg} sx={{ width: '50px' }} />
+                        <Box component="img" alt="" src={image15} sx={{ width: '100%' }} />
                     </Grid>
                 </Grid>
 
