@@ -13,8 +13,10 @@ import image15 from "../../../assets/15.png";
 import TrainingTimer from '../trial/TrainingTimer';
 import { useState, useEffect } from "react";
 import { getAttendant, updateAttendant } from '../../../database/attendant';
+import { useNavigate } from "react-router-dom"
 
 const InstructionHowToPlayPage = () => {
+    const navigate = useNavigate();
     const { alias } = useParams();
     const [enable, setEnable] = useState(false);
     const [fetched, setFetched] = useState(false);
@@ -26,8 +28,20 @@ const InstructionHowToPlayPage = () => {
         setFetched(true)
     }
 
+    const onKeyDown = (e) => {
+        if (
+            (e.ctrlKey && e.key === 'm')
+        ) {
+            navigate(`/xp/${alias}/start-quiz`);
+        }
+    }
+
     useEffect(() => {
         fetchData();
+        document.addEventListener("keydown", onKeyDown, false);
+        return () => {
+            document.removeEventListener("keydown", onKeyDown, false);
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
