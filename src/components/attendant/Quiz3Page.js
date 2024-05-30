@@ -683,7 +683,7 @@ const QuizPage = () => {
                         <Grid item xs={7} sx={{ textAlign: "center" }}>
                             <Box component="img" alt="" src={image13} sx={{ width: '100%', mb: -2 }} />
                             <Box component="img" alt="" src={downArrowImg} sx={{ width: '40px' }} />
-                            <Box component="img" alt="" src={image15} sx={{ width: '100%' }} />
+                            <Box component="img" alt="" src={image15} sx={{ width: '100%', border: '1px solid black' }} />
                         </Grid>
                     </Grid>
                 </DialogContent>
