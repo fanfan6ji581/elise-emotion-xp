@@ -109,7 +109,7 @@ function extractXpData(attendant, xpConfig) {
                 // aberration: aberration[i],
                 shift: shift ? shift[i + historyLength] : '-',
                 reaction: reactionHistory[i],
-                choice: choiceHistory[i],
+                choice: choiceHistory[i] / 10,
                 outcome: outcomeHistory[i],
                 pickedOutcome: pickedOutcomeIndexes.includes(i) ? outcomeHistory[i] : null,
                 accumulateOutcome: accumulateOutcomeHistory[i],
