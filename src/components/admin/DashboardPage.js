@@ -156,6 +156,7 @@ const DashboardPage = () => {
             loseShift: 1,
             trialWindowLength: 50,
             magnifyChoice: 10,
+            showExampleWhenTrialBreak: false,
         };
 
         const resp = await addDoc(collection(db, "xp"), xp);

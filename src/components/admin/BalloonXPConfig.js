@@ -129,7 +129,12 @@ const schema = {
             "type": "integer",
             "title": "Magnification the choice",
             "default": 10
-        }
+        },
+        showExampleWhenTrialBreak: {
+            "type": "boolean",
+            "title": "Show example when trial break",
+            default: false
+        },
     }
 };
 
