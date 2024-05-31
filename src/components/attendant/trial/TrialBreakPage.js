@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Typography, Button, Box, Grid, Container } from "@mui/material";
+import { Typography, Button, Box, Grid, Container, Divider } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import {
     xpConfigS,
@@ -52,6 +52,7 @@ const TrialBreakPage = () => {
 
             {xpConfig.showExampleWhenTrialBreak && <>
                 <Container maxWidth="lg" sx={{ mt: 10 }}>
+                    <Divider sx={{ mt: 4 }} />
                     <Grid container alignItems="center" sx={{ my: 1 }}>
                         <Grid item xs={12}>
                             <Typography variant="h5" sx={{ my: 2, textAlign: 'center' }}>
