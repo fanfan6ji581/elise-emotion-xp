@@ -57,6 +57,11 @@ const schema = {
             "title": "Outcome stage, millisecond showing the output result, 2000 ms = 2 sec",
             // "default": 2
         },
+        "outcome0ShowTime": {
+            "type": "integer",
+            "title": "Outcome stage, millisecond showing the output result when click pass, 2000 ms = 2 sec",
+            // "default": 2
+        },
         "afkTimeoutCost": {
             "type": "integer",
             "title": "Cost if missed trial",

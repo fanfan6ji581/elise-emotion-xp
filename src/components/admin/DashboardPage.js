@@ -137,6 +137,7 @@ const DashboardPage = () => {
             missLimit: 10,
             choiceDelay: 0,
             outcomeShowTime: 2000,
+            outcome0ShowTime: 2000,
             afkTimeout: 10000,
             afkTimeoutCost: 1,
             numberOfTrials: 300,

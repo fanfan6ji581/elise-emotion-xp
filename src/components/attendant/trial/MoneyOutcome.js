@@ -5,9 +5,10 @@ import lossImg from '../../../assets/outcome_loss.png';
 // import sadSVG from '../../../assets/sad.svg';
 import { motion } from "framer-motion";
 import { Box, Typography } from "@mui/material";
-import { showMoneyOutcome, outcomeHistory, missHistory, trialIndex, nextTrial, 
+import {
+    showMoneyOutcome, outcomeHistory, missHistory, trialIndex, nextTrial,
     // isOutComeShift,
- } from "../../../slices/gameSlice";
+} from "../../../slices/gameSlice";
 import { useEffect, useRef } from "react";
 
 export default function MoneyOutcome({ xpData, xpConfig }) {
@@ -19,7 +20,7 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
     const trialIndexS = useSelector(trialIndex);
     // const isOutComeShiftS = useSelector(isOutComeShift);
 
-    const { afkTimeoutCost, outcomeShowTime, useMultiColorChoiceButton } = xpConfig;
+    const { afkTimeoutCost, outcomeShowTime, outcome0ShowTime, useMultiColorChoiceButton } = xpConfig;
 
     const moneyEarned = outcomeHistoryS[trialIndexS];
     const missedTrial = missHistoryS[trialIndexS];
@@ -40,7 +41,7 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
         if (showMoneyOutcomeS) {
             loadingInterval.current = setTimeout(() => {
                 dispatch(nextTrial())
-            }, outcomeShowTime)
+            }, (moneyEarned === 0 ? (outcome0ShowTime || outcomeShowTime) : outcomeShowTime))
         }
 
         return () => clearInterval(loadingInterval.current);
