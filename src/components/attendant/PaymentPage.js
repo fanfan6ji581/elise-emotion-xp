@@ -67,7 +67,7 @@ export default function PaymentPage() {
         const medianStartIndex = accumulatedOutcomes[quantileIndex].startIndex;
         pickedOutcomeIndexes = Array.from({ length: 100 }, (_, i) => medianStartIndex + i);
 
-        finalEarning = Math.round(0.8 * medianOutcome, 1) - 120;
+        finalEarning = Math.round(0.8 * medianOutcome) - 120;
 
         if (finalEarning <= 5) {
             adjustedEarning = 10;
