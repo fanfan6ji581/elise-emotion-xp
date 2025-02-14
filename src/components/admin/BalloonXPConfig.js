@@ -140,6 +140,11 @@ const schema = {
             "title": "Show example when trial break",
             default: false
         },
+        oneButtonForBuySell: {
+            "type": "boolean",
+            "title": "Show only one action for Buy and Sell, the value would be same as 'Magnification the choice'",
+            default: false
+        },
     }
 };
 

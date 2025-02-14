@@ -99,34 +99,67 @@ export default function Choice({ xpData, xpConfig }) {
 
     return (
         <>
-            <Grid container sx={{ my: 3 }}>
-                <Grid item xs={12} sx={{ mb: 4, textAlign: "center" }} >
-                    <Button id="sell" size="large" variant="contained" sx={{ mr: 32, py: 3.5, width: 160 }}
-                        disabled={missedTrial || (choice >= 0 && (showAfterClickDelayS || showMoneyOutcomeS))}
-                        color={getParentButtonColor("sell")}
-                    >Sell</Button>
-                    <Button id="buy" size="large" variant="contained" sx={{ ml: 32, py: 3.5, width: 160 }}
-                        disabled={missedTrial || (choice <= 0 && (showAfterClickDelayS || showMoneyOutcomeS))}
-                        color={getParentButtonColor("buy")}
-                    >Buy</Button>
-                </Grid>
-                <Grid item xs={12} style={{ textAlign: "center" }}>
-                    {['-20', '-10', '0', '10', '20'].map((val, index) => (
-                        <Button key={val} size="large" variant="contained" sx={{ mx: 4, py: 3.5, width: 160 }} onClick={() => clickedAction(val)}
-                            disabled={choice !== val && (showAfterClickDelayS || showMoneyOutcomeS)}
-                            id={`choice${val}`}
-                            color={getButtonColor(val)}
-                        >
-                            {val !== '0' ? (val > 0 ? '+' + getMagnifiedValue(val) : getMagnifiedValue(val)) : 'Pass'}
-                        </Button>
-                    ))}
-                </Grid>
-            </Grid>
+            {xpConfig.oneButtonForBuySell ?
+                <>
+                    <Grid container sx={{ my: 3 }}>
+                        <Grid item xs={12} sx={{ textAlign: "center", my: 4 }}>
+                            <Button key={-10} size="large" variant="contained" sx={{ mx: 8, py: 3.5, width: 160 }} onClick={() => clickedAction(-10)}
+                                disabled={choice !== -10 && (showAfterClickDelayS || showMoneyOutcomeS)}
+                                id={`choice${-10}`}
+                                color={getButtonColor(-10)}
+                            >
+                                 {'Sell ' + getMagnifiedValue(-10)}
+                            </Button>
+                            <Button key={0} size="large" variant="contained" sx={{ mx: 8, py: 3.5, width: 160 }} onClick={() => clickedAction(0)}
+                                disabled={choice !== 0 && (showAfterClickDelayS || showMoneyOutcomeS)}
+                                id={`choice${0}`}
+                                color={getButtonColor(0)}
+                            >
+                                Pass
+                            </Button>
+                            <Button key={10} size="large" variant="contained" sx={{ mx: 8, py: 3.5, width: 160 }} onClick={() => clickedAction(10)}
+                                disabled={choice !== 10 && (showAfterClickDelayS || showMoneyOutcomeS)}
+                                id={`choice${10}`}
+                                color={getButtonColor(10)}
+                            >
+                                 {'Buy +' + getMagnifiedValue(10)}
+                            </Button>
+                        </Grid>
+                    </Grid>
 
-            <Xarrow start="sell" end="choice-20" startAnchor="bottom" endAnchor="top" path="straight" headSize={0} color={getArrowColor('-20')} />
-            <Xarrow start="sell" end="choice-10" startAnchor="bottom" endAnchor="top" path="straight" headSize={0} color={getArrowColor('-10')} />
-            <Xarrow start="buy" end="choice10" startAnchor="bottom" endAnchor="top" path="straight" headSize={0} color={getArrowColor('10')} />
-            <Xarrow start="buy" end="choice20" startAnchor="bottom" endAnchor="top" path="straight" headSize={0} color={getArrowColor('20')} />
+                </>
+                :
+                <>
+                    <Grid container sx={{ my: 3 }}>
+                        <Grid item xs={12} sx={{ mb: 4, textAlign: "center" }} >
+                            <Button id="sell" size="large" variant="contained" sx={{ mr: 32, py: 3.5, width: 160 }}
+                                disabled={missedTrial || (choice >= 0 && (showAfterClickDelayS || showMoneyOutcomeS))}
+                                color={getParentButtonColor("sell")}
+                            >Sell</Button>
+                            <Button id="buy" size="large" variant="contained" sx={{ ml: 32, py: 3.5, width: 160 }}
+                                disabled={missedTrial || (choice <= 0 && (showAfterClickDelayS || showMoneyOutcomeS))}
+                                color={getParentButtonColor("buy")}
+                            >Buy</Button>
+                        </Grid>
+                        <Grid item xs={12} style={{ textAlign: "center" }}>
+                            {['-20', '-10', '0', '10', '20'].map((val, index) => (
+                                <Button key={val} size="large" variant="contained" sx={{ mx: 4, py: 3.5, width: 160 }} onClick={() => clickedAction(val)}
+                                    disabled={choice !== val && (showAfterClickDelayS || showMoneyOutcomeS)}
+                                    id={`choice${val}`}
+                                    color={getButtonColor(val)}
+                                >
+                                    {val !== '0' ? (val > 0 ? '+' + getMagnifiedValue(val) : getMagnifiedValue(val)) : 'Pass'}
+                                </Button>
+                            ))}
+                        </Grid>
+                    </Grid>
+
+                    <Xarrow start="sell" end="choice-20" startAnchor="bottom" endAnchor="top" path="straight" headSize={0} color={getArrowColor('-20')} />
+                    <Xarrow start="sell" end="choice-10" startAnchor="bottom" endAnchor="top" path="straight" headSize={0} color={getArrowColor('-10')} />
+                    <Xarrow start="buy" end="choice10" startAnchor="bottom" endAnchor="top" path="straight" headSize={0} color={getArrowColor('10')} />
+                    <Xarrow start="buy" end="choice20" startAnchor="bottom" endAnchor="top" path="straight" headSize={0} color={getArrowColor('20')} />
+                </>
+            }
         </>
     )
 }
