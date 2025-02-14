@@ -31,6 +31,7 @@ const gameSlice = createSlice({
             const { xpData, xpConfig, trialIndex } = state;
             const { choice, missed } = action.payload;
             let shift = 0;
+            let aber = 0;
 
             // keep mul history
             state.choiceHistory[trialIndex] = choice || "";
@@ -42,6 +43,7 @@ const gameSlice = createSlice({
                 const choiceAmount = parseInt(choice);
                 const assetAmount = xpData.asset[trialIndex + 10];
                 shift = xpData.shift[trialIndex + 10];
+                aber = xpData.aberration[trialIndex + 10];
                 money = choiceAmount * assetAmount * xpConfig.magnifyChoice / 10;
 
                 if (shift) {
@@ -51,6 +53,10 @@ const gameSlice = createSlice({
                     if (money < 0) {
                         money *= xpConfig.loseShift;
                     }
+                }
+
+                if (aber)  {
+                    money *= xpConfig.aberShift || 1;
                 }
 
             }

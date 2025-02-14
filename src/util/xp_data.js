@@ -3,9 +3,13 @@ function generateBalloonDataFromDataSeries(dataSeries) {
     const length = asset.length;
 
     const shift = Array.from({ length: length }).fill(0);
+    const aberration = Array.from({ length: length }).fill(0);
     for (let i = 1; i <= asset.length; i++) {
         if (asset[i] * asset[i - 1] < 0 && volume[i - 1] > 0) {
             shift[i] = 1
+        }
+        if (asset[i] * asset[i - 1] < 0 && volume[i - 1] <= 0) {
+            aberration[i] = 1
         }
     }
 
@@ -14,6 +18,7 @@ function generateBalloonDataFromDataSeries(dataSeries) {
             asset,
             volume,
             shift,
+            aberration,
             dataSeriesName: name
         }),
         xpRecord: {
@@ -36,9 +41,13 @@ function generateBalloonData(xp) {
     const length = asset.length;
 
     const shift = Array.from({ length: length + 1 }).fill(0);
+    const aberration = Array.from({ length: length }).fill(0);
     for (let i = 1; i <= asset.length; i++) {
         if (asset[i] * asset[i - 1] < 0 && volume[i - 1] > 0) {
             shift[i] = 1
+        }
+        if (asset[i] * asset[i - 1] < 0 && volume[i - 1] <= 0) {
+            aberration[i] = 1
         }
     }
 
@@ -47,6 +56,7 @@ function generateBalloonData(xp) {
             asset,
             volume,
             shift,
+            aberration,
         }),
         xpRecord: {
             // data recordings
@@ -74,6 +84,7 @@ function extractXpData(attendant, xpConfig) {
         asset,
         volume,
         shift,
+        aberration,
         dataSeriesName,
     } = xpData;
     const {
@@ -106,7 +117,7 @@ function extractXpData(attendant, xpConfig) {
                 id: i + 1,
                 value: asset[i + historyLength - 1],
                 speed: volume[i + historyLength - 1],
-                // aberration: aberration[i],
+                aberration: aberration[i],
                 shift: shift ? shift[i + historyLength] : '-',
                 reaction: reactionHistory[i],
                 choice: choiceHistory[i] / 10,

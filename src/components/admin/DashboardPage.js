@@ -154,6 +154,7 @@ const DashboardPage = () => {
             useMultiColorChoiceButton: false,
             winShift: 1,
             loseShift: 1,
+            aberShift: 1,
             trialWindowLength: 50,
             magnifyChoice: 10,
             showExampleWhenTrialBreak: false,

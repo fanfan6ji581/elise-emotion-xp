@@ -120,6 +120,11 @@ const schema = {
             "title": "Magnification for a loss upon a shift",
             "default": 1
         },
+        "aberShift": {
+            "type": "integer",
+            "title": "Magnification for a aberration",
+            "default": 1
+        },
         trialWindowLength: {
             "type": "integer",
             "title": "How many days should displayed in the trial",
