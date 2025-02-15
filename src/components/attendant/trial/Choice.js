@@ -1,4 +1,4 @@
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import Xarrow from 'react-xarrows';
 import {
@@ -103,12 +103,14 @@ export default function Choice({ xpData, xpConfig }) {
                 <>
                     <Grid container sx={{ my: 3 }}>
                         <Grid item xs={12} sx={{ textAlign: "center", my: 4 }}>
-                            <Button key={-10} size="large" variant="contained" sx={{ mx: 8, py: 3.5, width: 160 }} onClick={() => clickedAction(-10)}
+                            <Button key={-10} size="large" variant="contained" sx={{ mx: 8, py: 1.25, width: 160, flexDirection: 'column' }}
+                                onClick={() => clickedAction(-10)}
                                 disabled={choice !== -10 && (showAfterClickDelayS || showMoneyOutcomeS)}
                                 id={`choice${-10}`}
                                 color={getButtonColor(-10)}
                             >
-                                 {'Sell ' + getMagnifiedValue(-10)}
+                                <Typography variant="body1" component="div">Sell</Typography>
+                                <Typography variant="h6" component="div" sx={{ mt: 0.5 }}>{getMagnifiedValue(-10)}</Typography>
                             </Button>
                             <Button key={0} size="large" variant="contained" sx={{ mx: 8, py: 3.5, width: 160 }} onClick={() => clickedAction(0)}
                                 disabled={choice !== 0 && (showAfterClickDelayS || showMoneyOutcomeS)}
@@ -117,12 +119,13 @@ export default function Choice({ xpData, xpConfig }) {
                             >
                                 Pass
                             </Button>
-                            <Button key={10} size="large" variant="contained" sx={{ mx: 8, py: 3.5, width: 160 }} onClick={() => clickedAction(10)}
+                            <Button key={10} size="large" variant="contained" sx={{ mx: 8, py: 1.25, width: 160, flexDirection: 'column' }} onClick={() => clickedAction(10)}
                                 disabled={choice !== 10 && (showAfterClickDelayS || showMoneyOutcomeS)}
                                 id={`choice${10}`}
                                 color={getButtonColor(10)}
                             >
-                                 {'Buy +' + getMagnifiedValue(10)}
+                                <Typography variant="body1" component="div">Buy</Typography>
+                                <Typography variant="h6" component="div" sx={{ mt: 0.5 }}>+{getMagnifiedValue(10)}</Typography>
                             </Button>
                         </Grid>
                     </Grid>
