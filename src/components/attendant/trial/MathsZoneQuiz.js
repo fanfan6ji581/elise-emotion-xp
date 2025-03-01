@@ -37,12 +37,11 @@ const MathsQuizPage = () => {
     const { alias, trialIndexParam } = useParams();
     const navigate = useNavigate();
 
+    // Default to 120 if xpConfig.secondsBriefMathsQuiz is undefined
     const totalTime = xpConfig.secondsBriefMathsQuiz || 120;
 
     const [q1, setQ1] = useState(0);
     const [sliderValue, setSliderValue] = useState(50);
-    const [finalConfidence, setFinalConfidence] = useState(50);
-    const [isConfirmed, setIsConfirmed] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
     const [earnedAmount, setEarnedAmount] = useState(0);
@@ -62,15 +61,16 @@ const MathsQuizPage = () => {
         const fetchData = async () => {
             const refreshedAttendant = await getAttendant(loginAttendantS.id);
             if (refreshedAttendant?.mathZoneQuiz) {
+                // Already answered previously, retrieve data
                 const { q1, q2, earnedAmount } = refreshedAttendant.mathZoneQuiz;
                 setQ1(q1);
-                setFinalConfidence(q2);
-                setIsConfirmed(true);
+                setSliderValue(q2);
                 setSubmitted(true);
                 setIsCorrect(q1 === correctAnswer);
                 setEarnedAmount(earnedAmount || 0);
                 dispatch(hideShowMathZoneQuizPage());
             } else {
+                // Not answered yet
                 setDisableForm(false);
             }
         };
@@ -115,19 +115,14 @@ const MathsQuizPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [submitted]);
 
-    const handleConfirmConfidence = () => {
-        setFinalConfidence(sliderValue);
-        setIsConfirmed(true);
-    };
-
     const handleSubmit = async (missed = false) => {
+        // If already submitted or no option chosen, do nothing
         if (submitted || q1 === 0) return;
+
         const endTime = Date.now();
         const totalTimeUsed = (endTime - startTimeRef.current) / 1000;
 
-        const lockedConfidence = isConfirmed ? finalConfidence : sliderValue;
-        setFinalConfidence(lockedConfidence);
-
+        const lockedConfidence = sliderValue;
         const correct = q1 === correctAnswer;
         setIsCorrect(correct);
 
@@ -143,10 +138,12 @@ const MathsQuizPage = () => {
                 missed,
                 trialIndexParam
             }
-        }
+        };
 
         await updateAttendant(loginAttendantS.id, updateObj);
+        // Update Redux store
         dispatch(login(Object.assign({}, loginAttendantS, updateObj)));
+        // Hide the quiz page
         dispatch(hideShowMathZoneQuizPage());
         setSubmitted(true);
     };
@@ -194,10 +191,10 @@ const MathsQuizPage = () => {
                 <b>Step 1: Select your answer</b>
             </Typography>
             <Typography variant="body1" sx={{ mb: 1 }}>
-                From a pure maths perspective, which option results in higher average outcomes if repeated many times in this scenario?
+                From a pure maths perspective, which option results in higher average
+                outcomes if repeated many times in this scenario?
             </Typography>
 
-            {/* Single RadioGroup for both states */}
             <RadioGroup
                 value={q1}
                 onChange={(e) => setQ1(Number(e.target.value))}
@@ -208,7 +205,10 @@ const MathsQuizPage = () => {
                     const isUserSelection = q1 === idx + 1 && q1 !== correctAnswer;
 
                     return (
-                        <Box key={idx} sx={{ display: "flex", alignItems: "flex-start", mb: 1 }}>
+                        <Box
+                            key={idx}
+                            sx={{ display: "flex", alignItems: "flex-start", mb: 1 }}
+                        >
                             <FormControlLabel
                                 control={
                                     <Radio
@@ -250,9 +250,9 @@ const MathsQuizPage = () => {
             <Grid container sx={{ mb: 2 }}>
                 <Grid item xs={6} sx={{ mx: "auto" }}>
                     <Slider
-                        value={isConfirmed ? finalConfidence : sliderValue}
+                        value={sliderValue}
                         onChange={(e, val) => {
-                            if (!isConfirmed && !disableForm) {
+                            if (!disableForm && !submitted) {
                                 setSliderValue(val);
                             }
                         }}
@@ -261,52 +261,28 @@ const MathsQuizPage = () => {
                         max={100}
                         marks={marks}
                         valueLabelDisplay="auto"
-                        disabled={disableForm || isConfirmed}
+                        disabled={disableForm || submitted}
                     />
                     <Typography variant="body1" align="center">
-                        Confidence: {isConfirmed ? finalConfidence : sliderValue}%
+                        Confidence: {sliderValue}%
                         <br />
                         Potential bonus/penalty: $
-                        {(
-                            ((isConfirmed ? finalConfidence : sliderValue) / 100) *
-                            maxBonus
-                        ).toFixed(2)}
+                        {((sliderValue / 100) * maxBonus).toFixed(2)}
                     </Typography>
-                    {!isConfirmed && !disableForm && (
-                        <Typography
-                            variant="body2"
-                            align="center"
-                            color="text.secondary"
-                            sx={{ mt: 1 }}
-                        >
-                            Please click "Confirm Confidence" to lock in your confidence level. Once confirmed, you cannot change it.
-                        </Typography>
-                    )}
                 </Grid>
             </Grid>
 
+            {/* Single button to confirm (previously "Submit") */}
             {!submitted && (
-                <>
-                    <Box sx={{ mb: 4, textAlign: "center" }}>
-                        <Button
-                            onClick={handleConfirmConfidence}
-                            disabled={disableForm || isConfirmed}
-                            variant="outlined"
-                            sx={{ mb: 3, mr: 2 }}
-                        >
-                            {isConfirmed ? "Confidence Confirmed" : "Confirm Confidence"}
-                        </Button>
-                    </Box>
-                    <Grid textAlign="center">
-                        <Button
-                            variant="contained"
-                            onClick={() => handleSubmit(false)}
-                            disabled={disableForm || !isConfirmed || q1 === 0}
-                        >
-                            Submit
-                        </Button>
-                    </Grid>
-                </>
+                <Grid textAlign="center">
+                    <Button
+                        variant="contained"
+                        onClick={() => handleSubmit(false)}
+                        disabled={disableForm || q1 === 0}
+                    >
+                        Confirm Confidence
+                    </Button>
+                </Grid>
             )}
 
             {submitted && (
@@ -314,8 +290,8 @@ const MathsQuizPage = () => {
                     {isCorrect ? (
                         <>
                             <Typography variant="h6" gutterBottom>
-                                <b>Correct reply</b> 👍. Thanks for your input, it will help us better
-                                understand the experimental results. An extra $
+                                <b>Correct reply</b> 👍. Thanks for your input, it will help us
+                                better understand the experimental results. An extra $
                                 {Math.abs(earnedAmount).toFixed(2)} will be added to your final
                                 score ⭐.
                             </Typography>
@@ -327,37 +303,61 @@ const MathsQuizPage = () => {
                         <>
                             <Grid container>
                                 <Grid item xs={12}>
-                                    <Typography variant="h6" textAlign="left" gutterBottom>
+                                    <Typography
+                                        variant="h6"
+                                        textAlign="left"
+                                        gutterBottom
+                                    >
                                         <b>Thanks for your input!</b> Your reply will help us better
                                         understand the experimental results.
                                     </Typography>
-                                    <Typography variant="h6" textAlign="left" gutterBottom>
+                                    <Typography
+                                        variant="h6"
+                                        textAlign="left"
+                                        gutterBottom
+                                    >
                                         <b>Quick Math Reminder:</b>
                                     </Typography>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <Grid item xs={12}>
-                                        <Typography variant="body1" sx={{ mb: 2, textAlign: "left" }}>
-                                            From a pure maths perspective, when in the dangerous zone
-                                            (indicator = 1):
-                                        </Typography>
-                                        <Typography variant="body1" sx={{ mb: 2, textAlign: "left" }}>
-                                            - Choosing with the current trend: 0.85 × $10 win - 0.15 × $100
-                                            loss <b>&lt; 0</b>
-                                        </Typography>
-                                        <Typography variant="body1" sx={{ mb: 2, textAlign: "left" }}>
-                                            - Choosing against the current trend: 0.15 × $100 win - 0.85 ×
-                                            $10 loss <b>&gt; 0</b>
-                                        </Typography>
-                                    </Grid>
-                                    <Typography variant="body1" gutterBottom>
+                                    <Typography
+                                        variant="body1"
+                                        sx={{ mb: 2, textAlign: "left" }}
+                                    >
+                                        From a pure maths perspective, when in the dangerous
+                                        zone (indicator = 1):
+                                    </Typography>
+                                    <Typography
+                                        variant="body1"
+                                        sx={{ mb: 2, textAlign: "left" }}
+                                    >
+                                        - Choosing with the current trend: 0.85 × $10 win - 0.15 × $100
+                                        loss <b>&lt; 0</b>
+                                    </Typography>
+                                    <Typography
+                                        variant="body1"
+                                        sx={{ mb: 2, textAlign: "left" }}
+                                    >
+                                        - Choosing against the current trend: 0.15 × $100 win - 0.85 ×
+                                        $10 loss <b>&gt; 0</b>
+                                    </Typography>
+                                    <Typography
+                                        variant="body1"
+                                        gutterBottom
+                                        sx={{ textAlign: "left" }}
+                                    >
                                         Let's continue the game now.
                                     </Typography>
                                 </Grid>
                             </Grid>
                         </>
                     )}
-                    <Grid container justifyContent="center" alignItems="center" sx={{ mt: 2 }}>
+                    <Grid
+                        container
+                        justifyContent="center"
+                        alignItems="center"
+                        sx={{ mt: 2 }}
+                    >
                         <Grid item>
                             <Button variant="contained" onClick={handleBackToTrial}>
                                 Continue the game

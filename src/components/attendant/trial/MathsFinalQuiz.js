@@ -18,9 +18,6 @@ import { loginAttendant, login } from "../../../slices/attendantSlice";
 import { updateAttendant, getAttendant } from "../../../database/attendant";
 import { useParams, useNavigate } from "react-router-dom";
 
-/**
- * Utility to format seconds into MM:SS
- */
 function formatTimeLeft(seconds) {
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
@@ -30,7 +27,7 @@ function formatTimeLeft(seconds) {
 }
 
 const MathsFinalQuizPage = () => {
-    // According to the PDF, the second option is correct: "Choosing -10 ..."
+    // The second option is correct: "Choosing -10 (going against the current trend)"
     const correctAnswer = 2;
     const maxBonus = 20;
 
@@ -44,21 +41,20 @@ const MathsFinalQuizPage = () => {
     const navigate = useNavigate();
 
     // Timer states
-    const totalTime = xpConfig.secondsBriefMathsQuiz || 120; // 2 minutes
+    // Default to 120 seconds if xpConfig.secondsBriefMathsQuiz is undefined
+    const totalTime = xpConfig.secondsBriefMathsQuiz || 120; 
     const [timeLeft, setTimeLeft] = useState(totalTime);
-    const [autoTimeLeft, setAutoTimeLeft] = useState(30); // Post-submission countdown
+    const [autoTimeLeft, setAutoTimeLeft] = useState(30);
 
     // Form states
     const [q1, setQ1] = useState(0);
     const [sliderValue, setSliderValue] = useState(50);
-    const [finalConfidence, setFinalConfidence] = useState(50);
-    const [isConfirmed, setIsConfirmed] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
     const [earnedAmount, setEarnedAmount] = useState(0);
     const [disableForm, setDisableForm] = useState(true);
 
-    // To measure time used
+    // For measuring time used
     const startTimeRef = useRef(Date.now());
 
     // Slider marks
@@ -75,21 +71,20 @@ const MathsFinalQuizPage = () => {
                 // If user already completed this final quiz
                 const { q1, q2, earnedAmount } = refreshedAttendant.mathFinalQuiz;
                 setQ1(q1);
-                setFinalConfidence(q2);
-                setIsConfirmed(true);
+                setSliderValue(q2);
                 setSubmitted(true);
                 setIsCorrect(q1 === correctAnswer);
                 setEarnedAmount(earnedAmount || 0);
 
-                // Hide the page if already completed
+                // Hide this page if already completed
                 dispatch(hideShowMathFinalQuizPage());
             } else {
-                // Enable form if quiz not done
+                // Enable the form if quiz not done
                 setDisableForm(false);
             }
         };
         fetchData();
-    }, [loginAttendantS.id, dispatch, correctAnswer]);
+    }, [loginAttendantS.id, dispatch]);
 
     // Main countdown for auto-submit
     useEffect(() => {
@@ -127,36 +122,28 @@ const MathsFinalQuizPage = () => {
         return () => {
             if (autoTimer) clearInterval(autoTimer);
         };
-        // eslint-disable-next-line
     }, [submitted]);
 
-    // Confirm confidence
-    const handleConfirmConfidence = () => {
-        setFinalConfidence(sliderValue);
-        setIsConfirmed(true);
-    };
-
-    // Submit
+    // Single submit function
     const handleSubmit = async (missed = false) => {
+        // If already submitted or no option chosen, do nothing
         if (submitted || q1 === 0) return;
 
         const endTime = Date.now();
         const totalTimeUsed = (endTime - startTimeRef.current) / 1000;
-        const lockedConfidence = isConfirmed ? finalConfidence : sliderValue;
-
-        setFinalConfidence(lockedConfidence);
 
         const correct = q1 === correctAnswer;
         setIsCorrect(correct);
 
-        const money = (lockedConfidence / 100) * maxBonus * (correct ? 1 : -1);
+        // The final confidence is whatever the slider is set to
+        const money = (sliderValue / 100) * maxBonus * (correct ? 1 : -1);
         setEarnedAmount(money);
 
-        // Save to DB under "mathFinalQuiz"
+        // Update DB
         const updateObj = {
             mathFinalQuiz: {
                 q1,
-                q2: lockedConfidence,
+                q2: sliderValue,
                 earnedAmount: money,
                 timeUsed: totalTimeUsed,
                 missed
@@ -164,18 +151,16 @@ const MathsFinalQuizPage = () => {
         };
         await updateAttendant(loginAttendantS.id, updateObj);
 
-        // Update Redux attendant
+        // Update Redux store
         dispatch(login(Object.assign({}, loginAttendantS, updateObj)));
 
-        // Hide the quiz page
+        // Hide the page
         dispatch(hideShowMathFinalQuizPage());
-
         setSubmitted(true);
     };
 
-    // After quiz
+    // After quiz: go to next page
     const handleBackToTrial = () => {
-        // Hide the quiz page, then proceed
         dispatch(hideShowMathFinalQuizPage());
         navigate(`/xp/${alias}/earning-questions`);
     };
@@ -279,9 +264,9 @@ const MathsFinalQuizPage = () => {
             <Grid container sx={{ mb: 2 }}>
                 <Grid item xs={6} sx={{ mx: "auto" }}>
                     <Slider
-                        value={isConfirmed ? finalConfidence : sliderValue}
+                        value={sliderValue}
                         onChange={(e, val) => {
-                            if (!isConfirmed && !disableForm) {
+                            if (!submitted && !disableForm) {
                                 setSliderValue(val);
                             }
                         }}
@@ -290,54 +275,28 @@ const MathsFinalQuizPage = () => {
                         max={100}
                         marks={marks}
                         valueLabelDisplay="auto"
-                        disabled={disableForm || isConfirmed}
+                        disabled={disableForm || submitted}
                     />
                     <Typography variant="body1" align="center">
-                        Confidence: {isConfirmed ? finalConfidence : sliderValue}%
+                        Confidence: {sliderValue}%
                         <br />
                         Potential bonus/penalty: $
-                        {(
-                            ((isConfirmed ? finalConfidence : sliderValue) / 100) *
-                            maxBonus
-                        ).toFixed(2)}
+                        {((sliderValue / 100) * maxBonus).toFixed(2)}
                     </Typography>
-                    {!isConfirmed && !disableForm && (
-                        <Typography
-                            variant="body2"
-                            align="center"
-                            color="text.secondary"
-                            sx={{ mt: 1 }}
-                        >
-                            Please click "Confirm Confidence" to lock in your confidence level. Once
-                            confirmed, you cannot change it.
-                        </Typography>
-                    )}
                 </Grid>
             </Grid>
 
-            {/* If not submitted, show the form buttons */}
+            {/* Single button: "Confirm Confidence" */}
             {!submitted && (
-                <>
-                    <Box sx={{ mb: 4, textAlign: "center" }}>
-                        <Button
-                            onClick={handleConfirmConfidence}
-                            disabled={disableForm || isConfirmed}
-                            variant="outlined"
-                            sx={{ mb: 3, mr: 2 }}
-                        >
-                            {isConfirmed ? "Confidence Confirmed" : "Confirm Confidence"}
-                        </Button>
-                    </Box>
-                    <Grid textAlign="center">
-                        <Button
-                            variant="contained"
-                            onClick={() => handleSubmit(false)}
-                            disabled={disableForm || !isConfirmed || q1 === 0}
-                        >
-                            Submit
-                        </Button>
-                    </Grid>
-                </>
+                <Grid textAlign="center">
+                    <Button
+                        variant="contained"
+                        onClick={() => handleSubmit(false)}
+                        disabled={disableForm || q1 === 0}
+                    >
+                        Confirm Confidence
+                    </Button>
+                </Grid>
             )}
 
             {/* If submitted, show final outcome */}
@@ -389,7 +348,6 @@ const MathsFinalQuizPage = () => {
                     </Grid>
                 </Grid>
             )}
-
         </Container>
     );
 };

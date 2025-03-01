@@ -13,9 +13,9 @@ import {
     Alert
 } from "@mui/material";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import { useSelector, useDispatch } from "react-redux"; // <-- 新增 useDispatch
-import { xpConfigS, hideShowMathAberrQuizPage } from "../../../slices/gameSlice"; // <-- 新增 hideShowMathAberrQuizPage
-import { loginAttendant, login } from "../../../slices/attendantSlice"; // <-- 新增 login
+import { useSelector, useDispatch } from "react-redux";
+import { xpConfigS, hideShowMathAberrQuizPage } from "../../../slices/gameSlice";
+import { loginAttendant, login } from "../../../slices/attendantSlice";
 import { updateAttendant, getAttendant } from "../../../database/attendant";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -39,24 +39,23 @@ const MathsAberrQuizPage = () => {
     // Config / Redux
     const xpConfig = useSelector(xpConfigS);
     const loginAttendantS = useSelector(loginAttendant);
-    const dispatch = useDispatch(); // <-- 使用 dispatch
+    const dispatch = useDispatch();
 
     // Router
     const { alias, trialIndexParam } = useParams();
     const navigate = useNavigate();
 
     // Timers
-    const totalTime = xpConfig.secondsBriefMathsQuiz || 120; // 2-min countdown
+    // Default to 120 if xpConfig.secondsBriefMathsQuiz is undefined
+    const totalTime = xpConfig.secondsBriefMathsQuiz || 120; 
     const [timeLeft, setTimeLeft] = useState(totalTime);
 
-    // Post-submit auto redirect (e.g., 30 seconds)
+    // Post-submit auto redirect
     const [autoTimeLeft, setAutoTimeLeft] = useState(30);
 
     // States
     const [q1, setQ1] = useState(0);
     const [sliderValue, setSliderValue] = useState(50);
-    const [finalConfidence, setFinalConfidence] = useState(50);
-    const [isConfirmed, setIsConfirmed] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
     const [earnedAmount, setEarnedAmount] = useState(0);
@@ -76,16 +75,15 @@ const MathsAberrQuizPage = () => {
         const fetchData = async () => {
             const refreshedAttendant = await getAttendant(loginAttendantS.id);
             if (refreshedAttendant?.mathAberrQuiz) {
-                // If quiz is already done, skip form:
+                // Already answered
                 const { q1, q2, earnedAmount } = refreshedAttendant.mathAberrQuiz;
                 setQ1(q1);
-                setFinalConfidence(q2);
-                setIsConfirmed(true);
+                setSliderValue(q2);
                 setSubmitted(true);
                 setIsCorrect(q1 === correctAnswer);
                 setEarnedAmount(earnedAmount || 0);
 
-                // 新增：隐藏当前页面
+                // Hide current page if quiz completed
                 dispatch(hideShowMathAberrQuizPage());
             } else {
                 // Enable form if quiz not done yet
@@ -134,52 +132,42 @@ const MathsAberrQuizPage = () => {
         // eslint-disable-next-line
     }, [submitted]);
 
-    // Confirm slider
-    const handleConfirmConfidence = () => {
-        setFinalConfidence(sliderValue);
-        setIsConfirmed(true);
-    };
-
     // Submit quiz
     const handleSubmit = async (missed = false) => {
         if (submitted || q1 === 0) return;
 
         const endTime = Date.now();
         const totalTimeUsed = (endTime - startTimeRef.current) / 1000;
-        const lockedConfidence = isConfirmed ? finalConfidence : sliderValue;
-        setFinalConfidence(lockedConfidence);
 
         const correct = q1 === correctAnswer;
         setIsCorrect(correct);
 
-        const money = (lockedConfidence / 100) * maxBonus * (correct ? 1 : -1);
+        const money = (sliderValue / 100) * maxBonus * (correct ? 1 : -1);
         setEarnedAmount(money);
 
         // Save to DB under "mathAberrQuiz"
         const updateObj = {
             mathAberrQuiz: {
                 q1,
-                q2: lockedConfidence,
+                q2: sliderValue,
                 earnedAmount: money,
                 timeUsed: totalTimeUsed,
                 missed,
                 trialIndexParam,
-            }
+            },
         };
         await updateAttendant(loginAttendantS.id, updateObj);
 
-        // 新增：更新 Redux 的 loginAttendant 数据
+        // Update Redux
         dispatch(login(Object.assign({}, loginAttendantS, updateObj)));
 
-        // 新增：隐藏页面
+        // Hide page
         dispatch(hideShowMathAberrQuizPage());
-
         setSubmitted(true);
     };
 
     // Navigation back to trial
     const handleBackToTrial = () => {
-        // 新增：隐藏页面再跳转
         dispatch(hideShowMathAberrQuizPage());
         navigate(`/xp/${alias}/trial`);
     };
@@ -281,9 +269,9 @@ const MathsAberrQuizPage = () => {
             <Grid container sx={{ mb: 2 }}>
                 <Grid item xs={6} sx={{ mx: "auto" }}>
                     <Slider
-                        value={isConfirmed ? finalConfidence : sliderValue}
+                        value={sliderValue}
                         onChange={(e, val) => {
-                            if (!isConfirmed && !disableForm) {
+                            if (!submitted && !disableForm) {
                                 setSliderValue(val);
                             }
                         }}
@@ -292,54 +280,28 @@ const MathsAberrQuizPage = () => {
                         max={100}
                         marks={marks}
                         valueLabelDisplay="auto"
-                        disabled={disableForm || isConfirmed}
+                        disabled={disableForm || submitted}
                     />
                     <Typography variant="body1" align="center">
-                        Confidence: {isConfirmed ? finalConfidence : sliderValue}%
+                        Confidence: {sliderValue}%
                         <br />
                         Potential bonus/penalty: $
-                        {(
-                            ((isConfirmed ? finalConfidence : sliderValue) / 100) *
-                            maxBonus
-                        ).toFixed(2)}
+                        {((sliderValue / 100) * maxBonus).toFixed(2)}
                     </Typography>
-                    {!isConfirmed && !disableForm && (
-                        <Typography
-                            variant="body2"
-                            align="center"
-                            color="text.secondary"
-                            sx={{ mt: 1 }}
-                        >
-                            Please click "Confirm Confidence" to lock in your confidence level. Once
-                            confirmed, you cannot change it.
-                        </Typography>
-                    )}
                 </Grid>
             </Grid>
 
-            {/* If not submitted, show buttons */}
+            {/* Single button that confirms confidence (previously "Submit") */}
             {!submitted && (
-                <>
-                    <Box sx={{ mb: 4, textAlign: "center" }}>
-                        <Button
-                            onClick={handleConfirmConfidence}
-                            disabled={disableForm || isConfirmed}
-                            variant="outlined"
-                            sx={{ mb: 3, mr: 2 }}
-                        >
-                            {isConfirmed ? "Confidence Confirmed" : "Confirm Confidence"}
-                        </Button>
-                    </Box>
-                    <Grid textAlign="center">
-                        <Button
-                            variant="contained"
-                            onClick={() => handleSubmit(false)}
-                            disabled={disableForm || !isConfirmed || q1 === 0}
-                        >
-                            Submit
-                        </Button>
-                    </Grid>
-                </>
+                <Grid textAlign="center">
+                    <Button
+                        variant="contained"
+                        onClick={() => handleSubmit(false)}
+                        disabled={disableForm || q1 === 0}
+                    >
+                        Confirm Confidence
+                    </Button>
+                </Grid>
             )}
 
             {/* If submitted, show outcome in an Alert */}
@@ -360,8 +322,8 @@ const MathsAberrQuizPage = () => {
                     ) : (
                         <>
                             <Typography variant="h6" gutterBottom>
-                                <b>Thanks for your input!</b> Your reply will help us better understand the
-                                experimental results.
+                                <b>Thanks for your input!</b> Your reply will help us better
+                                understand the experimental results.
                             </Typography>
                             <Typography variant="h6" gutterBottom>
                                 <b>Quick Reminder:</b>
