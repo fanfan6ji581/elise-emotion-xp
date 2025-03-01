@@ -122,6 +122,7 @@ const MathsFinalQuizPage = () => {
         return () => {
             if (autoTimer) clearInterval(autoTimer);
         };
+        // eslint-disable-next-line 
     }, [submitted]);
 
     // Single submit function
