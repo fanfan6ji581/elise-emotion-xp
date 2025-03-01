@@ -123,6 +123,7 @@ const MathsFinalQuizPage = () => {
         return () => {
             if (autoTimer) clearInterval(autoTimer);
         };
+        // eslint-disable-next-line 
     }, [submitted]);
 
     // Confirm confidence
@@ -307,7 +308,7 @@ const MathsFinalQuizPage = () => {
                 <>
                     <Box sx={{ mb: 4, textAlign: "center" }}>
                         <Button
-                            onClick={() => setFinalConfidence(sliderValue) || setIsConfirmed(true)}
+                            onClick={handleConfirmConfidence}
                             disabled={disableForm || isConfirmed}
                             variant="outlined"
                             sx={{ mb: 3, mr: 2 }}

@@ -9,10 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Countdown from 'react-countdown';
 import { updateAttendant } from '../../../database/attendant';
 import { loginAttendant } from "../../../slices/attendantSlice";
-import image12 from "../../../assets/12.png";
-import image13 from "../../../assets/13.png";
-import downArrowImg from "../../../assets/down-arrow.png";
-import image15 from "../../../assets/15.png";
+import img15 from "../../../assets/2025/15.png";
 
 const zeroPad = (num, places) => String(num).padStart(places, '0')
 
@@ -63,13 +60,8 @@ const TrialBreakPage = () => {
                     </Grid>
 
                     <Grid container alignItems="center" sx={{ my: 5 }}>
-                        <Grid item xs={5} sx={{ textAlign: "center" }}>
-                            <Box component="img" alt="" src={image12} sx={{ width: '100%' }} />
-                        </Grid>
-                        <Grid item xs={7} sx={{ textAlign: "center" }}>
-                            <Box component="img" alt="" src={image13} sx={{ width: '100%' }} />
-                            <Box component="img" alt="" src={downArrowImg} sx={{ width: '50px' }} />
-                            <Box component="img" alt="" src={image15} sx={{ width: '100%', border: '1px solid black' }} />
+                        <Grid item xs={12} sx={{ textAlign: "center" }}>
+                            <Box component="img" alt="" src={img15} sx={{ width: '100%' }} />
                         </Grid>
                     </Grid>
                 </Container>
