@@ -149,13 +149,13 @@ function extractXpData(attendant, xpConfig) {
                 zoneQuizHappened: !!attendant?.mathZoneQuiz,
                 zoneQuizAnswer: attendant?.mathZoneQuiz?.q1,
                 zoneQuizConfidence: attendant?.mathZoneQuiz?.q2,
-                zoneQuizTrialIndex: (parseInt(attendant?.mathZoneQuiz?.trialIndexParam) || 0) + 1,
-        
+                zoneQuizTrialIndex: attendant?.mathZoneQuiz?.trialIndexParam,
+
                 aberrQuizHappened: !!attendant?.mathAberrQuiz,
                 aberrQuizAnswer: attendant?.mathAberrQuiz?.q1,
                 aberrQuizConfidence: attendant?.mathAberrQuiz?.q2,
-                aberrQuizTrialIndex: (parseInt(attendant?.mathAberrQuiz?.trialIndexParam)|| 0) + 1,
-        
+                aberrQuizTrialIndex: attendant?.mathAberrQuiz?.trialIndexParam,
+
                 finalQuizHappened: !!attendant?.mathFinalQuiz,
                 finalQuizAnswer: attendant?.mathFinalQuiz?.q1,
                 finalQuizConfidence: attendant?.mathFinalQuiz?.q2,

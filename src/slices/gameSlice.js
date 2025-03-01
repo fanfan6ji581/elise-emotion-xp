@@ -108,12 +108,12 @@ const gameSlice = createSlice({
         nextTrial: (state) => {
 
             const { xpData, xpConfig, trialIndex } = state;
-            const shift = xpData.shift[trialIndex + 10];
+            const assetAmount = xpData.asset[trialIndex + 10];
             const aber = xpData.aberration[trialIndex + 10];
             const outcome = state.outcomeHistory[trialIndex];
 
             if (xpConfig.showMathsZoneQuiz && !state.mathZoneQuiz) {
-                if (shift === 1 && (
+                if (assetAmount === 1 && (
                     outcome === xpConfig.magnifyChoice ||
                     outcome === -xpConfig.magnifyChoice * xpConfig.loseShift
                 )) {
