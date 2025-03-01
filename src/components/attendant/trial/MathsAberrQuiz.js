@@ -152,13 +152,13 @@ const MathsAberrQuizPage = () => {
 
         // Save to DB under "mathAberrQuiz"
         await updateAttendant(loginAttendantS.id, {
-          mathAberrQuiz: {
-            q1,
-            q2: lockedConfidence,
-            earnedAmount: money,
-            timeUsed: totalTimeUsed,
-            missed
-          }
+            mathAberrQuiz: {
+                q1,
+                q2: lockedConfidence,
+                earnedAmount: money,
+                timeUsed: totalTimeUsed,
+                missed
+            }
         });
 
         setSubmitted(true);
@@ -206,7 +206,10 @@ const MathsAberrQuizPage = () => {
             </Typography>
 
             <Typography variant="body1" sx={{ my: 2 }}>
-                1. What will happen next?
+                <b>Step 1: Select your answer</b>
+            </Typography>
+            <Typography variant="body1" sx={{ mb: 1 }}>
+                What will happen next?
             </Typography>
 
             {/* RadioGroup for Q1 */}
@@ -258,7 +261,7 @@ const MathsAberrQuizPage = () => {
 
             {/* Confidence Slider */}
             <Typography variant="body1" sx={{ mb: 1 }}>
-                2. How confident are you in your answer?
+                <b>Step 2: How confident are you in your answer?</b>
             </Typography>
             <Grid container sx={{ mb: 2 }}>
                 <Grid item xs={6} sx={{ mx: "auto" }}>

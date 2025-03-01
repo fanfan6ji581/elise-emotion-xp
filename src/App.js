@@ -19,6 +19,7 @@ import CountDownPage from './components/attendant/trial/TrialCountDownPage';
 import BreakPage from './components/attendant/trial/TrialBreakPage';
 import MathsZoneQuiz from './components/attendant/trial/MathsZoneQuiz';
 import MathsAberrQuiz from './components/attendant/trial/MathsAberrQuiz';
+import MathsFinalQuiz from './components/attendant/trial/MathsFinalQuiz';
 import PaymentPage from "./components/attendant/PaymentPage";
 import InstructionPage from "./components/attendant/instruction/InstructionPage";
 import Instruction1Page from "./components/attendant/instruction/Instruction1Page";
@@ -100,6 +101,7 @@ function App() {
                                 <Route path="xp/:alias/trial-break" element={<BreakPage />} />
                                 <Route path="xp/:alias/maths-zone-quiz" element={<MathsZoneQuiz />} />
                                 <Route path="xp/:alias/maths-aberr-quiz" element={<MathsAberrQuiz />} />
+                                <Route path="xp/:alias/maths-final-quiz" element={<MathsFinalQuiz />} />
                                 <Route path="xp/:alias/start-game" element={<StartGamePage />} />
                                 <Route path="xp/:alias/trial-history" element={<TrialHistoryPage />} />
                                 <Route path="xp/:alias/pretask" element={<PretaskPage />} />
