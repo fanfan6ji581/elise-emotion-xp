@@ -108,14 +108,15 @@ const gameSlice = createSlice({
         nextTrial: (state) => {
 
             const { xpData, xpConfig, trialIndex } = state;
-            const assetAmount = xpData.asset[trialIndex + 10];
+            const volume = xpData.volume[trialIndex + 10];
             const aber = xpData.aberration[trialIndex + 10];
             const outcome = state.outcomeHistory[trialIndex];
 
             if (xpConfig.showMathsZoneQuiz && !state.mathZoneQuiz) {
-                if (assetAmount === 1 && (
+                if (volume === 1 && (
                     outcome === xpConfig.magnifyChoice ||
-                    outcome === -xpConfig.magnifyChoice * xpConfig.loseShift
+                    outcome === -xpConfig.magnifyChoice * xpConfig.loseShift ||
+                    outcome === 0
                 )) {
                     state.zoneBreakCount++;
                 }
