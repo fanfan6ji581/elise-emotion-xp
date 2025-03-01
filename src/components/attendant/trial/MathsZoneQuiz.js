@@ -12,11 +12,12 @@ import {
     Alert
 } from "@mui/material";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import { useSelector } from "react-redux";
-import { xpConfigS } from "../../../slices/gameSlice";
+import { xpConfigS, hideShowMathZoneQuizPage } from "../../../slices/gameSlice";
 import { loginAttendant } from "../../../slices/attendantSlice";
 import { updateAttendant, getAttendant } from "../../../database/attendant";
 import { useParams, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../../slices/attendantSlice";
 
 function formatTimeLeft(seconds) {
     const m = Math.floor(seconds / 60);
@@ -27,6 +28,7 @@ function formatTimeLeft(seconds) {
 }
 
 const MathsQuizPage = () => {
+    const dispatch = useDispatch();
     const correctAnswer = 2;
     const maxBonus = 20;
     const xpConfig = useSelector(xpConfigS);
@@ -67,11 +69,13 @@ const MathsQuizPage = () => {
                 setSubmitted(true);
                 setIsCorrect(q1 === correctAnswer);
                 setEarnedAmount(earnedAmount || 0);
+                dispatch(hideShowMathZoneQuizPage());
             } else {
                 setDisableForm(false);
             }
         };
         fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loginAttendantS.id]);
 
     useEffect(() => {
@@ -130,7 +134,7 @@ const MathsQuizPage = () => {
         const money = (lockedConfidence / 100) * maxBonus * (correct ? 1 : -1);
         setEarnedAmount(money);
 
-        await updateAttendant(loginAttendantS.id, {
+        const updateObj = {
             mathZoneQuiz: {
                 q1,
                 q2: lockedConfidence,
@@ -138,12 +142,16 @@ const MathsQuizPage = () => {
                 timeUsed: totalTimeUsed,
                 missed
             }
-        });
+        }
 
+        await updateAttendant(loginAttendantS.id, updateObj);
+        dispatch(login(Object.assign({}, loginAttendantS, updateObj)));
+        dispatch(hideShowMathZoneQuizPage());
         setSubmitted(true);
     };
 
     const handleBackToTrial = () => {
+        dispatch(hideShowMathZoneQuizPage());
         navigate(`/xp/${alias}/trial`);
     };
 

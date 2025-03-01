@@ -14,6 +14,11 @@ import {
   xpDataS,
   isTrialBreakTaken,
   clickToShowChartHistory,
+  zoneBreakCount,
+  aberrBreakCount,
+  showMathZoneQuizPage,
+  showAberrZoneQuizPage,
+  showFinalMathsQuiz,
 } from "../../../slices/gameSlice";
 import { login } from "../../../slices/attendantSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,7 +42,13 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
   const reactionHistoryS = useSelector(reactionHistory);
   const clickToShowChartHistoryS = useSelector(clickToShowChartHistory);
   const isTrialBreakTakenS = useSelector(isTrialBreakTaken);
+  const zoneBreakCountS = useSelector(zoneBreakCount);
+  const aberrBreakCountS = useSelector(aberrBreakCount);
+  const showMathZoneQuizPageS = useSelector(showMathZoneQuizPage);
+  const showAberrZoneQuizPageS = useSelector(showAberrZoneQuizPage);
+  const showFinalMathsQuizS = useSelector(showFinalMathsQuiz);
 
+  
   const xpData = useSelector(xpDataS);
   const xpConfig = useSelector(xpConfigS);
 
@@ -54,6 +65,8 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
       missHistory: missHistoryS,
       reactionHistory: reactionHistoryS,
       clickToShowChartHistory: clickToShowChartHistoryS,
+      zoneBreakCount: zoneBreakCountS,
+      aberrBreakCount: zoneBreakCountS,
     };
     await updateDoc(attendantRef, { xpRecord });
     // store into local storage as well
@@ -81,10 +94,20 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
       storeToDB();
     }
 
+    // trial break page
     if (!isTrainingMode && trialIndexS === xpConfig.numberOfTrials / 2 && !isTrialBreakTakenS) {
       navigate(`/xp/${alias}/trial-break`);
       return;
     }
+
+    if (!isTrainingMode) {
+      // do math quizpage checking when not training mode
+      if (showMathZoneQuizPageS) {
+        navigate(`/xp/${alias}/maths-zone-quiz`);
+        return;
+      }
+    }
+
 
     if (missHistoryS &&
       missHistoryS.filter(x => x).length >= xpConfig.missLimit) {
@@ -108,6 +131,11 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
     clickToShowChartHistoryS,
     xpConfig,
     isTrialBreakTakenS,
+    zoneBreakCountS,
+    aberrBreakCountS,
+    showMathZoneQuizPageS,
+    showAberrZoneQuizPageS,
+    showFinalMathsQuizS,
   ]);
 
   return (
@@ -122,8 +150,8 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
           <Grid container alignItems="center">
             {xpConfig && xpConfig.showChoiceButtonOnTop &&
               <Grid item xs={12}>
-                <Box 
-                  sx={{ 
+                <Box
+                  sx={{
                     // position: 'absolute', top: 450, left: 0
                     width: '100%'
                   }}
@@ -135,7 +163,7 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
             {/* <Box sx={{ height: 40 }} /> */}
 
             <Grid container>
-              <Grid item xs={12} sx={{position: 'relative'}}>
+              <Grid item xs={12} sx={{ position: 'relative' }}>
                 <Box sx={{ position: 'absolute', top: choiceHistoryS[trialIndexS] === '0' ? 380 : 150, left: 0, width: '100%' }}>
                   <MoneyOutcome xpData={xpData} xpConfig={xpConfig} />
                 </Box>

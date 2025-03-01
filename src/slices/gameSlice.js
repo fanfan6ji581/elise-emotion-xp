@@ -20,6 +20,15 @@ const initialState = {
     reactionHistory: [],
     clickToShowChartHistory: [],
     isTrialBreakTaken: false,
+    zoneBreakCount: 0,
+    aberrBreakCount: 0,
+
+    mathZoneQuiz: null,
+    mathAberrQuiz: null,
+    mathFinalQuiz: null,
+    showMathZoneQuizPage: false,
+    showAberrZoneQuizPage: false,
+    showFinalZoneQuizPage: false,
 };
 
 const gameSlice = createSlice({
@@ -55,7 +64,7 @@ const gameSlice = createSlice({
                     }
                 }
 
-                if (aber)  {
+                if (aber) {
                     money *= xpConfig.aberShift || 1;
                 }
 
@@ -97,10 +106,47 @@ const gameSlice = createSlice({
             state.progressStartTime = action.payload;
         },
         nextTrial: (state) => {
+
+            const { xpData, xpConfig, trialIndex } = state;
+            const shift = xpData.shift[trialIndex + 10];
+            const aber = xpData.aberration[trialIndex + 10];
+            const outcome = state.outcomeHistory[trialIndex];
+
+            if (xpConfig.showMathsZoneQuiz && !state.mathZoneQuiz) {
+                if (shift === 1 && (
+                    outcome === xpConfig.magnifyChoice ||
+                    outcome === -xpConfig.magnifyChoice * xpConfig.loseShift
+                )) {
+                    state.zoneBreakCount++;
+                }
+                if (state.zoneBreakCount >= 2) {
+                    //prepare to jump
+                    state.showMathZoneQuizPage = true
+                }
+            }
+
+            if (xpConfig.showMathsAberrQuiz && !state.mathAberrQuiz) {
+                if (trialIndex > 0 &&
+                    aber === 1 && xpData.aberration[trialIndex + 10 - 1] &&
+                    outcome !== xpConfig.magnifyChoice * xpConfig.aberShift
+                ) {
+                    state.aberrBreakCount++;
+                }
+
+                if (state.aberrBreakCount >= 2) {
+                    //prepare to jump
+                }
+
+            }
+
+            // original logc
+
             state.showMoneyOutcome = false;
             state.timerProgress = 0;
             state.trialIndex++;
             state.showVolumeChart = state.showVolumeChartInitialValue
+
+
         },
         onLoginTraining: (state, action) => {
             const { xpConfig } = action.payload
@@ -137,7 +183,7 @@ const gameSlice = createSlice({
             state.timerProgress = 0;
         },
         onLogin: (state, action) => {
-            const { xpData, xpRecord, xpConfig } = action.payload
+            const { xpData, xpRecord, xpConfig, mathZoneQuiz, mathAberrQuiz, mathFinalQuiz } = action.payload
             const {
                 trialIndex,
                 choiceHistory,
@@ -145,6 +191,8 @@ const gameSlice = createSlice({
                 missHistory,
                 reactionHistory,
                 clickToShowChartHistory,
+                zoneBreakCount,
+                aberrBreakCount,
             } = xpRecord;
             state.trialIndex = trialIndex;
             state.choiceHistory = choiceHistory;
@@ -152,6 +200,12 @@ const gameSlice = createSlice({
             state.missHistory = missHistory;
             state.reactionHistory = reactionHistory;
             state.clickToShowChartHistory = clickToShowChartHistory;
+            state.zoneBreakCount = zoneBreakCount || 0;
+            state.aberrBreakCount = aberrBreakCount || 0;
+
+            state.mathZoneQuiz = mathZoneQuiz;
+            state.mathAberrQuiz = mathAberrQuiz;
+            state.mathFinalQuiz = mathFinalQuiz;
 
             state.xpData = xpData;
             state.timerProgress = 0;
@@ -168,13 +222,20 @@ const gameSlice = createSlice({
         },
         setIsTrialBreakTaken: (state, action) => {
             state.isTrialBreakTaken = action.payload
-        }
+        },
+        hideShowMathZoneQuizPage: (state) => {
+            state.showMathZoneQuizPage = false
+        },
+        hideShowMathAberrQuizPage: (state) => {
+            state.showMathsAberrQuiz = false
+        },
     },
 });
 
 export const { recordChoice, setProgressStartTime,
     setTimerProgress, nextTrial, onLogin, onLoginTraining,
-    setShowMoneyOutcome, reset, setXpConfig, doShowVolumeChart, setIsTrialBreakTaken } = gameSlice.actions;
+    setShowMoneyOutcome, reset, setXpConfig, doShowVolumeChart, setIsTrialBreakTaken,
+    hideShowMathZoneQuizPage, hideShowMathAberrQuizPage } = gameSlice.actions;
 
 export const trialIndex = (state) => state.game.trialIndex;
 export const showVolumeChart = (state) => state.game.showVolumeChart;
@@ -186,6 +247,13 @@ export const choiceHistory = (state) => state.game.choiceHistory;
 export const outcomeHistory = (state) => state.game.outcomeHistory;
 export const isOutComeShift = (state) => state.game.isOutComeShift;
 export const clickToShowChartHistory = (state) => state.game.clickToShowChartHistory;
+export const aberrBreakCount = (state) => state.game.aberrBreakCount;
+export const zoneBreakCount = (state) => state.game.zoneBreakCount;
+
+export const showMathZoneQuizPage = (state) => state.game.showMathZoneQuizPage;
+export const showAberrZoneQuizPage = (state) => state.game.showAberrZoneQuizPage;
+export const showFinalMathsQuiz = (state) => state.game.showFinalMathsQuiz;
+
 export const missHistory = (state) => state.game.missHistory;
 export const reactionHistory = (state) => state.game.reactionHistory;
 export const xpDataS = (state) => state.game.xpData;
