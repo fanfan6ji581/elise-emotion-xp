@@ -145,6 +145,38 @@ const schema = {
             "title": "Show only one action for Buy and Sell, the value would be same as 'Magnification the choice'",
             default: false
         },
+        showBriefMathsQuiz: {
+            "type": "boolean",
+            "title": "Show Brief Maths Quiz",
+            default: true
+        },
+        secondsBriefMathsQuiz: {
+            "type": "integer",
+            "title": "Time of Brief Maths Quiz Page in seconds",
+            "default": 120
+        },
+        showMathsAberrQuiz: {
+            "type": "boolean",
+            "title": "Show Matths ABERR Quiz",
+            default: true
+        },
+        secondsMathsAberrQuiz: {
+            "type": "integer",
+            "title": "Time of Maths ABERR Quiz Page in seconds",
+            "default": 120
+        },
+        showFinalMathsQuiz: {
+            "type": "boolean",
+            "title": "Show Final Maths Quiz",
+            default: true
+        },
+        secondsFinalMathsQuiz: {
+            "type": "integer",
+            "title": "Time of Final Maths Quiz Page in seconds",
+            "default": 120
+        },
+
+
     }
 };
 

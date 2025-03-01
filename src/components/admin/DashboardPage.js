@@ -159,6 +159,12 @@ const DashboardPage = () => {
             magnifyChoice: 10,
             showExampleWhenTrialBreak: false,
             oneButtonForBuySell: false,
+            showBriefMathsQuiz: false,
+            showMathsAberrQuiz: false,
+            showFinalMathsQuiz: false,
+            secondsBriefMathsQuiz: 120,
+            secondsMathsAberrQuiz: 120,
+            secondsFinalMathsQuiz: 120,
         };
 
         const resp = await addDoc(collection(db, "xp"), xp);
