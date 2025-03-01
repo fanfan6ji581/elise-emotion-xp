@@ -18,6 +18,9 @@ import { loginAttendant } from "../../../slices/attendantSlice";
 import { updateAttendant, getAttendant } from "../../../database/attendant";
 import { useParams, useNavigate } from "react-router-dom";
 
+/**
+ * Utility to format seconds into MM:SS
+ */
 function formatTimeLeft(seconds) {
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
@@ -27,20 +30,27 @@ function formatTimeLeft(seconds) {
 }
 
 const MathsAberrQuizPage = () => {
-    // The correct answer here is the 1st option
+    // According to the PDF, the first option is correct:
+    // "The trend will definitely switch back to -1 on the next day."
     const correctAnswer = 1;
     const maxBonus = 20;
 
+    // Config / Redux
     const xpConfig = useSelector(xpConfigS);
     const loginAttendantS = useSelector(loginAttendant);
 
+    // Router
     const { alias } = useParams();
     const navigate = useNavigate();
 
-    // If there's a specific time limit from xpConfig, use it; otherwise default
-    const totalTime = xpConfig.secondsBriefMathsQuiz || 125;
+    // Timers
+    const totalTime = xpConfig.secondsBriefMathsQuiz || 120; // 2-min countdown
+    const [timeLeft, setTimeLeft] = useState(totalTime);
 
-    // States for the quiz
+    // Post-submit auto redirect (e.g., 30 seconds)
+    const [autoTimeLeft, setAutoTimeLeft] = useState(30);
+
+    // States
     const [q1, setQ1] = useState(0);
     const [sliderValue, setSliderValue] = useState(50);
     const [finalConfidence, setFinalConfidence] = useState(50);
@@ -50,26 +60,21 @@ const MathsAberrQuizPage = () => {
     const [earnedAmount, setEarnedAmount] = useState(0);
     const [disableForm, setDisableForm] = useState(true);
 
-    // Timer for the quiz
-    const [timeLeft, setTimeLeft] = useState(totalTime);
-    // Timer for the post-submission auto-return
-    const [autoTimeLeft, setAutoTimeLeft] = useState(30);
-
-    // Reference for calculating total time used
+    // For measuring how long user took
     const startTimeRef = useRef(Date.now());
 
-    // Slider marks for 0%, 10%, ..., 100%
+    // Marks on the confidence slider
     const marks = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map((val) => ({
         value: val,
         label: `${val}%`
     }));
 
-    // 1) Fetch attendant data on mount to see if quiz was already completed
+    // Attendant data fetch at mount
     useEffect(() => {
         const fetchData = async () => {
             const refreshedAttendant = await getAttendant(loginAttendantS.id);
             if (refreshedAttendant?.mathAberrQuiz) {
-                // If user already did this quiz, set final state
+                // If quiz is already done, skip form:
                 const { q1, q2, earnedAmount } = refreshedAttendant.mathAberrQuiz;
                 setQ1(q1);
                 setFinalConfidence(q2);
@@ -78,14 +83,14 @@ const MathsAberrQuizPage = () => {
                 setIsCorrect(q1 === correctAnswer);
                 setEarnedAmount(earnedAmount || 0);
             } else {
-                // Not submitted yet, enable form
+                // Enable form if quiz not done yet
                 setDisableForm(false);
             }
         };
         fetchData();
     }, [loginAttendantS.id]);
 
-    // 2) Countdown for the quiz; auto-submit on time out
+    // Main countdown: auto-submit if time runs out
     useEffect(() => {
         const timer = setInterval(() => {
             setTimeLeft((prev) => {
@@ -101,7 +106,7 @@ const MathsAberrQuizPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // 3) Post-submission countdown (30s) to auto-return
+    // After submission, start post-submit countdown to auto-redirect
     useEffect(() => {
         let autoTimer = null;
         if (submitted) {
@@ -121,7 +126,7 @@ const MathsAberrQuizPage = () => {
         return () => {
             if (autoTimer) clearInterval(autoTimer);
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line
     }, [submitted]);
 
     // Confirm slider
@@ -133,9 +138,9 @@ const MathsAberrQuizPage = () => {
     // Submit quiz
     const handleSubmit = async (missed = false) => {
         if (submitted || q1 === 0) return;
+
         const endTime = Date.now();
         const totalTimeUsed = (endTime - startTimeRef.current) / 1000;
-
         const lockedConfidence = isConfirmed ? finalConfidence : sliderValue;
         setFinalConfidence(lockedConfidence);
 
@@ -145,36 +150,35 @@ const MathsAberrQuizPage = () => {
         const money = (lockedConfidence / 100) * maxBonus * (correct ? 1 : -1);
         setEarnedAmount(money);
 
-        // Save results in DB under "mathAberrQuiz"
+        // Save to DB under "mathAberrQuiz"
         await updateAttendant(loginAttendantS.id, {
-            mathAberrQuiz: {
-                q1,
-                q2: lockedConfidence,
-                earnedAmount: money,
-                timeUsed: totalTimeUsed,
-                missed
-            }
+          mathAberrQuiz: {
+            q1,
+            q2: lockedConfidence,
+            earnedAmount: money,
+            timeUsed: totalTimeUsed,
+            missed
+          }
         });
 
         setSubmitted(true);
     };
 
-    // Navigate away after finishing
+    // Navigation back to trial
     const handleBackToTrial = () => {
         navigate(`/xp/${alias}/trial`);
     };
 
-    // The single question from the new PDF
+    // Options from the PDF
     const q1Options = [
-        // The 1st option is correct
-        "The trend will definitely switch back to -1 on the next day.",
+        "The trend will definitely switch back to -1 on the next day.", // correct
         "The trend will most likely remain the same (+1) since the indicator is at baseline",
         "The trend will switch to -1 with 15% chance."
     ];
 
     return (
         <Container sx={{ position: "relative", mt: 4 }}>
-            {/* Timer top-right (only if form not submitted) */}
+            {/* Timer display if not submitted */}
             {!submitted && (
                 <Box sx={{ position: "absolute", top: 16, right: 16 }}>
                     <Typography variant="body1">
@@ -183,7 +187,7 @@ const MathsAberrQuizPage = () => {
                 </Box>
             )}
 
-            {/* Intro text from the new PDF */}
+            {/* Title and Intro */}
             <Typography variant="h4" textAlign="center" sx={{ my: 2 }}>
                 BRIEF MATHS QUIZ
             </Typography>
@@ -192,83 +196,112 @@ const MathsAberrQuizPage = () => {
             </Typography>
             <Typography variant="body1" gutterBottom>
                 <i>
-                    Your confidence level determines both potential gain AND loss: high
-                    confidence means bigger rewards if correct, but larger penalties if
-                    wrong.
+                    Your confidence level determines both potential gain AND loss: high confidence
+                    means bigger rewards if correct, but larger penalties if wrong.
                 </i>
             </Typography>
-            <Typography variant="body1" sx={{ my: 2 }}>
-                <b>Quick Scenario:</b> The indicator is at baseline (0) and the current trend switches from -1 to +1.
+            <Typography variant="body1" sx={{ mt: 5, mb: 2 }}>
+                <b>Quick Scenario</b>: The indicator is at baseline (0) and the current trend
+                switches from -1 to +1.
             </Typography>
 
-            {/* If not submitted, show the quiz */}
+            <Typography variant="body1" sx={{ my: 2 }}>
+                1. What will happen next?
+            </Typography>
+
+            {/* RadioGroup for Q1 */}
+            <RadioGroup
+                value={q1}
+                onChange={(e) => setQ1(Number(e.target.value))}
+                sx={{ mb: 3, mt: 1 }}
+            >
+                {q1Options.map((option, idx) => {
+                    const isOptionCorrect = idx + 1 === correctAnswer;
+                    const isUserSelection = q1 === idx + 1 && q1 !== correctAnswer;
+
+                    return (
+                        <Box key={idx} sx={{ display: "flex", alignItems: "flex-start", mb: 1 }}>
+                            <FormControlLabel
+                                control={
+                                    <Radio
+                                        disabled={disableForm || submitted}
+                                        value={idx + 1}
+                                        checked={q1 === idx + 1}
+                                    />
+                                }
+                                label={option}
+                            />
+                            {submitted && isOptionCorrect && (
+                                <Alert
+                                    severity="success"
+                                    sx={{
+                                        ml: 2,
+                                        py: 0,
+                                        whiteSpace: "normal",
+                                        maxWidth: "700px",
+                                        display: "flex",
+                                        alignItems: "flex-start"
+                                    }}
+                                >
+                                    Correct Answer
+                                </Alert>
+                            )}
+                            {submitted && isUserSelection && (
+                                <Box sx={{ ml: 2 }}>
+                                    <ErrorOutlineIcon color="error" />
+                                </Box>
+                            )}
+                        </Box>
+                    );
+                })}
+            </RadioGroup>
+
+            {/* Confidence Slider */}
+            <Typography variant="body1" sx={{ mb: 1 }}>
+                2. How confident are you in your answer?
+            </Typography>
+            <Grid container sx={{ mb: 2 }}>
+                <Grid item xs={6} sx={{ mx: "auto" }}>
+                    <Slider
+                        value={isConfirmed ? finalConfidence : sliderValue}
+                        onChange={(e, val) => {
+                            if (!isConfirmed && !disableForm) {
+                                setSliderValue(val);
+                            }
+                        }}
+                        step={5}
+                        min={0}
+                        max={100}
+                        marks={marks}
+                        valueLabelDisplay="auto"
+                        disabled={disableForm || isConfirmed}
+                    />
+                    <Typography variant="body1" align="center">
+                        Confidence: {isConfirmed ? finalConfidence : sliderValue}%
+                        <br />
+                        Potential bonus/penalty: $
+                        {(
+                            ((isConfirmed ? finalConfidence : sliderValue) / 100) *
+                            maxBonus
+                        ).toFixed(2)}
+                    </Typography>
+                    {!isConfirmed && !disableForm && (
+                        <Typography
+                            variant="body2"
+                            align="center"
+                            color="text.secondary"
+                            sx={{ mt: 1 }}
+                        >
+                            Please click "Confirm Confidence" to lock in your confidence level. Once
+                            confirmed, you cannot change it.
+                        </Typography>
+                    )}
+                </Grid>
+            </Grid>
+
+            {/* If not submitted, show buttons */}
             {!submitted && (
                 <>
-                    <Typography variant="body1" sx={{ mt: 4 }}>
-                        What will happen next?
-                    </Typography>
-                    <RadioGroup
-                        value={q1}
-                        onChange={(e) => setQ1(Number(e.target.value))}
-                        sx={{ mb: 3, mt: 1 }}
-                    >
-                        {q1Options.map((option, idx) => (
-                            <Box key={idx} sx={{ display: "flex", alignItems: "flex-start", mb: 1 }}>
-                                <FormControlLabel
-                                    control={
-                                        <Radio
-                                            disabled={disableForm}
-                                            value={idx + 1}
-                                            checked={q1 === idx + 1}
-                                        />
-                                    }
-                                    label={option}
-                                />
-                            </Box>
-                        ))}
-                    </RadioGroup>
-
-                    <Typography variant="body1" sx={{ mb: 1 }}>
-                        Step 2: How confident are you in your answer?
-                    </Typography>
-                    <Grid container sx={{ mb: 2 }}>
-                        <Grid item xs={6} sx={{ mx: "auto" }}>
-                            <Slider
-                                value={isConfirmed ? finalConfidence : sliderValue}
-                                onChange={(e, val) => {
-                                    if (!isConfirmed && !disableForm) {
-                                        setSliderValue(val);
-                                    }
-                                }}
-                                step={5}
-                                min={0}
-                                max={100}
-                                marks={marks}
-                                valueLabelDisplay="auto"
-                                disabled={disableForm || isConfirmed}
-                            />
-                            <Typography variant="body1" align="center">
-                                Confidence: {isConfirmed ? finalConfidence : sliderValue}%
-                                <br />
-                                Potential bonus/penalty: $
-                                {(
-                                    ((isConfirmed ? finalConfidence : sliderValue) / 100) *
-                                    maxBonus
-                                ).toFixed(2)}
-                            </Typography>
-                            {!isConfirmed && !disableForm && (
-                                <Typography
-                                    variant="body2"
-                                    align="center"
-                                    color="text.secondary"
-                                    sx={{ mt: 1 }}
-                                >
-                                    Please click "Confirm Confidence" to lock in your confidence level. Once confirmed, you cannot change it.
-                                </Typography>
-                            )}
-                        </Grid>
-                    </Grid>
-
                     <Box sx={{ mb: 4, textAlign: "center" }}>
                         <Button
                             onClick={handleConfirmConfidence}
@@ -291,82 +324,53 @@ const MathsAberrQuizPage = () => {
                 </>
             )}
 
-            {/* If submitted, show the results */}
+            {/* If submitted, show outcome in an Alert */}
             {submitted && (
-                <>
-                    <RadioGroup sx={{ mt: 3 }}>
-                        {q1Options.map((option, idx) => (
-                            <Box key={idx} sx={{ display: "flex", alignItems: "flex-start", mb: 1 }}>
-                                <FormControlLabel
-                                    control={<Radio disabled value={idx + 1} checked={q1 === idx + 1} />}
-                                    label={option}
-                                />
-                                {idx + 1 === correctAnswer && (
-                                    <Alert
-                                        severity="success"
-                                        sx={{
-                                            ml: 2,
-                                            py: 0,
-                                            whiteSpace: "normal",
-                                            maxWidth: "700px",
-                                            display: "flex",
-                                            alignItems: "flex-start"
-                                        }}
-                                    >
-                                        Correct Answer
-                                    </Alert>
-                                )}
-                                {q1 === idx + 1 && q1 !== correctAnswer && (
-                                    <Box sx={{ ml: 2 }}>
-                                        <ErrorOutlineIcon color="error" />
-                                    </Box>
-                                )}
-                            </Box>
-                        ))}
-                    </RadioGroup>
+                <Alert variant="outlined" icon={false} severity="info" sx={{ mt: 4 }}>
+                    {isCorrect ? (
+                        <>
+                            <Typography variant="h6" gutterBottom>
+                                <b>Correct reply</b> 👍. Thanks for your input, it will help us better
+                                understand the experimental results. An extra $
+                                {Math.abs(earnedAmount).toFixed(2)} will be added to your final
+                                score ⭐.
+                            </Typography>
+                            <Typography variant="body1" gutterBottom>
+                                Let's continue the game now.
+                            </Typography>
+                        </>
+                    ) : (
+                        <>
+                            <Typography variant="h6" gutterBottom>
+                                <b>Thanks for your input!</b> Your reply will help us better understand the
+                                experimental results.
+                            </Typography>
+                            <Typography variant="h6" gutterBottom>
+                                <b>Quick Reminder:</b>
+                            </Typography>
+                            <Typography variant="body1" sx={{ mb: 2 }}>
+                                A switch that occurs when the indicator is at baseline (0) must be an
+                                <b> aberration</b>: the trend will switch back to -1 for sure on the next
+                                day (no uncertainty).
+                            </Typography>
+                            <Typography variant="body1" gutterBottom>
+                                Let's continue the game now.
+                            </Typography>
+                        </>
+                    )}
 
-                    <Alert variant="outlined" icon={false} severity="info" sx={{ mt: 4 }}>
-                        {isCorrect ? (
-                            <>
-                                <Typography variant="h6" gutterBottom>
-                                    <b>Correct reply</b> 👍. Thanks for your input, it will help us better
-                                    understand the experimental results. An extra $
-                                    {Math.abs(earnedAmount).toFixed(2)} will be added to your final
-                                    score ⭐.
-                                </Typography>
-                                <Typography variant="body1" gutterBottom>
-                                    Let's continue the game now.
-                                </Typography>
-                            </>
-                        ) : (
-                            <>
-                                <Typography variant="h6" gutterBottom>
-                                    Thanks for your input! Your reply will help us better understand the experimental results.
-                                </Typography>
-                                <Typography variant="h6" gutterBottom>
-                                    <b>Quick Reminder:</b>
-                                </Typography>
-                                <Typography variant="body1" sx={{ mb: 2 }}>
-                                    A switch that occurs when the indicator is at baseline (0) must be an aberration:
-                                    the trend will switch back to -1 for sure on the next day (no uncertainty).
-                                </Typography>
-                                <Typography variant="body1" gutterBottom>
-                                    Let's continue the game now.
-                                </Typography>
-                            </>
-                        )}
-                        <Grid container justifyContent="center" alignItems="center" sx={{ mt: 2 }}>
-                            <Grid item>
-                                <Button variant="contained" onClick={handleBackToTrial}>
-                                    Continue the game
-                                </Button>
-                            </Grid>
+                    {/* Post-submit "Continue" button, auto-redirect countdown */}
+                    <Grid container justifyContent="center" alignItems="center" sx={{ mt: 2 }}>
+                        <Grid item>
+                            <Button variant="contained" onClick={handleBackToTrial}>
+                                Continue the game
+                            </Button>
                         </Grid>
-                        <Typography variant="body2" textAlign="right" sx={{ mt: 2 }}>
-                            You will be redirected in <strong>{autoTimeLeft}</strong> seconds...
-                        </Typography>
-                    </Alert>
-                </>
+                    </Grid>
+                    <Typography variant="body2" textAlign="right" sx={{ mt: 2 }}>
+                        You will be redirected in <strong>{autoTimeLeft}</strong> seconds...
+                    </Typography>
+                </Alert>
             )}
         </Container>
     );

@@ -59,8 +59,8 @@ const MathsQuizPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             const refreshedAttendant = await getAttendant(loginAttendantS.id);
-            if (refreshedAttendant?.mathQuiz) {
-                const { q1, q2, earnedAmount } = refreshedAttendant.mathQuiz;
+            if (refreshedAttendant?.mathZoneQuiz) {
+                const { q1, q2, earnedAmount } = refreshedAttendant.mathZoneQuiz;
                 setQ1(q1);
                 setFinalConfidence(q2);
                 setIsConfirmed(true);
@@ -131,7 +131,7 @@ const MathsQuizPage = () => {
         setEarnedAmount(money);
 
         await updateAttendant(loginAttendantS.id, {
-            mathQuiz: {
+            mathZoneQuiz: {
                 q1,
                 q2: lockedConfidence,
                 earnedAmount: money,
@@ -177,7 +177,7 @@ const MathsQuizPage = () => {
                     wrong.
                 </i>
             </Typography>
-            <Typography variant="body1" sx={{ my: 2 }}>
+            <Typography variant="body1" sx={{ mt: 5, mb: 2 }}>
                 <b>Quick Scenario</b>: The indicator just jumped to 1 and the current trend is -1.
             </Typography>
 

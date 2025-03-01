@@ -159,10 +159,10 @@ const DashboardPage = () => {
             magnifyChoice: 10,
             showExampleWhenTrialBreak: false,
             oneButtonForBuySell: false,
-            showBriefMathsQuiz: false,
+            showMathsZoneQuiz: false,
             showMathsAberrQuiz: false,
             showFinalMathsQuiz: false,
-            secondsBriefMathsQuiz: 120,
+            secondsMathsZoneQuiz: 120,
             secondsMathsAberrQuiz: 120,
             secondsFinalMathsQuiz: 120,
         };

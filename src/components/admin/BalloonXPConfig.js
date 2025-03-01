@@ -145,14 +145,14 @@ const schema = {
             "title": "Show only one action for Buy and Sell, the value would be same as 'Magnification the choice'",
             default: false
         },
-        showBriefMathsQuiz: {
+        showMathsZoneQuiz: {
             "type": "boolean",
-            "title": "Show Brief Maths Quiz",
+            "title": "Show Maths ZONE Quiz",
             default: true
         },
-        secondsBriefMathsQuiz: {
+        secondsMathsZoneQuiz: {
             "type": "integer",
-            "title": "Time of Brief Maths Quiz Page in seconds",
+            "title": "Time of Maths ZONE Quiz Page in seconds",
             "default": 120
         },
         showMathsAberrQuiz: {
