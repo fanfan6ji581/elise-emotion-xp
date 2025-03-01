@@ -1,4 +1,4 @@
-import YouTube from 'react-youtube';
+// import YouTube from 'react-youtube';
 import {
   Container,
   Box,
@@ -11,9 +11,8 @@ import { Link, useParams } from "react-router-dom";
 // import { xpConfigS } from "../../../slices/gameSlice";
 // import { useSelector } from "react-redux";
 import image1 from "../../../assets/1.png";
-import image2 from "../../../assets/2.png";
-import image10 from "../../../assets/10.png";
-import image11 from "../../../assets/11.png";
+import img3 from "../../../assets/2025/3.png";
+import img8 from "../../../assets/2025/8.png";
 
 const Instruction1Page = () => {
   const { alias } = useParams();
@@ -22,17 +21,20 @@ const Instruction1Page = () => {
     <Container maxWidth="lg">
       <Grid container>
         <Grid item xs={12}>
-          <Typography variant="h4" align="center" sx={{ my: 5 }}>
+          <Typography variant="h3" align="center" sx={{ my: 6 }}>
             Welcome to the Financial Investing Game!
           </Typography>
 
-          <Grid container alignItems="center" sx={{ my: 5 }}>
+          <Grid container alignItems="center" sx={{ my: 2 }}>
             <Grid item xs={12}>
               <Typography variant="h6" sx={{ my: 3 }}>
-                If you play well you can earn a lot of money in this game (up to $100), so please read the following instructions very carefully.
+                💰 Play well and you could earn over $100! HOWEVER, your success depends entirely on mastering these instructions—every detail is crucial!
+              </Typography>
+              <Typography variant="h2" sx={{ mt: 6, fontSize: '1.5rem' }}>
+                <b>The Asset </b>
               </Typography>
               <Typography variant="h6" sx={{ my: 3 }}>
-                In this game, there is a financial asset whose value fluctuates every day. Some days the value increases, some days it decreases, like this for example:
+                This game features a financial asset with daily value fluctuations:
               </Typography>
             </Grid>
 
@@ -41,136 +43,180 @@ const Instruction1Page = () => {
               <Box component="img" alt="" src={image1} sx={{ boxShadow: 0, width: '100%' }} />
             </Grid>
             <Grid item xs={12}>
-              <Typography variant="h6" sx={{ my: 3 }}>
-                A value of “<b>+1</b>” for a given day indicates an <i>uptrend</i> : asset value has <i>increased</i> on that day (e.g, see Day # 5). A value “<b>-1</b>” indicates a <i>downtrend</i>: asset value has <i>decreased</i> on that day (e.g., Day # 10).
+              <Typography variant="h6" sx={{ my: 1 }}>
+                <b>+1 = Uptrend</b>: asset value increased that day (see Day #5)
               </Typography>
-              <Typography variant="h6" sx={{ my: 3 }}>
-                As you can see on the graph, the trend of the asset usually remains the same for several days,
-                meaning the asset alternates between uptrend phases and downtrend phases. For example,
-                from Day #9 to Day #18, the asset features a downtrend. Then on Day #19 a shift occurs and
-                from Day #19 to Day #26, the asset features an uptrend. However, occasionally, the trend
-                changes for only one day and then returns to its current level. For example, on Day #35, the
-                asset switches to an uptrend but only for that day and then it switches back to the current
-                downtrend. Thus, this is not a real shift but an “<i>aberration</i>”, more below.
+              <Typography variant="h6" sx={{ my: 1 }}>
+                <b>-1 = Downtrend</b>: asset value decreased that day (see Day #10)
+              </Typography>
+              <Typography variant="h6" sx={{ my: 1 }}>
+                The asset typically maintains the same trend for multiple days,
+                alternating between uptrend and downtrend regimes (for example, Days #9-18
+                show a downtrend; Days #19-26 show an uptrend). However, occasionally,
+                you'll spot a one-day rebel—like Day #35's brief uptrend during an overall downtrend—what
+                we call an <b>“aberration”</b> (more on these tricksters below).
+
               </Typography>
             </Grid>
           </Grid>
 
           <Divider />
 
-          <Grid container alignItems="center" sx={{ my: 5 }}>
+          <Grid container alignItems="center" sx={{ my: 3 }}>
             <Grid item xs={12}>
-              <Typography variant="h5"><b>Principle of the Game</b></Typography>
+              <Typography variant="h5" sx={{ my: 2 }}><b>💰Game Principles 💰</b></Typography>
             </Grid>
             <Grid item xs={12}>
               <Typography variant="h6" sx={{ my: 3 }}>
-                Your job is to decide whether to take a position—either buy or sell—in the asset in each of
-                300 days, so you will be playing 300 trials overall (1 trial = 1 day). If you do not want to take
-                position in the asset, you should choose to pass, which guarantees you to get $0 (i.e., you
-                cannot lose any money, but you cannot win money either).
+                Every day, you'll see this interface where you must make a trading decision:
               </Typography>
-              <Typography variant="h6" >
-                If you choose to take position in the asset on a given day, you win money if:
-              </Typography>
+            </Grid>
+
+            <Grid item xs={1} />
+            <Grid item xs={9} sx={{ textAlign: "center" }}>
+              <Box component="img" alt="" src={img3} sx={{ boxShadow: 0, width: '100%' }} />
+            </Grid>
+
+            <Grid item xs={12}>
               <ul>
                 <li>
                   <Typography variant="h6">
-                    You choose to buy the asset, and then the asset features an uptrend (+1);
+                    📈 <b>BUY</b> (10 shares): <b>WIN $10</b> if the asset trends UP (+1), <b>LOSE $10</b> if it trends DOWN
                   </Typography>
                 </li>
                 <li>
                   <Typography variant="h6">
-                    You choose to sell the asset, and then the asset features a downtrend (-1).
+                    📉 <b>SELL</b> (10 shares): <b>WIN $10</b> if the asset trends DOWN (-1), <b>LOSE $10</b> if it trends UP
+                  </Typography>
+                </li>
+                <li>
+                  <Typography variant="h6">
+                    ⏸️ <b>PASS</b>: Always <b>$0</b> outcome (no gain, no loss)
                   </Typography>
                 </li>
               </ul>
-              <Typography variant="h6">
-                You lose money otherwise. How much money is lost or won depends on the size of your position, see next. 😊
+            </Grid>
+          </Grid>
+
+          <Divider />
+
+          <Grid container alignItems="center" sx={{ my: 2 }}>
+            <Grid item xs={12}>
+              <Typography variant="h5" sx={{ my: 2 }}><b>⚠️ High-Stakes Trend Shifts! ⚠️</b></Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h6" sx={{ my: 1 }}>
+                When the asset trend switches (from downtrend to uptrend or vice versa), all payoffs are multiplied by 10:
+              </Typography>
+
+              <Grid item xs={12}>
+                <ul>
+                  <li>
+                    <Typography variant="h6">
+                      With <b>Buy</b> or <b>Sell</b>: You will win or lose $100 instead of $10
+                    </Typography>
+                  </li>
+                  <li>
+                    <Typography variant="h6">
+                      With <b>Pass</b>: Still $0 (no change)
+                    </Typography>
+                  </li>
+
+                </ul>
+              </Grid>
+            </Grid>
+            <Grid item xs={2} />
+            <Grid item xs={8} sx={{ textAlign: 'center' }}>
+              <Box component="img" alt="" src={img8} sx={{ width: '80%' }} />
+            </Grid>
+          </Grid>
+
+          <Divider />
+
+          <Grid container alignItems="center" sx={{ my: 2 }}>
+            <Grid item xs={12}>
+              <Typography variant="h5" sx={{ my: 2 }}><b> Game Flow </b></Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h6" sx={{ my: 1 }}>
+                You'll make 300 trading decisions (one per day):
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h6" sx={{ my: 1 }}>
+                Make your decision → See your outcome → Next day!
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h6" sx={{ my: 1 }}>
+                The game moves quickly with no breaks between days. Your final payout reflects your
+                total accumulated earnings across all 300 trading days. <b>So every decision counts!</b>
               </Typography>
             </Grid>
           </Grid>
 
           <Divider />
 
-          <Grid container alignItems="center" sx={{ my: 5 }}>
+          <Grid container alignItems="center" sx={{ my: 2 }}>
             <Grid item xs={12}>
-              <Typography variant="h5"><b>Your Payoff</b></Typography>
+              <Typography variant="h5" sx={{ my: 2 }}><b> Payment Details
+              </b></Typography>
             </Grid>
             <Grid item xs={12}>
-              <Typography variant="h6" sx={{ my: 3 }}>
-                When you decide to buy the asset on a given day, you tell the computer whether you want to
-                buy 1 share or 2 shares; likewise in case of a sell decision: you tell the computer how many
-                shares you want to sell. The action set looks like this on the user interface (you simply click
-                on your chosen option on each trial):
+              <Typography variant="h6" sx={{ my: 1 }}>
+                Out of your 300 trading days, we'll randomly select 100 consecutive days, calculate your net balance—wins minus losses—from those days, and then take a percentage of this total to define your final score.
               </Typography>
-
-            </Grid>
-            <Grid item xs={1} />
-            <Grid item xs={10} sx={{ textAlign: "center" }}>
-              <Box component="img" alt="" src={image2} sx={{ width: '100%' }} />
             </Grid>
             <Grid item xs={12}>
-              <Typography variant="h6" sx={{ my: 3 }}>
-                The outcome on each trial, in case of a buy/sell decision is:
+              <Typography variant="h6" sx={{ my: 1 }}>
+                <b>Your Payout = your final score - a fixed threshold amount</b>
               </Typography>
-              <Grid item xs={12} sx={{ textAlign: 'center' }}>
-                <Box component="img" alt="" src={image10} sx={{ width: '80%' }} />
-              </Grid>
-
-              <Typography variant="h6" sx={{ my: 3 }}>
-                That is, you win if your position (“+” for buy, “-” for sell) matches the trend realised on the next day.
-              </Typography>
-              <Typography variant="h6" sx={{ my: 3 }}>
-                This is for normal days. <b>When a shift occurs, the payoff is</b>
-                <Typography sx={{ color: 'error.main', fontSize: '1.25em' }} component="span"><b> magnified </b></Typography>
-                <b> by 25 times as follows:</b>
-              </Typography>
-
-              <Grid item xs={12} sx={{ textAlign: 'center' }}>
-                <Box component="img" alt="" src={image11} sx={{ width: '80%' }} />
-              </Grid>
-
-              <Typography variant="h6" sx={{ my: 3 }}>
-                What this means is that if you take a position on a shift day, you will win or lose $25 per
-                share you traded. In other words, your outcome will be magnified by 25 times.
-              </Typography>
-
-              <Typography variant="h6" sx={{ my: 3 }}>
-                After you’ve made your decision on a given day, you see the realization of the asset trend on
-                the next day, and your corresponding outcome. Then you proceed immediately to the next
-                trial (no break). The computer records all the outcomes you got across trials and your final
-                earnings directly reflect your net accumulated outcomes in the game, so you should really try
-                to do your best on each trial, as you can potentially earn very significant earnings (more
-                details below).
-              </Typography>
-
             </Grid>
           </Grid>
-
           <Divider />
 
-          <Grid container alignItems="center" sx={{ my: 5 }}>
+
+          <Grid container alignItems="center" sx={{ my: 2 }}>
             <Grid item xs={12}>
-              <Typography variant="h5"><b>Here is how to play the game in practice:</b></Typography>
+              <Typography variant="h5" sx={{ my: 2 }}><b> Any Day Counts!
+
+              </b></Typography>
             </Grid>
-            <Grid item xs={12} sx={{ my: 5, textAlign: "center" }}>
-              {/* Embed YouTube Video */}
-              <YouTube videoId="RqY2T1iE59w" opts={{
-                height: '640', // Adjust the video height as needed
-                width: '80%',  // Adjust the video width as needed
-                playerVars: {
-                  autoplay: 0,  // Use 1 to autoplay the video
-                  // You can add more player variables here as needed
-                  modestbranding: 1, // This limits YouTube branding
-                },
-              }}
-                onReady={(event) => {
-                  // Attempt to set the video quality
-                  event.target.setPlaybackQuality('hd720'); // This is just an example
-                }}
-              />
+            <Grid item xs={12}>
+              <Typography variant="h6" sx={{ my: 1 }}>
+                The exact percentage and threshold values will be revealed after you complete the task to ensure you focus on maximizing earnings on every single day: any day could be selected for payment!
+              </Typography>
             </Grid>
           </Grid>
+          <Divider />
+
+          <Grid container alignItems="center" sx={{ my: 2 }}>
+            <Grid item xs={12}>
+              <Typography variant="h5" sx={{ my: 2 }}><b> Try to Master the Game!
+              </b></Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h6" sx={{ my: 1 }}>
+                Under this payment rule, players who master and apply the optimal strategy are likely to unlock the maximum payout of $100. Those who don't will likely end up with the minimum payment of just $5.
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h6" sx={{ my: 1 }}>
+                Also note: During gameplay, you may occasionally encounter brief <b>Math Quiz Breaks</b>. These short pauses are part of our research design and won't disrupt your overall progress in the game.
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h6" sx={{ my: 1 }}>
+                ⭐ <b>BONUS ALERT</b>: Answer these math questions correctly and you'll earn up to an extra $20 on top of your final score! ⭐
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h6" sx={{ my: 1 }}>
+                These quiz breaks may not appear for everyone, but if you see one, it's an opportunity to boost your payment significantly. Complete instructions will be provided at that time.
+              </Typography>
+            </Grid>
+          </Grid>
+
 
           <Box textAlign="center" sx={{ my: 10 }}>
             <Button

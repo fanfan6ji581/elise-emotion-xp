@@ -6,10 +6,7 @@ import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom"
 import { loginAttendant } from "../../../slices/attendantSlice";
 // import { xpConfigS } from "../../../slices/gameSlice";
-import image12 from "../../../assets/12.png";
-import image13 from "../../../assets/13.png";
-import downArrowImg from "../../../assets/down-arrow.png";
-import image15 from "../../../assets/15.png";
+import img15 from "../../../assets/2025/15.png";
 import TrainingTimer from '../trial/TrainingTimer';
 import { useState, useEffect } from "react";
 import { getAttendant, updateAttendant } from '../../../database/attendant';
@@ -66,20 +63,15 @@ const InstructionHowToPlayPage = () => {
                 <Grid container alignItems="center" sx={{ my: 1 }}>
                     <Grid item xs={12}>
                         <Typography variant="h5" sx={{ my: 2 }}>
-                        Here is an example to help you understand how the payoff works in the dangerous zone. Please study the information <b>VERY CAREFULLY</b>. If in doubt of anything, please ask us, we’re here to clarify things for you 😊
+                        Quick Payoff Reminder for Dangerous Zones!
                         </Typography>
 
                     </Grid>
                 </Grid>
 
                 <Grid container alignItems="center" sx={{ my: 5 }}>
-                    <Grid item xs={5} sx={{ textAlign: "center" }}>
-                        <Box component="img" alt="" src={image12} sx={{ width: '100%' }} />
-                    </Grid>
-                    <Grid item xs={7} sx={{ textAlign: "center" }}>
-                        <Box component="img" alt="" src={image13} sx={{ width: '100%' }} />
-                        <Box component="img" alt="" src={downArrowImg} sx={{ width: '50px' }} />
-                        <Box component="img" alt="" src={image15} sx={{ width: '100%', border: '1px solid black' }} />
+                    <Grid item xs={12} sx={{ textAlign: "center" }}>
+                        <Box component="img" alt="" src={img15} sx={{ width: '100%' }} />
                     </Grid>
                 </Grid>
 

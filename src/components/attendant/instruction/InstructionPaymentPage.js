@@ -11,32 +11,47 @@ const Instruction3Page = () => {
 
     return (
         <Container maxWidth="lg">
-            <Grid container justifyContent="center">
+            <Grid container>
 
-                <Typography variant="h4" align="center" sx={{ my: 5 }}>
-                    How much money you will earn in this experiment
-                </Typography>
+                <Grid item xs={12}>
+                    <Typography variant="h4" align="center" sx={{ my: 6 }}>
+                        IMPORTANT NOTE ABOUT INTEGRITY
+                    </Typography>
+                </Grid>
 
-                <Typography variant="h6" sx={{ my: 2 }}>
-                    The computer will randomly select 100 consecutive trials out of the 300 trials you’re going to play, and will compute the accumulated outcomes from those selected trials. What you will receive at the end of the experiment is a percentage of those accumulated outcomes (not the whole amount as we cannot afford to pay you more than $100 😄), minus a threshold.
-                </Typography>
+                <Grid item xs={12}>
 
-                <Typography variant="h6" sx={{ my: 2 }}>
-                    We have fixed the percentage and threshold parameters to ensure that a sophisticated player is almost guaranteed to leave the lab with more than $80 AUD, and highly likely to get the max payment of $100 AUD. In contrast, if you do not implement the optimal strategy for the task, your most likely payoff from the task will be $5 AUD. The reason for such a payment rule is that we want to incentivise you to master the game 😄.
-                </Typography>
+                    <Typography variant="h6" sx={{ my: 2 }}>
+                        All information provided about probabilities, odds, and game mechanics is 100% truthful. Our lab follows a strict "no deception" policy – this is our sacred ethical principle. Understanding this is crucial for your gameplay:
+                    </Typography>
 
-                <Typography variant="h6" sx={{ my: 2 }}>
-                    <strong>Note:</strong> We will tell you the value of the percentage and threshold only after you’ve completed the task because the knowledge of these values beforehand could disturb you during the game and we want you to focus on doing your best <i>on every single trial</i> — recall that any trial could be selected for payment by the computer.
-                </Typography>
+                    <ul>
+                        <li>
+                            <Typography variant="h6">Every stated probability (15% risk in dangerous zones, 5% chance of aberrations) is exactly as described
+                            </Typography>
+                        </li>
+                        <li>
+                            <Typography variant="h6">All game parameters are fixed and cannot be altered during play
+                            </Typography>
+                        </li>
+                        <li>
+                            <Typography variant="h6">The system never "adapts" to your choices or manipulates outcomes
+                            </Typography>
+                        </li>
+                    </ul>
 
-                <Typography variant="h6" sx={{ my: 2 }}>
-                    To have a chance to master the game, you need to understand every single aspect of it, so if anything of the above is unclear, please seek clarification!
-                </Typography>
+                    <Typography variant="h6" sx={{ my: 2 }}>
+                        What you see is what you get – no tricks, no hidden mechanics. This transparency allows you to develop genuine strategies based on the actual rules we've shared.
 
-                <Box textAlign="center" sx={{ my: 10 }}>
-                    <Button component={Link} variant="contained" size="large" to={`/xp/${alias}/instruction-how-to-play`} sx={{ mx: 2 }}>Prev</Button>
-                    <Button component={Link} variant="contained" size="large" to={`/xp/${alias}/instruction-ready`} sx={{ mx: 2 }}>Next</Button>
-                </Box>
+                    </Typography>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Box textAlign="center" sx={{ my: 10 }}>
+                        <Button component={Link} variant="contained" size="large" to={`/xp/${alias}/instruction-how-to-play`} sx={{ mx: 2 }}>Prev</Button>
+                        <Button component={Link} variant="contained" size="large" to={`/xp/${alias}/instruction-ready`} sx={{ mx: 2 }}>Next</Button>
+                    </Box>
+                </Grid>
 
             </Grid>
         </Container>
