@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { Typography, Button, Box, Grid, Container, Divider } from "@mui/material";
+import { Typography, Button, Box, 
+    // Grid, Container, Divider
+ } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import {
     xpConfigS,
@@ -9,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Countdown from 'react-countdown';
 import { updateAttendant } from '../../../database/attendant';
 import { loginAttendant } from "../../../slices/attendantSlice";
-import img15 from "../../../assets/2025/15.png";
+// import img15 from "../../../assets/2025/15.png";
 
 const zeroPad = (num, places) => String(num).padStart(places, '0')
 
@@ -31,7 +33,7 @@ const TrialBreakPage = () => {
         const breakPageTimeTakes = Date.now() - currentime;
         await updateAttendant(loginAttendantS.id, { breakPageTimeTakes });
         dispatch(setIsTrialBreakTaken(true));
-        navigate(`/xp/${alias}/trial`);
+        navigate(`/xp/${alias}/trial-break2`);
     }
 
     return (
@@ -47,7 +49,7 @@ const TrialBreakPage = () => {
             </Box>
 
 
-            {xpConfig.showExampleWhenTrialBreak && <>
+            {/* {xpConfig.showExampleWhenTrialBreak && <>
                 <Container maxWidth="lg" sx={{ mt: 10 }}>
                     <Divider sx={{ mt: 4 }} />
                     <Grid container alignItems="center" sx={{ my: 1 }}>
@@ -65,7 +67,7 @@ const TrialBreakPage = () => {
                         </Grid>
                     </Grid>
                 </Container>
-            </>}
+            </>} */}
         </>
     )
 }

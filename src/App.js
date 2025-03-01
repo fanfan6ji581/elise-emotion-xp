@@ -16,7 +16,8 @@ import TrialPage from "./components/attendant/trial/TrialPage";
 import TrialTrainingPage from "./components/attendant/trial/TrialTrainingPage";
 import TrialHistoryPage from "./components/attendant/trial/TrialHistoryPage";
 import CountDownPage from './components/attendant/trial/TrialCountDownPage';
-import BreakPage from './components/attendant/trial/TrialBreakPage';
+import TrialBreakPage from './components/attendant/trial/TrialBreakPage';
+import TrialBreakPage2 from './components/attendant/trial/TrialBreakPage2';
 import MathsZoneQuiz from './components/attendant/trial/MathsZoneQuiz';
 import MathsAberrQuiz from './components/attendant/trial/MathsAberrQuiz';
 import MathsFinalQuiz from './components/attendant/trial/MathsFinalQuiz';
@@ -98,7 +99,8 @@ function App() {
                                 <Route path="xp/:alias/strategy2" element={<StrategyPage2 />} />
                                 <Route path="xp/:alias/earning-questions" element={<EarningQuestions />} />
                                 <Route path="xp/:alias/count-down" element={<CountDownPage />} />
-                                <Route path="xp/:alias/trial-break" element={<BreakPage />} />
+                                <Route path="xp/:alias/trial-break" element={<TrialBreakPage />} />
+                                <Route path="xp/:alias/trial-break2" element={<TrialBreakPage2 />} />
                                 <Route path="xp/:alias/maths-zone-quiz/:trialIndexParam" element={<MathsZoneQuiz />} />
                                 <Route path="xp/:alias/maths-aberr-quiz/:trialIndexParam" element={<MathsAberrQuiz />} />
                                 <Route path="xp/:alias/maths-final-quiz" element={<MathsFinalQuiz />} />

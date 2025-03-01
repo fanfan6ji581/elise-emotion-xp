@@ -102,7 +102,12 @@ const schema = {
         },
         "trialBreakSeconds": {
             "type": "integer",
-            "title": "Seconds of trial break in the middle",
+            "title": "Seconds of trial break ",
+            "default": 180
+        },
+        "trialBreakS2econds": {
+            "type": "integer",
+            "title": "Seconds of trial break reminder page",
             "default": 180
         },
         "useMultiColorChoiceButton": {
