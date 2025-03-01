@@ -1,3 +1,4 @@
+// MathsAberrQuiz.js
 import React, { useState, useEffect, useRef } from "react";
 import {
     Container,
@@ -12,9 +13,9 @@ import {
     Alert
 } from "@mui/material";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import { useSelector } from "react-redux";
-import { xpConfigS } from "../../../slices/gameSlice";
-import { loginAttendant } from "../../../slices/attendantSlice";
+import { useSelector, useDispatch } from "react-redux"; // <-- 新增 useDispatch
+import { xpConfigS, hideShowMathAberrQuizPage } from "../../../slices/gameSlice"; // <-- 新增 hideShowMathAberrQuizPage
+import { loginAttendant, login } from "../../../slices/attendantSlice"; // <-- 新增 login
 import { updateAttendant, getAttendant } from "../../../database/attendant";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -38,9 +39,10 @@ const MathsAberrQuizPage = () => {
     // Config / Redux
     const xpConfig = useSelector(xpConfigS);
     const loginAttendantS = useSelector(loginAttendant);
+    const dispatch = useDispatch(); // <-- 使用 dispatch
 
     // Router
-    const { alias } = useParams();
+    const { alias, trialIndexParam } = useParams();
     const navigate = useNavigate();
 
     // Timers
@@ -82,13 +84,16 @@ const MathsAberrQuizPage = () => {
                 setSubmitted(true);
                 setIsCorrect(q1 === correctAnswer);
                 setEarnedAmount(earnedAmount || 0);
+
+                // 新增：隐藏当前页面
+                dispatch(hideShowMathAberrQuizPage());
             } else {
                 // Enable form if quiz not done yet
                 setDisableForm(false);
             }
         };
         fetchData();
-    }, [loginAttendantS.id]);
+    }, [loginAttendantS.id, dispatch]);
 
     // Main countdown: auto-submit if time runs out
     useEffect(() => {
@@ -151,21 +156,31 @@ const MathsAberrQuizPage = () => {
         setEarnedAmount(money);
 
         // Save to DB under "mathAberrQuiz"
-        await updateAttendant(loginAttendantS.id, {
+        const updateObj = {
             mathAberrQuiz: {
                 q1,
                 q2: lockedConfidence,
                 earnedAmount: money,
                 timeUsed: totalTimeUsed,
-                missed
+                missed,
+                trialIndexParam,
             }
-        });
+        };
+        await updateAttendant(loginAttendantS.id, updateObj);
+
+        // 新增：更新 Redux 的 loginAttendant 数据
+        dispatch(login(Object.assign({}, loginAttendantS, updateObj)));
+
+        // 新增：隐藏页面
+        dispatch(hideShowMathAberrQuizPage());
 
         setSubmitted(true);
     };
 
     // Navigation back to trial
     const handleBackToTrial = () => {
+        // 新增：隐藏页面再跳转
+        dispatch(hideShowMathAberrQuizPage());
         navigate(`/xp/${alias}/trial`);
     };
 

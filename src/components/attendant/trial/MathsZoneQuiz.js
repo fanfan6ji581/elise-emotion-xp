@@ -34,7 +34,7 @@ const MathsQuizPage = () => {
     const xpConfig = useSelector(xpConfigS);
     const loginAttendantS = useSelector(loginAttendant);
 
-    const { alias } = useParams();
+    const { alias, trialIndexParam } = useParams();
     const navigate = useNavigate();
 
     const totalTime = xpConfig.secondsBriefMathsQuiz || 120;
@@ -140,7 +140,8 @@ const MathsQuizPage = () => {
                 q2: lockedConfidence,
                 earnedAmount: money,
                 timeUsed: totalTimeUsed,
-                missed
+                missed,
+                trialIndexParam
             }
         }
 

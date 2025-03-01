@@ -99,8 +99,8 @@ function App() {
                                 <Route path="xp/:alias/earning-questions" element={<EarningQuestions />} />
                                 <Route path="xp/:alias/count-down" element={<CountDownPage />} />
                                 <Route path="xp/:alias/trial-break" element={<BreakPage />} />
-                                <Route path="xp/:alias/maths-zone-quiz" element={<MathsZoneQuiz />} />
-                                <Route path="xp/:alias/maths-aberr-quiz" element={<MathsAberrQuiz />} />
+                                <Route path="xp/:alias/maths-zone-quiz/:trialIndexParam" element={<MathsZoneQuiz />} />
+                                <Route path="xp/:alias/maths-aberr-quiz/:trialIndexParam" element={<MathsAberrQuiz />} />
                                 <Route path="xp/:alias/maths-final-quiz" element={<MathsFinalQuiz />} />
                                 <Route path="xp/:alias/start-game" element={<StartGamePage />} />
                                 <Route path="xp/:alias/trial-history" element={<TrialHistoryPage />} />

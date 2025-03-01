@@ -27,7 +27,7 @@ const initialState = {
     mathAberrQuiz: null,
     mathFinalQuiz: null,
     showMathZoneQuizPage: false,
-    showAberrZoneQuizPage: false,
+    showMathAberrQuizPage: false,
     showFinalZoneQuizPage: false,
 };
 
@@ -126,17 +126,18 @@ const gameSlice = createSlice({
             }
 
             if (xpConfig.showMathsAberrQuiz && !state.mathAberrQuiz) {
+                debugger
                 if (trialIndex > 0 &&
-                    aber === 1 && xpData.aberration[trialIndex + 10 - 1] &&
+                    aber === 1 && xpData.aberration[trialIndex + 10 - 1] === 1 &&
                     outcome !== xpConfig.magnifyChoice * xpConfig.aberShift
                 ) {
                     state.aberrBreakCount++;
                 }
 
-                if (state.aberrBreakCount >= 2) {
+                if (state.aberrBreakCount >= 1) {
                     //prepare to jump
+                    state.showMathAberrQuizPage = true
                 }
-
             }
 
             // original logc
@@ -227,7 +228,7 @@ const gameSlice = createSlice({
             state.showMathZoneQuizPage = false
         },
         hideShowMathAberrQuizPage: (state) => {
-            state.showMathsAberrQuiz = false
+            state.showMathAberrQuizPage = false
         },
     },
 });
@@ -251,7 +252,7 @@ export const aberrBreakCount = (state) => state.game.aberrBreakCount;
 export const zoneBreakCount = (state) => state.game.zoneBreakCount;
 
 export const showMathZoneQuizPage = (state) => state.game.showMathZoneQuizPage;
-export const showAberrZoneQuizPage = (state) => state.game.showAberrZoneQuizPage;
+export const showMathAberrQuizPage = (state) => state.game.showMathAberrQuizPage;
 export const showFinalMathsQuiz = (state) => state.game.showFinalMathsQuiz;
 
 export const missHistory = (state) => state.game.missHistory;

@@ -17,7 +17,7 @@ import {
   zoneBreakCount,
   aberrBreakCount,
   showMathZoneQuizPage,
-  showAberrZoneQuizPage,
+  showMathAberrQuizPage,
   showFinalMathsQuiz,
 } from "../../../slices/gameSlice";
 import { login } from "../../../slices/attendantSlice";
@@ -45,7 +45,7 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
   const zoneBreakCountS = useSelector(zoneBreakCount);
   const aberrBreakCountS = useSelector(aberrBreakCount);
   const showMathZoneQuizPageS = useSelector(showMathZoneQuizPage);
-  const showAberrZoneQuizPageS = useSelector(showAberrZoneQuizPage);
+  const showMathAberrQuizPageS = useSelector(showMathAberrQuizPage);
   const showFinalMathsQuizS = useSelector(showFinalMathsQuiz);
 
   
@@ -103,7 +103,12 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
     if (!isTrainingMode) {
       // do math quizpage checking when not training mode
       if (showMathZoneQuizPageS) {
-        navigate(`/xp/${alias}/maths-zone-quiz`);
+        navigate(`/xp/${alias}/maths-zone-quiz/${trialIndexS}`);
+        return;
+      }
+
+      if (showMathAberrQuizPageS) {
+        navigate(`/xp/${alias}/maths-aberr-quiz/${trialIndexS}`);
         return;
       }
     }
@@ -134,7 +139,7 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
     zoneBreakCountS,
     aberrBreakCountS,
     showMathZoneQuizPageS,
-    showAberrZoneQuizPageS,
+    showMathAberrQuizPageS,
     showFinalMathsQuizS,
   ]);
 
