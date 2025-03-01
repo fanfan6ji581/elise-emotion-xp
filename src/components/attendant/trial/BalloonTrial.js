@@ -18,7 +18,7 @@ import {
   aberrBreakCount,
   showMathZoneQuizPage,
   showMathAberrQuizPage,
-  showFinalMathsQuiz,
+  showMathFinalQuizPage,
 } from "../../../slices/gameSlice";
 import { login } from "../../../slices/attendantSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -46,7 +46,7 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
   const aberrBreakCountS = useSelector(aberrBreakCount);
   const showMathZoneQuizPageS = useSelector(showMathZoneQuizPage);
   const showMathAberrQuizPageS = useSelector(showMathAberrQuizPage);
-  const showFinalMathsQuizS = useSelector(showFinalMathsQuiz);
+  const showMathFinalQuizPageS = useSelector(showMathFinalQuizPage);
 
   
   const xpData = useSelector(xpDataS);
@@ -66,7 +66,7 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
       reactionHistory: reactionHistoryS,
       clickToShowChartHistory: clickToShowChartHistoryS,
       zoneBreakCount: zoneBreakCountS,
-      aberrBreakCount: zoneBreakCountS,
+      aberrBreakCount: aberrBreakCountS,
     };
     await updateDoc(attendantRef, { xpRecord });
     // store into local storage as well
@@ -111,8 +111,12 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
         navigate(`/xp/${alias}/maths-aberr-quiz/${trialIndexS}`);
         return;
       }
-    }
 
+      if (showMathFinalQuizPageS) {
+        navigate(`/xp/${alias}/maths-final-quiz/`);
+        return;
+      }
+    }
 
     if (missHistoryS &&
       missHistoryS.filter(x => x).length >= xpConfig.missLimit) {
@@ -140,7 +144,7 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
     aberrBreakCountS,
     showMathZoneQuizPageS,
     showMathAberrQuizPageS,
-    showFinalMathsQuizS,
+    showMathFinalQuizPageS,
   ]);
 
   return (

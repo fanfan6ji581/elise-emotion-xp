@@ -12,9 +12,9 @@ import {
     Alert
 } from "@mui/material";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import { useSelector } from "react-redux";
-import { xpConfigS } from "../../../slices/gameSlice";
-import { loginAttendant } from "../../../slices/attendantSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { xpConfigS, hideShowMathFinalQuizPage } from "../../../slices/gameSlice";
+import { loginAttendant, login } from "../../../slices/attendantSlice";
 import { updateAttendant, getAttendant } from "../../../database/attendant";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -37,6 +37,7 @@ const MathsFinalQuizPage = () => {
     // Redux/Config
     const xpConfig = useSelector(xpConfigS);
     const loginAttendantS = useSelector(loginAttendant);
+    const dispatch = useDispatch();
 
     // Router
     const { alias } = useParams();
@@ -79,13 +80,16 @@ const MathsFinalQuizPage = () => {
                 setSubmitted(true);
                 setIsCorrect(q1 === correctAnswer);
                 setEarnedAmount(earnedAmount || 0);
+
+                // Hide the page if already completed
+                dispatch(hideShowMathFinalQuizPage());
             } else {
                 // Enable form if quiz not done
                 setDisableForm(false);
             }
         };
         fetchData();
-    }, [loginAttendantS.id]);
+    }, [loginAttendantS.id, dispatch, correctAnswer]);
 
     // Main countdown for auto-submit
     useEffect(() => {
@@ -123,7 +127,7 @@ const MathsFinalQuizPage = () => {
         return () => {
             if (autoTimer) clearInterval(autoTimer);
         };
-        // eslint-disable-next-line 
+        // eslint-disable-next-line
     }, [submitted]);
 
     // Confirm confidence
@@ -149,23 +153,31 @@ const MathsFinalQuizPage = () => {
         setEarnedAmount(money);
 
         // Save to DB under "mathFinalQuiz"
-        await updateAttendant(loginAttendantS.id, {
-          mathFinalQuiz: {
-            q1,
-            q2: lockedConfidence,
-            earnedAmount: money,
-            timeUsed: totalTimeUsed,
-            missed
-          }
-        });
+        const updateObj = {
+            mathFinalQuiz: {
+                q1,
+                q2: lockedConfidence,
+                earnedAmount: money,
+                timeUsed: totalTimeUsed,
+                missed
+            }
+        };
+        await updateAttendant(loginAttendantS.id, updateObj);
+
+        // Update Redux attendant
+        dispatch(login(Object.assign({}, loginAttendantS, updateObj)));
+
+        // Hide the quiz page
+        dispatch(hideShowMathFinalQuizPage());
 
         setSubmitted(true);
     };
 
     // After quiz
     const handleBackToTrial = () => {
-        // Proceed to final debriefing or main route
-        navigate(`/xp/${alias}/earning-questions`)
+        // Hide the quiz page, then proceed
+        dispatch(hideShowMathFinalQuizPage());
+        navigate(`/xp/${alias}/earning-questions`);
     };
 
     // The question options
