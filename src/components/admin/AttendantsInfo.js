@@ -54,6 +54,20 @@ const AttendentsInfo = ({ attendants, xp }) => {
         earningQuiz3: attendant?.earningQuiz?.question3,
         earningQuiz4: attendant?.earningQuiz?.question4,
         earningQuiz5: attendant?.earningQuiz?.question5,
+
+        zoneQuizHappened: !!attendant?.mathZoneQuiz,
+        zoneQuizAnswer: attendant?.mathZoneQuiz?.q1,
+        zoneQuizConfidence: attendant?.mathZoneQuiz?.q2,
+        zoneQuizTrialIndex: attendant?.mathZoneQuiz?.trialIndexParam,
+
+        aberrQuizHappened: !!attendant?.mathAberrQuiz,
+        aberrQuizAnswer: attendant?.mathAberrQuiz?.q1,
+        aberrQuizConfidence: attendant?.mathAberrQuiz?.q2,
+        aberrQuizTrialIndex: attendant?.mathAberrQuiz?.trialIndexParam,
+
+        finalQuizHappened: !!attendant?.mathFinalQuiz,
+        finalQuizAnswer: attendant?.mathFinalQuiz?.q1,
+        finalQuizConfidence: attendant?.mathFinalQuiz?.q2,
      }));
 
     if (xp.treatment === 2) {

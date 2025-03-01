@@ -110,7 +110,6 @@ function extractXpData(attendant, xpConfig) {
     });
 
     const mcqs = calcuateCorrectness(attendant, xpConfig);
-
     for (let i = 0; i < asset.length - historyLength; i++) {
         rows.push(Object.assign(
             {
@@ -146,6 +145,21 @@ function extractXpData(attendant, xpConfig) {
                 earningQuiz3: attendant?.earningQuiz?.question3,
                 earningQuiz4: attendant?.earningQuiz?.question4,
                 earningQuiz5: attendant?.earningQuiz?.question5,
+
+                zoneQuizHappened: !!attendant?.mathZoneQuiz,
+                zoneQuizAnswer: attendant?.mathZoneQuiz?.q1,
+                zoneQuizConfidence: attendant?.mathZoneQuiz?.q2,
+                zoneQuizTrialIndex: (parseInt(attendant?.mathZoneQuiz?.trialIndexParam) || 0) + 1,
+        
+                aberrQuizHappened: !!attendant?.mathAberrQuiz,
+                aberrQuizAnswer: attendant?.mathAberrQuiz?.q1,
+                aberrQuizConfidence: attendant?.mathAberrQuiz?.q2,
+                aberrQuizTrialIndex: (parseInt(attendant?.mathAberrQuiz?.trialIndexParam)|| 0) + 1,
+        
+                finalQuizHappened: !!attendant?.mathFinalQuiz,
+                finalQuizAnswer: attendant?.mathFinalQuiz?.q1,
+                finalQuizConfidence: attendant?.mathFinalQuiz?.q2,
+
             },
             {
                 'finalEarning_$xx': attendant.finalEarning,

@@ -30,7 +30,7 @@ const columns = [
     { field: 'earningQuiz5', headerName: 'earningQuiz5', width: 200 },
     { field: 'finalEarning_$xx', headerName: 'finalEarning_$xx', width: 200 },
     { field: 'adjustedEarning_$yy', headerName: 'adjustedEarning_$yy', width: 200 },
-  ];
+];
 
 const AttendentInfo = ({ attendant }) => {
     const rows = [
@@ -40,12 +40,27 @@ const AttendentInfo = ({ attendant }) => {
             gender: attendant.gender,
             major: attendant.major,
             education: attendant.education,
-        }, attendant.quizAnswers, { strategy: attendant.strategy,
+        }, attendant.quizAnswers, {
+            strategy: attendant.strategy,
             earningQuiz1: attendant?.earningQuiz?.question1,
             earningQuiz2: attendant?.earningQuiz?.question2,
             earningQuiz3: attendant?.earningQuiz?.question3,
             earningQuiz4: attendant?.earningQuiz?.question4,
             earningQuiz5: attendant?.earningQuiz?.question5,
+
+            zoneQuizHappened: !!attendant?.mathZoneQuiz,
+            zoneQuizAnswer: attendant?.mathZoneQuiz?.q1,
+            zoneQuizConfidence: attendant?.mathZoneQuiz?.q2,
+            zoneQuizTrialIndex: attendant?.mathZoneQuiz?.trialIndexParam,
+    
+            aberrQuizHappened: !!attendant?.mathAberrQuiz,
+            aberrQuizAnswer: attendant?.mathAberrQuiz?.q1,
+            aberrQuizConfidence: attendant?.mathAberrQuiz?.q2,
+            aberrQuizTrialIndex: attendant?.mathAberrQuiz?.trialIndexParam,
+    
+            finalQuizHappened: !!attendant?.mathFinalQuiz,
+            finalQuizAnswer: attendant?.mathFinalQuiz?.q1,
+            finalQuizConfidence: attendant?.mathFinalQuiz?.q2,
 
         }),
     ];

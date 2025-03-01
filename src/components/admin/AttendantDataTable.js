@@ -46,7 +46,7 @@ const columns = [
 
   { field: 'breakPageTimeTakes', headerName: 'Break Page ms', width: 120 },
   { field: 'dataSeriesName', headerName: 'Data Series', width: 120 },
-  
+
   { field: 'gender', headerName: 'gender', width: 60 },
   { field: 'age', headerName: 'age', width: 60 },
   { field: 'major', headerName: 'major', width: 100 },
@@ -71,6 +71,20 @@ const columns = [
   { field: 'earningQuiz3', headerName: 'earningQuiz3', width: 200 },
   { field: 'earningQuiz4', headerName: 'earningQuiz4', width: 200 },
   { field: 'earningQuiz5', headerName: 'earningQuiz5', width: 200 },
+
+
+  { field: 'zoneQuizHappened', headerName: 'Zone Quiz happend', width: 180 },
+  { field: 'zoneQuizAnswer', headerName: 'Zone Quiz Answer', width: 180 },
+  { field: 'zoneQuizConfidence', headerName: 'Zone Quiz Confidence', width: 180 },
+  { field: 'zoneQuizTrialIndex', headerName: 'Zone Quiz Trial Index', width: 180 },
+  { field: 'aberrQuizHappened', headerName: 'Aberr Quiz Happend', width: 180 },
+  { field: 'aberrQuizAnswer', headerName: 'Aberr Quiz Answer', width: 180 },
+  { field: 'aberrQuizConfidence', headerName: 'Aberr Quiz Confidence', width: 180 },
+  { field: 'aberrQuizTrialIndex', headerName: 'Aberr Quiz Trial Index', width: 180 },
+  { field: 'finalQuizHappened', headerName: 'Final Quiz Happend', width: 180 },
+  { field: 'finalQuizAnswer', headerName: 'Final Quiz Answer', width: 180 },
+  { field: 'finalQuizConfidence', headerName: 'Final Quiz Confidence', width: 180 },
+
   { field: 'finalEarning_$xx', headerName: 'finalEarning_$xx', width: 200 },
   { field: 'adjustedEarning_$yy', headerName: 'adjustedEarning_$yy', width: 200 },
 ];
@@ -99,6 +113,11 @@ const AttendentDataTable = ({ attendant, xp }) => {
       }
       <p>Number of Missed trials: {attendant.xpRecord.missHistory.reduce((accumulator, currentValue) => accumulator + currentValue, 0)}</p>
       <p>Miss reach limit: {attendant.missTooMuch ? 'Yes' : ''}</p>
+
+      <p>Zone Quiz: {attendant.mathZoneQuiz ? `$${attendant.mathZoneQuiz.earnedAmount}` : 'N/A'}</p>
+      <p>Aberr Quiz: {attendant.mathAberrQuiz ? `$${attendant.mathAberrQuiz.earnedAmount}` : 'N/A'}</p>
+      <p>Final Quiz: {attendant.mathFinalQuiz ? `$${attendant.mathFinalQuiz.earnedAmount}` : 'N/A'}</p>
+
       <DataGrid
         autoHeight
         rows={rows}
