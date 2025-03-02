@@ -153,7 +153,7 @@ const MathsAberrQuizPage = () => {
                 earnedAmount: money,
                 timeUsed: totalTimeUsed,
                 missed,
-                trialIndexParam,
+                trialIndexParam: parseInt(trialIndexParam) + 1,
             },
         };
         await updateAttendant(loginAttendantS.id, updateObj);

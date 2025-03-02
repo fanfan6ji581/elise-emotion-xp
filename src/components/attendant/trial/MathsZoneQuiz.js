@@ -136,7 +136,7 @@ const MathsQuizPage = () => {
                 earnedAmount: money,
                 timeUsed: totalTimeUsed,
                 missed,
-                trialIndexParam
+                trialIndexParam: parseInt(trialIndexParam) + 1
             }
         };
 
