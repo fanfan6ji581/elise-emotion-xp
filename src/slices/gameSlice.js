@@ -108,7 +108,7 @@ const gameSlice = createSlice({
         nextTrial: (state) => {
 
             const { xpData, xpConfig, trialIndex } = state;
-            const volume = xpData.volume[trialIndex + 10];
+            const volume = xpData.volume[trialIndex + 10 - 1];
             const aber = xpData.aberration[trialIndex + 10];
             const outcome = state.outcomeHistory[trialIndex];
 
