@@ -105,7 +105,7 @@ const schema = {
             "title": "Seconds of trial break ",
             "default": 180
         },
-        "trialBreakS2econds": {
+        "trialBreak2Seconds": {
             "type": "integer",
             "title": "Seconds of trial break reminder page",
             "default": 180
