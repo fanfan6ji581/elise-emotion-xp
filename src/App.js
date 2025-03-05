@@ -42,6 +42,7 @@ import StrategyPage2 from "./components/attendant/StrategyPage2";
 import EarningQuestions from "./components/attendant/EarningQuestions";
 import SignupPage from './components/attendant/SignupPage';
 import StartGamePage from './components/attendant/StartGamePage';
+import StartGameQuickRefresherPage from './components/attendant/StartGameQuickRefresherPage';
 import PretaskPage from './components/attendant/pretask/PretaskPage';
 import PretaskTrainingPage from './components/attendant/pretask/PretaskTrainingPage';
 import PretaskPaymentPage from './components/attendant/pretask/PretaskPaymentPage';
@@ -105,6 +106,7 @@ function App() {
                                 <Route path="xp/:alias/maths-aberr-quiz/:trialIndexParam" element={<MathsAberrQuiz />} />
                                 <Route path="xp/:alias/maths-final-quiz" element={<MathsFinalQuiz />} />
                                 <Route path="xp/:alias/start-game" element={<StartGamePage />} />
+                                <Route path="xp/:alias/start-game-quick-refresher" element={<StartGameQuickRefresherPage />} />
                                 <Route path="xp/:alias/trial-history" element={<TrialHistoryPage />} />
                                 <Route path="xp/:alias/pretask" element={<PretaskPage />} />
                                 <Route path="xp/:alias/pretask/training" element={<PretaskTrainingPage />} />
