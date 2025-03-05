@@ -47,7 +47,7 @@ const MathsAberrQuizPage = () => {
 
     // Timers
     // Default to 120 if xpConfig.secondsBriefMathsQuiz is undefined
-    const totalTime = xpConfig.secondsBriefMathsQuiz || 120; 
+    const totalTime = xpConfig.secondsBriefMathsQuiz || 120;
     const [timeLeft, setTimeLeft] = useState(totalTime);
 
     // Post-submit auto redirect
@@ -246,7 +246,9 @@ const MathsAberrQuizPage = () => {
                                         whiteSpace: "normal",
                                         maxWidth: "700px",
                                         display: "flex",
-                                        alignItems: "flex-start"
+                                        alignItems: "flex-start",
+                                        fontWeight: 'bold',
+                                        fontSize: '1rem',
                                     }}
                                 >
                                     Correct Answer
@@ -315,8 +317,8 @@ const MathsAberrQuizPage = () => {
                                 {Math.abs(earnedAmount).toFixed(2)} will be added to your final
                                 score ⭐.
                             </Typography>
-                            <Typography variant="body1" gutterBottom>
-                                Let's continue the game now.
+                            <Typography variant="h6" gutterBottom>
+                                <b>Let's continue the game now.</b>
                             </Typography>
                         </>
                     ) : (
@@ -333,8 +335,8 @@ const MathsAberrQuizPage = () => {
                                 <b> aberration</b>: the trend will switch back to -1 for sure on the next
                                 day (no uncertainty).
                             </Typography>
-                            <Typography variant="body1" gutterBottom>
-                                Let's continue the game now.
+                            <Typography variant="h6" gutterBottom>
+                                <b>Let's continue the game now.</b>
                             </Typography>
                         </>
                     )}

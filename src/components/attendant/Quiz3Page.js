@@ -63,7 +63,7 @@ const QuizPage = () => {
         mcq8: `(Correct Answer) You lose $100. This happens because there's a mismatch between your position (+10) and the realized trend (-1). Since the trend just switched direction, you suffer the magnified loss of $100.`,
         mcq9: `(Correct Answer) Unlucky, an aberration just occurred! You lose $100 since there's a mismatch between your position (+10) and the realized trend (-1) which just switched direction—hence the magnified loss of $100. `,
         mcq10: '(Correct Answer)',
-        mcq11: '(Correct Answer) You can earn a significant reward in this experiment (over $100 AUD) if you master the game, but if not, expect to receive only the minimum payment of $5 AUD from the game.',
+        mcq11: '(Correct Answer) You can earn a significant reward in this experiment (up to $100 AUD) if you master the game, but if not, expect to receive only the minimum payment of $5 AUD from the game.',
         mcq12: '(Correct Answer) Every single trial counts toward your potential payment, so bring your A-game to each decision!',
         mcq13: `(Correct Answer) Absolutely correct! Our lab follows a strict 'no deception' policy. Every probability, rule, and mechanic described is 100% accurate and fixed throughout the game. This transparency is what makes developing optimal strategies possible and rewarding!`,
     };
@@ -339,11 +339,15 @@ const QuizPage = () => {
             </Typography>
 
             <Alert variant="outlined" icon={false} severity="info" sx={{ my: 1 }}>
-                <Typography variant="h6">
-                    Answer these basic questions to confirm you understand the game. Be careful - your answers are recorded and missing more than 1 question may disqualify you from the experiment.
+                <Typography variant="h5" sx={{color: 'red'}}>
+                    <b>
+                        Answer these basic questions to confirm you understand the game. Be careful - your answers are recorded and missing more than 1 question may disqualify you from the experiment.
+                    </b>
                 </Typography>
-                <Typography variant="h6" sx={{ my: 1 }}>
-                    If any question seems unclear, ask the experimenter before answering to avoid penalties. Good luck!
+                <Typography variant="h5" sx={{ my: 1, color: 'red' }}>
+                    <b>
+                        If any question seems unclear, ask the experimenter before answering to avoid penalties. Good luck!
+                    </b>
                 </Typography>
             </Alert>
 
@@ -381,6 +385,8 @@ const QuizPage = () => {
                                             sx={{
                                                 ml: 2,
                                                 py: 0,
+                                                fontWeight: 'bold',
+                                                fontSize: '1rem',
                                                 // 允许在内部换行
                                                 whiteSpace: 'normal',
                                                 // 控制最大宽度，避免无限延伸

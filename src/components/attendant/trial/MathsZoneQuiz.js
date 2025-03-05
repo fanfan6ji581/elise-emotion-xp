@@ -228,7 +228,9 @@ const MathsQuizPage = () => {
                                         whiteSpace: "normal",
                                         maxWidth: "700px",
                                         display: "flex",
-                                        alignItems: "flex-start"
+                                        alignItems: "flex-start",
+                                        fontWeight: 'bold',
+                                        fontSize: '1rem',
                                     }}
                                 >
                                     Correct Answer
@@ -295,8 +297,8 @@ const MathsQuizPage = () => {
                                 {Math.abs(earnedAmount).toFixed(2)} will be added to your final
                                 score ⭐.
                             </Typography>
-                            <Typography variant="body1" gutterBottom>
-                                Let's continue the game now.
+                            <Typography variant="h6" gutterBottom>
+                                <b>Let's continue the game now.</b>
                             </Typography>
                         </>
                     ) : (
@@ -342,11 +344,11 @@ const MathsQuizPage = () => {
                                         $10 loss <b>&gt; 0</b>
                                     </Typography>
                                     <Typography
-                                        variant="body1"
+                                        variant="h6"
                                         gutterBottom
                                         sx={{ textAlign: "left" }}
                                     >
-                                        Let's continue the game now.
+                                        <b>Let's continue the game now.</b>
                                     </Typography>
                                 </Grid>
                             </Grid>

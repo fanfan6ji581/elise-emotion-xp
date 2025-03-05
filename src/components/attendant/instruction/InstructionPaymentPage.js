@@ -22,7 +22,7 @@ const Instruction3Page = () => {
                 <Grid item xs={12}>
 
                     <Typography variant="h6" sx={{ my: 2 }}>
-                        All information provided about probabilities, odds, and game mechanics is 100% truthful. Our lab follows a strict "no deception" policy – this is our sacred ethical principle. Understanding this is crucial for your gameplay:
+                    All information provided about game mechanics and game parameters is 100% truthful. Our lab follows a strict "no deception" policy – this is our sacred ethical principle. Understanding this is crucial for your gameplay:
                     </Typography>
 
                     <ul>

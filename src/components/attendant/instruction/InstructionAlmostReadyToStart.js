@@ -55,19 +55,19 @@ const InstructionHowToPlayPage = () => {
                 <Grid container justifyContent="center" alignItems="center" sx={{ my: 3 }}>
                     <Grid item xs={12}>
                         <Typography variant="h4" align="center" >
-                            Almost ready to start!
+                            Launch Ready! Quick Payoff Reminder for Dangerous Zones
                         </Typography>
                     </Grid>
                 </Grid>
 
-                <Grid container alignItems="center" sx={{ my: 1 }}>
+                {/* <Grid container alignItems="center" sx={{ my: 1 }}>
                     <Grid item xs={12}>
                         <Typography variant="h5" sx={{ my: 2 }}>
-                        Quick Payoff Reminder for Dangerous Zones!
+                            Quick Payoff Reminder for Dangerous Zones!
                         </Typography>
 
                     </Grid>
-                </Grid>
+                </Grid> */}
 
                 <Grid container alignItems="center" sx={{ my: 5 }}>
                     <Grid item xs={12} sx={{ textAlign: "center" }}>

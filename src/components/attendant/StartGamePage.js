@@ -2,7 +2,7 @@ import {
     Container, Typography, Button, Box, Grid
 } from "@mui/material";
 import { Link, useParams } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useRef, useState, useEffect } from "react"
 import { doc, getDoc } from "firebase/firestore";
 import db from "../../database/firebase";
 import { loginAttendant } from "../../slices/attendantSlice";
@@ -14,6 +14,7 @@ const StartGamePage = () => {
     const loginAttendantS = useSelector(loginAttendant);
     const [xp, setXp] = useState(null);
     const [showStartSection, setShowStartSection] = useState(false);
+    const mountTimeRef = useRef(Date.now());
 
     const fetchXP = async () => {
         const xpRef = doc(db, "xp", loginAttendantS.xp_id);
@@ -31,15 +32,14 @@ const StartGamePage = () => {
 
     useEffect(() => {
         const handleKeyPress = (event) => {
-            if (event.code === "Space") {
+            // 只响应加载200ms后有效的Space键事件
+            if (event.code === "Space" && Date.now() - mountTimeRef.current > 1000) {
                 setShowStartSection(true);
             }
         };
 
         window.addEventListener("keydown", handleKeyPress);
-        return () => {
-            window.removeEventListener("keydown", handleKeyPress);
-        };
+        return () => window.removeEventListener("keydown", handleKeyPress);
     }, []);
 
     return (
@@ -97,9 +97,9 @@ const StartGamePage = () => {
                     </Typography>
 
                     <ul>
-                        <li><Typography variant="h6"><b>Regular Day</b>: Match trend = +$10 | Mismatch = -$10
+                        <li><Typography variant="h6"><b>Regular Day</b>: Match next trend = +$10 | Mismatch = -$10
                         </Typography></li>
-                        <li><Typography variant="h6"><b>Switch Day</b>: Match trend = +$100 | Mismatch = -$100
+                        <li><Typography variant="h6"><b>Switch Day</b>: Match next trend = +$100 | Mismatch = -$100
 
                         </Typography></li>
                         <li><Typography variant="h6"><b>Pass</b>: Always $0
@@ -109,26 +109,6 @@ const StartGamePage = () => {
                 </Grid>
 
             </Grid>
-
-
-            {/* <Grid container alignItems="center" sx={{ my: 1 }}>
-                <Grid item xs={12}>
-                    <Typography variant="h6">
-                        <b>Payoff Cheat Sheet:</b>
-                    </Typography>
-
-                    <ul>
-                        <li><Typography variant="h6"><b>Regular Day</b>: Match trend = +$10 | Mismatch = -$10
-                        </Typography></li>
-                        <li><Typography variant="h6"><b>Switch Day</b>: Match trend = +$100 | Mismatch = -$100
-
-                        </Typography></li>
-                        <li><Typography variant="h6"><b>Pass</b>: Always $0
-
-                        </Typography></li>
-                    </ul>
-                </Grid>
-            </Grid> */}
 
             {showStartSection && (
                 <Grid container alignItems="center" sx={{ my: 3 }}>

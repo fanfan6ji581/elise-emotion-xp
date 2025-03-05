@@ -28,7 +28,7 @@ const Instruction1Page = () => {
           <Grid container alignItems="center" sx={{ my: 2 }}>
             <Grid item xs={12}>
               <Typography variant="h6" sx={{ my: 3 }}>
-                💰 Play well and you could earn over $100! HOWEVER, your success depends entirely on mastering these instructions—every detail is crucial!
+                💰 Play well and you could earn up to $100! HOWEVER, your success depends entirely on mastering these instructions—every detail is crucial!
               </Typography>
               <Typography variant="h2" sx={{ mt: 6, fontSize: '1.5rem' }}>
                 <b>The Asset </b>

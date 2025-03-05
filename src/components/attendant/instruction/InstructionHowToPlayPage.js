@@ -1,5 +1,5 @@
 import {
-    Container, Box, Typography, Button, 
+    Container, Box, Typography, Button,
     // Alert,
     Grid, Stack, Divider
 } from "@mui/material";
@@ -181,11 +181,11 @@ const InstructionHowToPlayPage = () => {
                             </ul>
                             <li>
                                 <Typography variant="h6">
-                                    <b>Day #35</b>: The trend shifts from "-1" to "+1" with indicator previously at 1 = REAL
+                                    <b>Day #35</b>: The trend shifts from "-1" to "+1" with indicator previously at 1 = REAL SHIFT
                                 </Typography>
                             </li>
                             <ul>
-                                <li> <Typography variant="h6">Notice: Indicator jumped to 1 on Day #31, creating a dangerous zone
+                                <li> <Typography variant="h6">Notice: Indicator jumped to 1 on Day #31 ➜ a dangerous zone begins.
                                 </Typography></li>
                                 <li><Typography variant="h6">When shift occurs on Day #35, indicator returns to 0
                                 </Typography>
