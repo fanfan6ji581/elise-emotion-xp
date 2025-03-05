@@ -111,8 +111,9 @@ const gameSlice = createSlice({
             const volume = xpData.volume[trialIndex + 10 - 1];
             const aber = xpData.aberration[trialIndex + 10];
             const outcome = state.outcomeHistory[trialIndex];
+            const missed = state.missHistory[trialIndex];
 
-            if (xpConfig.showMathsZoneQuiz && !state.mathZoneQuiz) {
+            if (xpConfig.showMathsZoneQuiz && !state.mathZoneQuiz && !missed) {
                 if (volume === 1 && (
                     outcome === xpConfig.magnifyChoice ||
                     outcome === -xpConfig.magnifyChoice * xpConfig.loseShift ||
@@ -126,7 +127,7 @@ const gameSlice = createSlice({
                 }
             }
 
-            if (xpConfig.showMathsAberrQuiz && !state.mathAberrQuiz) {
+            if (xpConfig.showMathsAberrQuiz && !state.mathAberrQuiz && !missed) {
                 if (trialIndex > 0 &&
                     aber === 1 && xpData.aberration[trialIndex + 10 - 1] === 1 &&
                     outcome !== xpConfig.magnifyChoice * xpConfig.aberShift
@@ -187,6 +188,9 @@ const gameSlice = createSlice({
             state.showAfterClickDelay = false;
             state.showMoneyOutcome = false;
             state.timerProgress = 0;
+
+            state.zoneBreakCount = 0;
+            state.aberrBreakCount = 0;
         },
         onLogin: (state, action) => {
             const { xpData, xpRecord, xpConfig, mathZoneQuiz, mathAberrQuiz, mathFinalQuiz } = action.payload
