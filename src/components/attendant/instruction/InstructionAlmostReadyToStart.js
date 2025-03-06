@@ -69,7 +69,7 @@ const InstructionHowToPlayPage = () => {
                     </Grid>
                 </Grid> */}
 
-                <Grid container alignItems="center" sx={{ my: 5 }}>
+                <Grid container alignItems="center" sx={{ mt: 10, mb: 5 }}>
                     <Grid item xs={12} sx={{ textAlign: "center" }}>
                         <Box component="img" alt="" src={img15} sx={{ width: '100%' }} />
                     </Grid>

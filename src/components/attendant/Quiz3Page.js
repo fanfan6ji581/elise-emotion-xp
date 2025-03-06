@@ -339,14 +339,14 @@ const QuizPage = () => {
             </Typography>
 
             <Alert variant="outlined" icon={false} severity="info" sx={{ my: 1 }}>
-                <Typography variant="h5" sx={{color: 'red'}}>
+                <Typography variant="h5">
                     <b>
-                        Answer these basic questions to confirm you understand the game. Be careful - your answers are recorded and missing more than 1 question may disqualify you from the experiment.
+                        Please answer the following questions about the game rules.
                     </b>
                 </Typography>
                 <Typography variant="h5" sx={{ my: 1, color: 'red' }}>
                     <b>
-                        If any question seems unclear, ask the experimenter before answering to avoid penalties. Good luck!
+                    IMPORTANT: Because these are basic questions, even one wrong answer could disqualify you from the experiment. So focus carefully, take your time, and if any wording seems unclear, ask before answering!
                     </b>
                 </Typography>
             </Alert>
@@ -467,7 +467,9 @@ const QuizPage = () => {
                     },
                 }}
             >
-                <DialogTitle><Typography variant="h5" sx={{ my: 2 }}>A Quick Reminder of the payoff in the dangerous zone</Typography></DialogTitle>
+                <DialogTitle>
+                    {/* <Typography variant="h5" sx={{ my: 2 }}>A Quick Reminder of the payoff in the dangerous zone</Typography> */}
+                </DialogTitle>
                 <DialogContent>
                     <Grid container alignItems="center" sx={{ my: 0 }}>
                         <Grid item xs={12} sx={{ textAlign: "center" }}>

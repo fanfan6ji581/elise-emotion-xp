@@ -207,7 +207,7 @@ const Instruction1Page = () => {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="h6" sx={{ my: 1 }}>
-                ⭐ <b>BONUS ALERT</b>: Answer these math questions correctly and you'll earn up to an extra $20 on top of your final score! ⭐
+                ⭐ <b>BONUS ALERT</b>: Answer these math questions correctly and you'll earn up to an extra $20 on top of your net balance! ⭐
               </Typography>
             </Grid>
             <Grid item xs={12}>

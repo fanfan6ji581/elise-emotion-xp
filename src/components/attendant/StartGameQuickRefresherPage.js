@@ -76,7 +76,7 @@ const StartGamePage = () => {
                         <Button component={Link} variant="contained" size="large"
                             to={`/xp/${alias}/count-down`}
                         >
-                            I am fully aware of it
+                            I AM FULLY AWARE OF THE ABOVE
                         </Button>
                     </Box>
                 </Grid>

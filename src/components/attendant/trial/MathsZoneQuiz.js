@@ -294,8 +294,8 @@ const MathsQuizPage = () => {
                             <Typography variant="h6" gutterBottom>
                                 <b>Correct reply</b> 👍. Thanks for your input, it will help us
                                 better understand the experimental results. An extra $
-                                {Math.abs(earnedAmount).toFixed(2)} will be added to your final
-                                score ⭐.
+                                {Math.abs(earnedAmount).toFixed(2)} will be added to your net balance
+                                ⭐.
                             </Typography>
                             <Typography variant="h6" gutterBottom>
                                 <b>Let's continue the game now.</b>

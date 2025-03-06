@@ -317,7 +317,7 @@ const MathsFinalQuizPage = () => {
                                     {isCorrect ? (
                                         <Typography variant="h6" gutterBottom>
                                             <b>Correct!</b> 👍 An extra ${Math.abs(earnedAmount).toFixed(2)} will be added
-                                            to your final score, and you're now entered into our drawing for
+                                            to your net balance, and you're now entered into our drawing for
                                             the special secret prize! We'll notify the winner at the end of
                                             the experiment. ⭐
                                         </Typography>
