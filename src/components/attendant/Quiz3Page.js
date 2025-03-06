@@ -346,7 +346,7 @@ const QuizPage = () => {
                 </Typography>
                 <Typography variant="h5" sx={{ my: 1, color: 'red' }}>
                     <b>
-                    IMPORTANT: Because these are basic questions, even one wrong answer could disqualify you from the experiment. So focus carefully, take your time, and if any wording seems unclear, ask before answering!
+                        IMPORTANT: Because these are basic questions, even one wrong answer could disqualify you from the experiment. So focus carefully, take your time, and if any wording seems unclear, ask before answering!
                     </b>
                 </Typography>
             </Alert>
@@ -377,7 +377,15 @@ const QuizPage = () => {
                                                 onChange={() => q.setState(idx + 1)}
                                             />
                                         }
-                                        label={option}
+                                        label={
+                                            disableForm && q.solution === idx + 1 ? (
+                                                <Typography sx={{ color: 'success.main', fontWeight: 'bold' }}>
+                                                    {option}
+                                                </Typography>
+                                            ) : (
+                                                option
+                                            )
+                                        }
                                     />
                                     {disableForm && q.solution === idx + 1 && (
                                         <Alert

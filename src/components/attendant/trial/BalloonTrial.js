@@ -48,7 +48,7 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
   const showMathAberrQuizPageS = useSelector(showMathAberrQuizPage);
   const showMathFinalQuizPageS = useSelector(showMathFinalQuizPage);
 
-  
+
   const xpData = useSelector(xpDataS);
   const xpConfig = useSelector(xpConfigS);
 
@@ -151,10 +151,22 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
     <Container maxWidth="lg">
       <Grid container justifyContent="center">
         <Grid item xs={12}>
-          <Typography variant="h5" align="center" sx={{ mt: 2, mb: 1 }}>
+          {isTrainingMode && <>
+            <Typography variant="h5" align="center" sx={{ mt: 2, mb: 1 }}>
+              Training
+            </Typography>
+            <TrialTimerProgress />
+          </>}
+          {!isTrainingMode && <>
+            <Typography variant="h5" align="center" sx={{ mt: 2, mb: 1 }}>
+              Day: {trialIndexS + 1}/{xpConfig.numberOfTrials}
+            </Typography>
+            <TrialTimerProgress />
+          </>}
+          {/* <Typography variant="h5" align="center" sx={{ mt: 2, mb: 1 }}>
             Day: {trialIndexS + 1}/{xpConfig.numberOfTrials}
           </Typography>
-          <TrialTimerProgress />
+          <TrialTimerProgress /> */}
 
           <Grid container alignItems="center">
             {xpConfig && xpConfig.showChoiceButtonOnTop &&
