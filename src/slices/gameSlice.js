@@ -176,7 +176,14 @@ const gameSlice = createSlice({
             state.showAfterClickDelay = false;
             state.showMoneyOutcome = false;
             state.showVolumeChartInitialValue = !xpConfig.clickToShowVolumeChart;
-            state.showVolumeChart = state.showVolumeChartInitialValue
+            state.showVolumeChart = state.showVolumeChartInitialValue;
+
+            state.zoneBreakCount = 0;
+            state.aberrBreakCount = 0;
+            state.showMathAberrQuizPage = false;
+            state.showMathZoneQuizPage = false;
+            state.showMathFinalQuizPage = false;
+
         },
         reset: (state) => {
             state.trialIndex = 0;
@@ -191,6 +198,10 @@ const gameSlice = createSlice({
 
             state.zoneBreakCount = 0;
             state.aberrBreakCount = 0;
+            state.showMathAberrQuizPage = false;
+            state.showMathZoneQuizPage = false;
+            state.showMathFinalQuizPage = false;
+
         },
         onLogin: (state, action) => {
             const { xpData, xpRecord, xpConfig, mathZoneQuiz, mathAberrQuiz, mathFinalQuiz } = action.payload
