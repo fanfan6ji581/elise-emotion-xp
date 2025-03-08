@@ -235,7 +235,15 @@ const MathsAberrQuizPage = () => {
                                         checked={q1 === idx + 1}
                                     />
                                 }
-                                label={option}
+                                label={
+                                    submitted && correctAnswer === idx + 1 ? (
+                                        <Typography sx={{ color: 'success.main', fontWeight: 'bold' }}>
+                                            {option}
+                                        </Typography>
+                                    ) : (
+                                        option
+                                    )
+                                }
                             />
                             {submitted && isOptionCorrect && (
                                 <Alert

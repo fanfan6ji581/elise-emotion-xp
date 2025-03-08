@@ -42,7 +42,7 @@ const MathsFinalQuizPage = () => {
 
     // Timer states
     // Default to 120 seconds if xpConfig.secondsBriefMathsQuiz is undefined
-    const totalTime = xpConfig.secondsBriefMathsQuiz || 120; 
+    const totalTime = xpConfig.secondsBriefMathsQuiz || 120;
     const [timeLeft, setTimeLeft] = useState(totalTime);
     const [autoTimeLeft, setAutoTimeLeft] = useState(30);
 
@@ -232,7 +232,15 @@ const MathsFinalQuizPage = () => {
                                         checked={q1 === idx + 1}
                                     />
                                 }
-                                label={option}
+                                label={
+                                    submitted && correctAnswer === idx + 1 ? (
+                                        <Typography sx={{ color: 'success.main', fontWeight: 'bold' }}>
+                                            {option}
+                                        </Typography>
+                                    ) : (
+                                        option
+                                    )
+                                }
                             />
                             {submitted && isOptionCorrect && (
                                 <Alert

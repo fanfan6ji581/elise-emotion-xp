@@ -85,7 +85,7 @@ const QuizPage = () => {
                     <MuiLink onClick={handleClickOpen} sx={{ cursor: 'pointer' }}>
                         HERE
                     </MuiLink>
-                    &nbsp;to go back to the previous example ?&#41;
+                    &nbsp;to go back to the previous example&#41; ?
                 </Typography>
             ),
             options: ["It’s negative", "It’s positive", "I’m not quite sure"],
