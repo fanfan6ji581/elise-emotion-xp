@@ -72,6 +72,15 @@ const schema = {
             "title": "Number of trials T",
             // "default": 400
         },
+        "useDifferentNumberOfTrialsInTraining": {
+            "type": "boolean",
+            "title": "Use different total Number of trials in training model",
+        },
+        "numberOfTrialsInTraining": {
+            "type": "integer",
+            "title": "Number of trials T in training model",
+            // "default": 400
+        },
         "percentageEarning": {
             "type": "integer",
             "title": "Percentage of trials for earnings",

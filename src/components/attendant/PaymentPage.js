@@ -11,7 +11,9 @@ export default function PaymentPage() {
     const { alias } = useParams();
     const loginAttendantS = useSelector(loginAttendant);
     // const [finalEarning, setFinalEarning] = useState("...");
+    // eslint-disable-next-line
     const [adjustedEarning, setAdjustedEarning] = useState("...");
+    const [afterQuizEarning, setAfterQuizEarning] = useState("...");
     const [loadingOpen, setLoadingOpen] = useState(true);
     const [xp, setXp] = useState({});
 
@@ -34,12 +36,13 @@ export default function PaymentPage() {
         }
 
         const attendant = docSnap.data();
-        let { xpRecord, pickedOutcomeIndexes, finalEarning, adjustedEarning } = attendant;
+        let { xpRecord, pickedOutcomeIndexes, finalEarning, adjustedEarning, afterQuizEarning } = attendant;
         const { outcomeHistory, missHistory } = xpRecord;
 
         if (typeof finalEarning !== 'undefined' && adjustedEarning) {
             // setFinalEarning(attendant.finalEarning)
             setAdjustedEarning(adjustedEarning);
+            setAfterQuizEarning(afterQuizEarning);
             setLoadingOpen(false);
             return;
         }
@@ -67,7 +70,7 @@ export default function PaymentPage() {
         const medianStartIndex = accumulatedOutcomes[quantileIndex].startIndex;
         pickedOutcomeIndexes = Array.from({ length: 100 }, (_, i) => medianStartIndex + i);
 
-        finalEarning = Math.round(0.8 * medianOutcome) - 120;
+        finalEarning = Math.round(0.8 * medianOutcome) - 550;
 
         if (finalEarning <= 5) {
             adjustedEarning = 10;
@@ -77,9 +80,16 @@ export default function PaymentPage() {
             adjustedEarning = 100;
         }
 
+        afterQuizEarning = adjustedEarning +
+            loginAttendantS?.mathZoneQuiz?.earnedAmount || 0 +
+            loginAttendantS?.mathAberrQuiz?.earnedAmount || 0 +
+            loginAttendantS?.mathFinalQuiz?.earnedAmount || 0;
+
+
         await updateDoc(attendantRef, { finalEarning: finalEarning, adjustedEarning: adjustedEarning, pickedOutcomeIndexes });
         // setFinalEarning(finalEarning)
         setAdjustedEarning(adjustedEarning);
+        setAfterQuizEarning(afterQuizEarning);
         setLoadingOpen(false);
     };
 
@@ -98,7 +108,7 @@ export default function PaymentPage() {
                     </Typography>
 
                     <Typography variant="h6" sx={{ my: 5 }}>
-                        We take 80% of these outcomes and deduct a threshold of $120. So your earnings in this experiment (including the $5 show-up reward) are <b>${adjustedEarning}</b>. Thanks very much for your participation, we're going to proceed with the payment procedure very soon
+                        We take 80% of these outcomes and deduct a threshold of $120. So your earnings in this experiment (including the $5 show-up reward) are <b>${afterQuizEarning}</b>. Thanks very much for your participation, we're going to proceed with the payment procedure very soon
                     </Typography>
 
                     <Typography variant="h6" sx={{ my: 5 }}>

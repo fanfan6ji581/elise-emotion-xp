@@ -127,9 +127,20 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
       }
     }
 
-    if (trialIndexS >= xpConfig.numberOfTrials) {
+    // training mode
+    if (isTrainingMode &&
+      xpConfig.useDifferentNumberOfTrialsInTraining &&
+      trialIndexS >= xpConfig.numberOfTrialsInTraining
+    ) {
       onFinish();
     }
+
+    // other mode
+    if (!isTrainingMode &&
+      trialIndexS >= xpConfig.numberOfTrials) {
+      onFinish();
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     trialIndexS,

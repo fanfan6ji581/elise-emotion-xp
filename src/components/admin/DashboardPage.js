@@ -141,6 +141,8 @@ const DashboardPage = () => {
             afkTimeout: 10000,
             afkTimeoutCost: 1,
             numberOfTrials: 300,
+            useDifferentNumberOfTrialsInTraining: false,
+            numberOfTrialsInTraining: 300,
             percentageEarning: 40,
             trainingSessionSeconds: 180,
             historySessionSeconds: 120,
