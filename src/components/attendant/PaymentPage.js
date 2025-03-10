@@ -39,9 +39,11 @@ export default function PaymentPage() {
         let { xpRecord, pickedOutcomeIndexes, finalEarning, adjustedEarning, afterQuizEarning } = attendant;
         const { outcomeHistory, missHistory } = xpRecord;
 
-        if (typeof finalEarning !== 'undefined' && adjustedEarning) {
+        if (typeof finalEarning !== 'undefined' && afterQuizEarning) {
             // setFinalEarning(attendant.finalEarning)
-            setAdjustedEarning(adjustedEarning);
+            if (adjustedEarning) {
+                setAdjustedEarning(adjustedEarning);
+            }
             setAfterQuizEarning(afterQuizEarning);
             setLoadingOpen(false);
             return;
