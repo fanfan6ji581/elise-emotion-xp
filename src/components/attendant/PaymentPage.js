@@ -102,7 +102,7 @@ export default function PaymentPage() {
                     </Typography>
 
                     <Typography variant="h6" sx={{ my: 5 }}>
-                        We take 80% of these outcomes and deduct a threshold of $550. So your earnings in this experiment (including the $5 show-up reward) are <b>${adjustedEarning}</b>. Thanks very much for your participation, we're going to proceed with the payment procedure very soon
+                        We take 80% of your net balance and deduct a threshold of $550. So your earnings in this experiment (including the $5 show-up reward) are <b>${adjustedEarning}</b>. Thanks very much for your participation, we're going to proceed with the payment procedure very soon
                     </Typography>
 
                     <Typography variant="h6" sx={{ my: 5 }}>

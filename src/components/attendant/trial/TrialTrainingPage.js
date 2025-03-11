@@ -42,7 +42,10 @@ const BalloonTrialTrainingPage = () => {
     return (
         <>
             <BalloonTrial isTrainingMode={true} onFinish={onFinish} />
-            <TrainingTimer trainingSessionSeconds={trainingSessionSeconds} onFinish={onFinish} />
+
+            {!xpConfig.useDifferentNumberOfTrialsInTraining &&
+                <TrainingTimer trainingSessionSeconds={trainingSessionSeconds} onFinish={onFinish} />
+            }
         </>
     )
 }
