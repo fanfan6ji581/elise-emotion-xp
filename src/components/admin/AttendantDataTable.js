@@ -107,6 +107,9 @@ const AttendentDataTable = ({ attendant, xp }) => {
   return (
     <>
       <p>Final picked earning ($xx): ${attendant.finalEarning}</p>
+      <p>Zone Quiz: {attendant.mathZoneQuiz ? `$${attendant.mathZoneQuiz.earnedAmount}` : 'N/A'}</p>
+      <p>Aberr Quiz: {attendant.mathAberrQuiz ? `$${attendant.mathAberrQuiz.earnedAmount}` : 'N/A'}</p>
+      <p>Final Quiz: {attendant.mathFinalQuiz ? `$${attendant.mathFinalQuiz.earnedAmount}` : 'N/A'}</p>
       <p>Adjusted picked earning ($yy): ${attendant.adjustedEarning}</p>
       {attendant.xpRecord.outcomeHistory &&
         <p>Accumulate earning: ${attendant.xpRecord.outcomeHistory.reduce((accumulator, currentValue) => accumulator + currentValue, 0)}</p>
@@ -114,9 +117,6 @@ const AttendentDataTable = ({ attendant, xp }) => {
       <p>Number of Missed trials: {attendant.xpRecord.missHistory.reduce((accumulator, currentValue) => accumulator + currentValue, 0)}</p>
       <p>Miss reach limit: {attendant.missTooMuch ? 'Yes' : ''}</p>
 
-      <p>Zone Quiz: {attendant.mathZoneQuiz ? `$${attendant.mathZoneQuiz.earnedAmount}` : 'N/A'}</p>
-      <p>Aberr Quiz: {attendant.mathAberrQuiz ? `$${attendant.mathAberrQuiz.earnedAmount}` : 'N/A'}</p>
-      <p>Final Quiz: {attendant.mathFinalQuiz ? `$${attendant.mathFinalQuiz.earnedAmount}` : 'N/A'}</p>
 
       <DataGrid
         autoHeight
