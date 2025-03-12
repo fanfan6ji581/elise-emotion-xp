@@ -110,34 +110,45 @@ const gameSlice = createSlice({
 
             const { xpData, xpConfig, trialIndex } = state;
             const volume = xpData.volume[trialIndex + 10 - 1];
+            const volumePrev = xpData.volume[trialIndex + 10 - 1 - 1];
             const aber = xpData.aberration[trialIndex + 10];
             const outcome = state.outcomeHistory[trialIndex];
             const missed = state.missHistory[trialIndex];
 
-            if (xpConfig.showMathsZoneQuiz && !state.mathZoneQuiz && !missed) {
-                if (state.zoneBreakCount < 2 &&
-                    volume === 1 && (
-                        outcome === xpConfig.magnifyChoice ||
-                        outcome === -xpConfig.magnifyChoice * xpConfig.loseShift ||
-                        outcome === 0
-                    )) {
-                    state.zoneBreakCount++;
-                }
-                if (state.zoneBreakCount >= 2 && state.showMathZoneQuizIndex === -1) {
-                    // should only trigger once.
-                    // count the index that should trigger zone quiz
-                    for (let i = 1; i < xpConfig.numberOfTrials; i++) {
-                        if (xpData.volume[trialIndex + 10 - 1 + i] === 0) {
-                            state.showMathZoneQuizIndex = trialIndex + i - 1 + (xpConfig.zoneQuizDelayIndex || 0);
+            if (xpConfig.showMathsZoneQuiz && !state.mathZoneQuiz && !missed && state.zoneBreakCount < 2) {
+
+                // only trigger when zone ends
+                if (volumePrev === 1 && volume === 0) {
+                    // this means a zone ends
+                    // check previous choice see if there are any mistake
+                    let index = trialIndex - 1;
+                    let zoneHasMistake = false;
+                    while (xpData.volume[index + 10 - 1 - 1] === 1) {
+                        let outcome = state.outcomeHistory[index];
+                        if (outcome === xpConfig.magnifyChoice ||
+                            outcome === -xpConfig.magnifyChoice * xpConfig.loseShift ||
+                            outcome === 0) {
+                            // if a mistake has found
+                            zoneHasMistake = true;
                             break;
                         }
+                        index--;
+                    }
+
+                    if (zoneHasMistake) {
+                        state.zoneBreakCount++;
                     }
                 }
 
-                if (trialIndex === state.showMathZoneQuizIndex) {
-                    //prepare to jump
-                    state.showMathZoneQuizPage = true
+
+                if (state.zoneBreakCount >= 2 && state.showMathZoneQuizIndex === -1) {
+                    state.showMathZoneQuizIndex = trialIndex + (xpConfig.zoneQuizDelayIndex || 0);
                 }
+            }
+
+            if (trialIndex === state.showMathZoneQuizIndex) {
+                //prepare to jump
+                state.showMathZoneQuizPage = true
             }
 
             if (xpConfig.showMathsAberrQuiz && !state.mathAberrQuiz && !missed) {
@@ -228,6 +239,7 @@ const gameSlice = createSlice({
                 clickToShowChartHistory,
                 zoneBreakCount,
                 aberrBreakCount,
+                showMathZoneQuizIndex,
             } = xpRecord;
             state.trialIndex = trialIndex;
             state.choiceHistory = choiceHistory;
@@ -237,6 +249,7 @@ const gameSlice = createSlice({
             state.clickToShowChartHistory = clickToShowChartHistory;
             state.zoneBreakCount = zoneBreakCount || 0;
             state.aberrBreakCount = aberrBreakCount || 0;
+            state.showMathZoneQuizIndex = showMathZoneQuizIndex || -1;
 
             state.mathZoneQuiz = mathZoneQuiz;
             state.mathAberrQuiz = mathAberrQuiz;
