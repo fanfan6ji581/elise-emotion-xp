@@ -114,14 +114,27 @@ const gameSlice = createSlice({
             const missed = state.missHistory[trialIndex];
 
             if (xpConfig.showMathsZoneQuiz && !state.mathZoneQuiz && !missed) {
-                if (volume === 1 && (
-                    outcome === xpConfig.magnifyChoice ||
-                    outcome === -xpConfig.magnifyChoice * xpConfig.loseShift ||
-                    outcome === 0
-                )) {
+                if (state.zoneBreakCount < 2 &&
+                    volume === 1 && (
+                        outcome === xpConfig.magnifyChoice ||
+                        outcome === -xpConfig.magnifyChoice * xpConfig.loseShift ||
+                        outcome === 0
+                    )) {
                     state.zoneBreakCount++;
                 }
-                if (state.zoneBreakCount >= 2) {
+                if (state.zoneBreakCount >= 2 && state.showMathZoneQuizIndex === -1) {
+                    // should only trigger once.
+                    // count the index that should trigger zone quiz
+                    for (let i = 1; i < xpConfig.numberOfTrials; i++) {
+                        if (xpData.volume[trialIndex + 10 - 1 + i] === 0) {
+                            console.log(state.showMathZoneQuizIndex);
+                            state.showMathZoneQuizIndex = trialIndex + i - 1 + (xpConfig.zoneQuizDelayIndex || 0);
+                            break;
+                        }
+                    }
+                }
+
+                if (trialIndex === state.showMathZoneQuizIndex) {
                     //prepare to jump
                     state.showMathZoneQuizPage = true
                 }
@@ -144,7 +157,6 @@ const gameSlice = createSlice({
             if (xpConfig.showFinalMathsQuiz && !state.mathFinalQuiz) {
                 // only shows when math zone quiz
                 if (trialIndex >= xpConfig.numberOfTrials - 1 && state.mathZoneQuiz) {
-                    debugger
                     state.showMathFinalQuizPage = true
                 }
             }
@@ -181,6 +193,7 @@ const gameSlice = createSlice({
             state.zoneBreakCount = 0;
             state.aberrBreakCount = 0;
             state.showMathAberrQuizPage = false;
+            state.showMathZoneQuizIndex = -1;
             state.showMathZoneQuizPage = false;
             state.showMathFinalQuizPage = false;
 
@@ -199,6 +212,7 @@ const gameSlice = createSlice({
             state.zoneBreakCount = 0;
             state.aberrBreakCount = 0;
             state.showMathAberrQuizPage = false;
+            state.showMathZoneQuizIndex = -1;
             state.showMathZoneQuizPage = false;
             state.showMathFinalQuizPage = false;
 
@@ -277,6 +291,8 @@ export const zoneBreakCount = (state) => state.game.zoneBreakCount;
 export const showMathZoneQuizPage = (state) => state.game.showMathZoneQuizPage;
 export const showMathAberrQuizPage = (state) => state.game.showMathAberrQuizPage;
 export const showMathFinalQuizPage = (state) => state.game.showMathFinalQuizPage;
+export const showMathZoneQuizIndex = (state) => state.game.showMathZoneQuizIndex;
+
 
 export const missHistory = (state) => state.game.missHistory;
 export const reactionHistory = (state) => state.game.reactionHistory;

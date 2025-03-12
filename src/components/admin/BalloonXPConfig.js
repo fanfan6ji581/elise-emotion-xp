@@ -164,6 +164,12 @@ const schema = {
             "title": "Show Maths ZONE Quiz",
             default: true
         },
+        zoneQuizDelayIndex: {
+            "type": "integer",
+            "title": "Zone Quiz delay index count",
+            default: 0
+        },
+        
         secondsMathsZoneQuiz: {
             "type": "integer",
             "title": "Time of Maths ZONE Quiz Page in seconds",

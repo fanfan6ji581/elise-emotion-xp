@@ -163,6 +163,7 @@ const DashboardPage = () => {
             // showExampleWhenTrialBreak: false,
             oneButtonForBuySell: false,
             showMathsZoneQuiz: false,
+            zoneQuizDelayIndex: 0,
             showMathsAberrQuiz: false,
             showFinalMathsQuiz: false,
             secondsMathsZoneQuiz: 120,
