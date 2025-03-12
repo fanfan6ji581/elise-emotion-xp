@@ -26,6 +26,7 @@ const initialState = {
     mathZoneQuiz: null,
     mathAberrQuiz: null,
     mathFinalQuiz: null,
+    showMathZoneQuizIndex: -1,
     showMathZoneQuizPage: false,
     showMathAberrQuizPage: false,
     showMathFinalQuizPage: false,
@@ -127,7 +128,6 @@ const gameSlice = createSlice({
                     // count the index that should trigger zone quiz
                     for (let i = 1; i < xpConfig.numberOfTrials; i++) {
                         if (xpData.volume[trialIndex + 10 - 1 + i] === 0) {
-                            console.log(state.showMathZoneQuizIndex);
                             state.showMathZoneQuizIndex = trialIndex + i - 1 + (xpConfig.zoneQuizDelayIndex || 0);
                             break;
                         }
