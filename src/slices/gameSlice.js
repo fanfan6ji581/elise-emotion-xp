@@ -110,7 +110,7 @@ const gameSlice = createSlice({
 
             const { xpData, xpConfig, trialIndex } = state;
             const volume = xpData.volume[trialIndex + 10 - 1];
-            const volumePrev = xpData.volume[trialIndex + 10 - 1 - 1];
+            const volumeNext = xpData.volume[trialIndex + 10 - 1 + 1];
             const aber = xpData.aberration[trialIndex + 10];
             const outcome = state.outcomeHistory[trialIndex];
             const missed = state.missHistory[trialIndex];
@@ -118,12 +118,12 @@ const gameSlice = createSlice({
             if (xpConfig.showMathsZoneQuiz && !state.mathZoneQuiz && !missed && state.zoneBreakCount < 2) {
 
                 // only trigger when zone ends
-                if (volumePrev === 1 && volume === 0) {
+                if (volumeNext === 0 && volume === 1) {
                     // this means a zone ends
                     // check previous choice see if there are any mistake
-                    let index = trialIndex - 1;
+                    let index = trialIndex;
                     let zoneHasMistake = false;
-                    while (xpData.volume[index + 10 - 1 - 1] === 1) {
+                    while (xpData.volume[index + 10 - 1] === 1) {
                         let outcome = state.outcomeHistory[index];
                         if (outcome === xpConfig.magnifyChoice ||
                             outcome === -xpConfig.magnifyChoice * xpConfig.loseShift ||
@@ -147,7 +147,6 @@ const gameSlice = createSlice({
             }
 
             if (trialIndex === state.showMathZoneQuizIndex) {
-                //prepare to jump
                 state.showMathZoneQuizPage = true
             }
 
