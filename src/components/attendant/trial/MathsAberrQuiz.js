@@ -180,11 +180,11 @@ const MathsAberrQuizPage = () => {
     ];
 
     return (
-        <Container sx={{ position: "relative", mt: 4 }}>
+        <Container sx={{ position: "relative", my: 4 }}>
             {/* Timer display if not submitted */}
             {!submitted && (
                 <Box sx={{ position: "absolute", top: 16, right: 16 }}>
-                    <Typography variant="body1">
+                    <Typography variant="h5">
                         Time Left: {formatTimeLeft(timeLeft)}
                     </Typography>
                 </Box>
@@ -194,24 +194,24 @@ const MathsAberrQuizPage = () => {
             <Typography variant="h4" textAlign="center" sx={{ my: 2 }}>
                 BRIEF MATHS QUIZ
             </Typography>
-            <Typography variant="h6" textAlign="center" sx={{ my: 2 }}>
+            <Typography variant="h5" textAlign="center" sx={{ my: 2 }}>
                 <b>⭐ Get it right and earn up to a $20 bonus! ⭐</b>
             </Typography>
-            <Typography variant="body1" gutterBottom>
+            <Typography variant="h5" gutterBottom>
                 <i>
                     Your confidence level determines both potential gain AND loss: high confidence
                     means bigger rewards if correct, but larger penalties if wrong.
                 </i>
             </Typography>
-            <Typography variant="body1" sx={{ mt: 5, mb: 2 }}>
+            <Typography variant="h5" sx={{ mt: 5, mb: 2 }}>
                 <b>Quick Scenario</b>: The indicator is at baseline (0) and the current trend
                 switches from -1 to +1.
             </Typography>
 
-            <Typography variant="body1" sx={{ my: 2 }}>
+            <Typography variant="h5" sx={{ my: 2 }}>
                 <b>Step 1: Select your answer</b>
             </Typography>
-            <Typography variant="body1" sx={{ mb: 1 }}>
+            <Typography variant="h5" sx={{ mb: 1 }}>
                 What will happen next?
             </Typography>
 
@@ -237,7 +237,7 @@ const MathsAberrQuizPage = () => {
                                 }
                                 label={
                                     submitted && correctAnswer === idx + 1 ? (
-                                        <Typography sx={{ color: 'success.main', fontWeight: 'bold' }}>
+                                        <Typography sx={{ color: 'success.main', fontWeight: 'bold', fontSize: '1.125rem' }}>
                                             {option}
                                         </Typography>
                                     ) : (
@@ -273,7 +273,7 @@ const MathsAberrQuizPage = () => {
             </RadioGroup>
 
             {/* Confidence Slider */}
-            <Typography variant="body1" sx={{ mb: 1 }}>
+            <Typography variant="h5" sx={{ mb: 1 }}>
                 <b>Step 2: How confident are you in your answer?</b>
             </Typography>
             <Grid container sx={{ mb: 2 }}>
@@ -292,7 +292,7 @@ const MathsAberrQuizPage = () => {
                         valueLabelDisplay="auto"
                         disabled={disableForm || submitted}
                     />
-                    <Typography variant="body1" align="center">
+                    <Typography variant="h5" align="center">
                         Confidence: {sliderValue}%
                         <br />
                         Potential bonus/penalty: $
@@ -308,6 +308,7 @@ const MathsAberrQuizPage = () => {
                         variant="contained"
                         onClick={() => handleSubmit(false)}
                         disabled={disableForm || q1 === 0}
+                        sx={{fontSize: '1.25rem'}}
                     >
                         Confirm Confidence
                     </Button>
@@ -319,31 +320,31 @@ const MathsAberrQuizPage = () => {
                 <Alert variant="outlined" icon={false} severity="info" sx={{ mt: 4 }}>
                     {isCorrect ? (
                         <>
-                            <Typography variant="h6" gutterBottom>
+                            <Typography variant="h5" gutterBottom>
                                 <b>Correct reply</b> 👍. Thanks for your input, it will help us better
                                 understand the experimental results. An extra $
                                 {Math.abs(earnedAmount).toFixed(2)} will be added to your net balance
                                 ⭐.
                             </Typography>
-                            <Typography variant="h6" gutterBottom>
+                            <Typography variant="h5" gutterBottom>
                                 <b>Let's continue the game now.</b>
                             </Typography>
                         </>
                     ) : (
                         <>
-                            <Typography variant="h6" gutterBottom>
+                            <Typography variant="h5" gutterBottom>
                                 <b>Thanks for your input!</b> Your reply will help us better
                                 understand the experimental results.
                             </Typography>
-                            <Typography variant="h6" gutterBottom>
+                            <Typography variant="h5" gutterBottom>
                                 <b>Quick Reminder:</b>
                             </Typography>
-                            <Typography variant="body1" sx={{ mb: 2 }}>
+                            <Typography variant="h5" sx={{ mb: 2 }}>
                                 A switch that occurs when the indicator is at baseline (0) must be an
                                 <b> aberration</b>: the trend will switch back to -1 for sure on the next
                                 day (no uncertainty).
                             </Typography>
-                            <Typography variant="h6" gutterBottom>
+                            <Typography variant="h5" gutterBottom>
                                 <b>Let's continue the game now.</b>
                             </Typography>
                         </>
@@ -357,7 +358,7 @@ const MathsAberrQuizPage = () => {
                             </Button>
                         </Grid>
                     </Grid>
-                    <Typography variant="body2" textAlign="right" sx={{ mt: 2 }}>
+                    <Typography variant="body1" textAlign="right" sx={{ mt: 2 }}>
                         You will be redirected in <strong>{autoTimeLeft}</strong> seconds...
                     </Typography>
                 </Alert>

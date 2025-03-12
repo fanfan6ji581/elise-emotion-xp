@@ -175,11 +175,11 @@ const MathsFinalQuizPage = () => {
     ];
 
     return (
-        <Container sx={{ position: "relative", mt: 4 }}>
+        <Container sx={{ position: "relative", my: 4 }}>
             {/* Timer if not submitted */}
             {!submitted && (
                 <Box sx={{ position: "absolute", top: 16, right: 16 }}>
-                    <Typography variant="body1">
+                    <Typography variant="h5">
                         Time Left: {formatTimeLeft(timeLeft)}
                     </Typography>
                 </Box>
@@ -189,25 +189,25 @@ const MathsFinalQuizPage = () => {
             <Typography variant="h4" textAlign="center" sx={{ my: 2 }}>
                 FINAL MATHS QUIZ
             </Typography>
-            <Typography variant="h6" textAlign="center" sx={{ my: 2 }}>
+            <Typography variant="h5" textAlign="center" sx={{ my: 2 }}>
                 <b>
                     ⭐ Get it right and earn a bonus up to $20 plus a chance at a special secret prize!
                     ⭐
                 </b>
             </Typography>
-            <Typography variant="body1" gutterBottom>
+            <Typography variant="h5" gutterBottom>
                 <i>
                     Your confidence level determines both potential gain AND loss: high confidence
                     means bigger rewards if correct, but larger penalties if wrong.
                 </i>
             </Typography>
-            <Typography variant="body1" sx={{ mt: 5, mb: 2 }}>
+            <Typography variant="h5" sx={{ mt: 5, mb: 2 }}>
                 <b>Quick Scenario</b>: The indicator = 1 and the current trend is +1.
             </Typography>
-            <Typography variant="body1" sx={{ my: 2 }}>
+            <Typography variant="h5" sx={{ my: 2 }}>
                 <b>Step 1: Select your answer</b>
             </Typography>
-            <Typography variant="body1" sx={{ mb: 1 }}>
+            <Typography variant="h5" sx={{ mb: 1 }}>
                 From a pure maths perspective, which option offers the highest expected value
                 (the average outcome when considering all possible results and their probabilities)?
             </Typography>
@@ -234,7 +234,7 @@ const MathsFinalQuizPage = () => {
                                 }
                                 label={
                                     submitted && correctAnswer === idx + 1 ? (
-                                        <Typography sx={{ color: 'success.main', fontWeight: 'bold' }}>
+                                        <Typography sx={{ color: 'success.main', fontWeight: 'bold', fontSize: '1.125rem' }}>
                                             {option}
                                         </Typography>
                                     ) : (
@@ -269,7 +269,7 @@ const MathsFinalQuizPage = () => {
                 })}
             </RadioGroup>
 
-            <Typography variant="body1" sx={{ my: 2 }}>
+            <Typography variant="h5" sx={{ my: 2 }}>
                 <b>Step 2: How confident are you in your answer?</b>
             </Typography>
             <Grid container sx={{ mb: 2 }}>
@@ -288,7 +288,7 @@ const MathsFinalQuizPage = () => {
                         valueLabelDisplay="auto"
                         disabled={disableForm || submitted}
                     />
-                    <Typography variant="body1" align="center">
+                    <Typography variant="h5" align="center">
                         Confidence: {sliderValue}%
                         <br />
                         Potential bonus/penalty: $
@@ -304,6 +304,7 @@ const MathsFinalQuizPage = () => {
                         variant="contained"
                         onClick={() => handleSubmit(false)}
                         disabled={disableForm || q1 === 0}
+                        sx={{fontSize: '1.25rem'}}
                     >
                         Confirm Confidence
                     </Button>
@@ -323,14 +324,14 @@ const MathsFinalQuizPage = () => {
                             <Grid container>
                                 <Grid item xs={12}>
                                     {isCorrect ? (
-                                        <Typography variant="h6" gutterBottom>
+                                        <Typography variant="h5" gutterBottom>
                                             <b>Correct!</b> 👍 An extra ${Math.abs(earnedAmount).toFixed(2)} will be added
                                             to your net balance, and you're now entered into our drawing for
                                             the special secret prize! We'll notify the winner at the end of
                                             the experiment. ⭐
                                         </Typography>
                                     ) : (
-                                        <Typography variant="h6" textAlign="center" gutterBottom>
+                                        <Typography variant="h5" textAlign="center" gutterBottom>
                                             <b>Thanks for participating, we truly appreciate your input!</b>
                                         </Typography>
                                     )}
@@ -350,7 +351,7 @@ const MathsFinalQuizPage = () => {
                                 </Grid>
 
                                 <Grid item xs={12} textAlign="right" sx={{ mt: 2 }}>
-                                    <Typography variant="body2">
+                                    <Typography variant="body1">
                                         You will be redirected in <strong>{autoTimeLeft}</strong> seconds...
                                     </Typography>
                                 </Grid>
