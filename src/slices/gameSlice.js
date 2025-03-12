@@ -110,7 +110,7 @@ const gameSlice = createSlice({
 
             const { xpData, xpConfig, trialIndex } = state;
             const volume = xpData.volume[trialIndex + 10 - 1];
-            const volumeNext = xpData.volume[trialIndex + 10 - 1 + 1];
+            const volumeNext = trialIndex + 10 < xpData.volume.length ? xpData.volume[trialIndex + 10 ] : -1;
             const aber = xpData.aberration[trialIndex + 10];
             const outcome = state.outcomeHistory[trialIndex];
             const missed = state.missHistory[trialIndex];
