@@ -339,7 +339,7 @@ const MathsAberrQuizPage = () => {
                             <Typography variant="h5" gutterBottom>
                                 <b>Quick Reminder:</b>
                             </Typography>
-                            <Typography variant="h5" sx={{ mb: 2 }}>
+                            <Typography variant="h5" sx={{ mb: 2, color: 'success.main', fontWeight: 'bold', fontSize: '1.5rem' }}>
                                 A switch that occurs when the indicator is at baseline (0) must be an
                                 <b> aberration</b>: the trend will switch back to -1 for sure on the next
                                 day (no uncertainty).

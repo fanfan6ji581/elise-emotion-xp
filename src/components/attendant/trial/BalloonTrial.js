@@ -20,6 +20,7 @@ import {
   showMathAberrQuizPage,
   showMathFinalQuizPage,
   showMathZoneQuizIndex,
+  showMathAberrQuizIndex,
 } from "../../../slices/gameSlice";
 import { login } from "../../../slices/attendantSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -49,6 +50,8 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
   const showMathAberrQuizPageS = useSelector(showMathAberrQuizPage);
   const showMathFinalQuizPageS = useSelector(showMathFinalQuizPage);
   const showMathZoneQuizIndexS = useSelector(showMathZoneQuizIndex);
+  const showMathAberrQuizIndexS = useSelector(showMathAberrQuizIndex);
+  
 
 
   const xpData = useSelector(xpDataS);
@@ -70,6 +73,7 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
       zoneBreakCount: zoneBreakCountS,
       aberrBreakCount: aberrBreakCountS,
       showMathZoneQuizIndex: showMathZoneQuizIndexS,
+      showMathAberrQuizIndex: showMathAberrQuizIndexS,
     };
     await updateDoc(attendantRef, { xpRecord });
     // store into local storage as well
@@ -160,6 +164,7 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
     showMathAberrQuizPageS,
     showMathFinalQuizPageS,
     showMathZoneQuizIndexS,
+    showMathAberrQuizIndexS,
   ]);
 
   return (

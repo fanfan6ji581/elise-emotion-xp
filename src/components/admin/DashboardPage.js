@@ -165,6 +165,7 @@ const DashboardPage = () => {
             showMathsZoneQuiz: false,
             zoneQuizDelayIndex: 0,
             showMathsAberrQuiz: false,
+            aberrQuizDelayIndex: 0,
             showFinalMathsQuiz: false,
             secondsMathsZoneQuiz: 120,
             secondsMathsAberrQuiz: 120,

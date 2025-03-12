@@ -333,21 +333,21 @@ const MathsQuizPage = () => {
                                 <Grid item xs={12}>
                                     <Typography
                                         variant="h5"
-                                        sx={{ mb: 2, textAlign: "left" }}
+                                        sx={{ mb: 2, textAlign: "left", color: 'success.main', fontWeight: 'bold', fontSize: '1.5rem' }}
                                     >
                                         From a pure maths perspective, when in the dangerous
                                         zone (indicator = 1):
                                     </Typography>
                                     <Typography
                                         variant="h5"
-                                        sx={{ mb: 2, textAlign: "left" }}
+                                        sx={{ mb: 2, textAlign: "left", color: 'success.main', fontWeight: 'bold', fontSize: '1.5rem' }}
                                     >
                                         - Choosing with the current trend: 0.85 × $10 win - 0.15 × $100
                                         loss <b>&lt; 0</b>
                                     </Typography>
                                     <Typography
                                         variant="h5"
-                                        sx={{ mb: 2, textAlign: "left" }}
+                                        sx={{ mb: 2, textAlign: "left", color: 'success.main', fontWeight: 'bold', fontSize: '1.5rem' }}
                                     >
                                         - Choosing against the current trend: 0.15 × $100 win - 0.85 ×
                                         $10 loss <b>&gt; 0</b>

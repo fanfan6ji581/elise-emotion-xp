@@ -27,6 +27,7 @@ const initialState = {
     mathAberrQuiz: null,
     mathFinalQuiz: null,
     showMathZoneQuizIndex: -1,
+    showMathAberrQuizIndex: -1,
     showMathZoneQuizPage: false,
     showMathAberrQuizPage: false,
     showMathFinalQuizPage: false,
@@ -110,7 +111,7 @@ const gameSlice = createSlice({
 
             const { xpData, xpConfig, trialIndex } = state;
             const volume = xpData.volume[trialIndex + 10 - 1];
-            const volumeNext = trialIndex + 10 < xpData.volume.length ? xpData.volume[trialIndex + 10 ] : -1;
+            const volumeNext = trialIndex + 10 < xpData.volume.length ? xpData.volume[trialIndex + 10] : -1;
             const aber = xpData.aberration[trialIndex + 10];
             const outcome = state.outcomeHistory[trialIndex];
             const missed = state.missHistory[trialIndex];
@@ -142,7 +143,7 @@ const gameSlice = createSlice({
 
 
                 if (state.zoneBreakCount >= 2 && state.showMathZoneQuizIndex === -1) {
-                    state.showMathZoneQuizIndex = trialIndex + (xpConfig.zoneQuizDelayIndex || 0);
+                    state.showMathZoneQuizIndex = Math.min(trialIndex + (xpConfig.zoneQuizDelayIndex || 0), xpConfig.numberOfTrials - 1);
                 }
             }
 
@@ -158,10 +159,13 @@ const gameSlice = createSlice({
                     state.aberrBreakCount++;
                 }
 
-                if (state.aberrBreakCount >= 1) {
-                    //prepare to jump
-                    state.showMathAberrQuizPage = true
+                if (state.aberrBreakCount >= 1 && state.showMathAberrQuizIndex === -1) {
+                    state.showMathAberrQuizIndex = Math.min(trialIndex + (xpConfig.aberrQuizDelayIndex || 0), xpConfig.numberOfTrials - 1);
                 }
+            }
+
+            if (trialIndex === state.showMathAberrQuizIndex) {
+                state.showMathAberrQuizPage = true
             }
 
             if (xpConfig.showFinalMathsQuiz && !state.mathFinalQuiz) {
@@ -204,6 +208,7 @@ const gameSlice = createSlice({
             state.aberrBreakCount = 0;
             state.showMathAberrQuizPage = false;
             state.showMathZoneQuizIndex = -1;
+            state.showMathAberrQuizIndex = -1;
             state.showMathZoneQuizPage = false;
             state.showMathFinalQuizPage = false;
 
@@ -223,6 +228,7 @@ const gameSlice = createSlice({
             state.aberrBreakCount = 0;
             state.showMathAberrQuizPage = false;
             state.showMathZoneQuizIndex = -1;
+            state.showMathAberrQuizIndex = -1;
             state.showMathZoneQuizPage = false;
             state.showMathFinalQuizPage = false;
 
@@ -239,6 +245,7 @@ const gameSlice = createSlice({
                 zoneBreakCount,
                 aberrBreakCount,
                 showMathZoneQuizIndex,
+                showMathAberrQuizIndex,
             } = xpRecord;
             state.trialIndex = trialIndex;
             state.choiceHistory = choiceHistory;
@@ -249,6 +256,7 @@ const gameSlice = createSlice({
             state.zoneBreakCount = zoneBreakCount || 0;
             state.aberrBreakCount = aberrBreakCount || 0;
             state.showMathZoneQuizIndex = showMathZoneQuizIndex || -1;
+            state.showMathAberrQuizIndex = showMathAberrQuizIndex || -1;
 
             state.mathZoneQuiz = mathZoneQuiz;
             state.mathAberrQuiz = mathAberrQuiz;
@@ -304,7 +312,7 @@ export const showMathZoneQuizPage = (state) => state.game.showMathZoneQuizPage;
 export const showMathAberrQuizPage = (state) => state.game.showMathAberrQuizPage;
 export const showMathFinalQuizPage = (state) => state.game.showMathFinalQuizPage;
 export const showMathZoneQuizIndex = (state) => state.game.showMathZoneQuizIndex;
-
+export const showMathAberrQuizIndex = (state) => state.game.showMathAberrQuizIndex;
 
 export const missHistory = (state) => state.game.missHistory;
 export const reactionHistory = (state) => state.game.reactionHistory;

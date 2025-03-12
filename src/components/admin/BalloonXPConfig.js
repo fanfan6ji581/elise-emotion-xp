@@ -169,11 +169,15 @@ const schema = {
             "title": "Zone Quiz delay index count",
             default: 0
         },
-        
         secondsMathsZoneQuiz: {
             "type": "integer",
             "title": "Time of Maths ZONE Quiz Page in seconds",
             "default": 120
+        },
+        aberrQuizDelayIndex: {
+            "type": "integer",
+            "title": "Aberr Quiz delay index count",
+            default: 0
         },
         showMathsAberrQuiz: {
             "type": "boolean",
