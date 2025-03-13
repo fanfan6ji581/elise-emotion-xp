@@ -69,9 +69,9 @@ export default function PaymentPage() {
         const medianStartIndex = accumulatedOutcomes[quantileIndex].startIndex;
         pickedOutcomeIndexes = Array.from({ length: 100 }, (_, i) => medianStartIndex + i);
 
-        let afterQuizEarning = medianOutcome + loginAttendantS?.mathZoneQuiz?.earnedAmount || 0 +
-            loginAttendantS?.mathAberrQuiz?.earnedAmount || 0 +
-            loginAttendantS?.mathFinalQuiz?.earnedAmount || 0;
+        let afterQuizEarning = medianOutcome + (loginAttendantS?.mathZoneQuiz?.earnedAmount || 0) +
+            (loginAttendantS?.mathAberrQuiz?.earnedAmount || 0) +
+            (loginAttendantS?.mathFinalQuiz?.earnedAmount || 0);
         finalEarning = Math.round(0.8 * afterQuizEarning) - 550;
 
         if (finalEarning <= 5) {
