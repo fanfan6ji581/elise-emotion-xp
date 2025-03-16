@@ -72,7 +72,7 @@ export default function PaymentPage() {
         let afterQuizEarning = medianOutcome + (loginAttendantS?.mathZoneQuiz?.earnedAmount || 0) +
             (loginAttendantS?.mathAberrQuiz?.earnedAmount || 0) +
             (loginAttendantS?.mathFinalQuiz?.earnedAmount || 0);
-        finalEarning = Math.round(0.8 * afterQuizEarning) - 550;
+        finalEarning = Math.round(0.8 * afterQuizEarning) - 600;
 
         if (finalEarning <= 5) {
             adjustedEarning = 10;
@@ -80,6 +80,13 @@ export default function PaymentPage() {
             adjustedEarning = finalEarning + 5;
         } else if (finalEarning >= 95) {
             adjustedEarning = 100;
+        }
+
+        if (adjustedEarning < 50 && !loginAttendantS?.mathZoneQuiz &&
+            !loginAttendantS?.mathAberrQuiz &&
+            !loginAttendantS?.mathFinalQuiz
+        ) {
+            adjustedEarning = 50;
         }
 
         await updateDoc(attendantRef, { finalEarning, adjustedEarning, afterQuizEarning, pickedOutcomeIndexes });
@@ -102,7 +109,7 @@ export default function PaymentPage() {
                     </Typography>
 
                     <Typography variant="h6" sx={{ my: 5 }}>
-                        We take 80% of your net balance and deduct a threshold of $550. So your earnings in this experiment (including the $5 show-up reward) are <b>${adjustedEarning}</b>. Thanks very much for your participation, we're going to proceed with the payment procedure very soon
+                        We take 80% of your net balance and deduct a threshold of $600. So your earnings in this experiment (including the $5 show-up reward) are <b>${adjustedEarning}</b>. Thanks very much for your participation, we're going to proceed with the payment procedure very soon
                     </Typography>
 
                     <Typography variant="h6" sx={{ my: 5 }}>

@@ -78,16 +78,20 @@ const QuizPage = () => {
     const questions = [
         {
             id: "mcq1",
-            text: "In the dangerous zone, from a pure maths perspective, what is the expected outcome if you follow the current asset trend (for example, selling (-10) on Day 33 as shown earlier, ",
-            extra: (
+            text: "",
+            extra: <>
                 <Typography variant="span" sx={{}}>
+                    In the dangerous zone, from a pure maths perspective, what is the expected outcome if you follow <b>the current asset trend</b> (for example, selling (-10) on Day 33 as shown earlier,
+
                     click&nbsp;
                     <MuiLink onClick={handleClickOpen} sx={{ cursor: 'pointer' }}>
                         HERE
                     </MuiLink>
                     &nbsp;to go back to the previous example&#41; ?
+                    <br />
+                    <i>Note: Please seek clarifications if you are not sure about what “expected outcome” means.</i>
                 </Typography>
-            ),
+            </>,
             options: ["It’s negative", "It’s positive", "I’m not quite sure"],
             state: mcq1,
             setState: setMcq1,
@@ -132,7 +136,7 @@ const QuizPage = () => {
         },
         {
             id: "mcq6",
-            text: `Scenario 1: I am in the dangerous zone and the current asset trend is +1. If I choose to buy 10 shares and the next day's asset trend remains +1, what will my payoff be?`,
+            text: `Scenario 1: I am in the dangerous zone and the current asset trend is +1. If I choose to buy 10 shares  (+10) and the next day's asset trend remains +1 (asset trend does not switch), what will my payoff be?`,
             options: ["Win of $10", "Loss of $10", "Win of $100", "Loss of $100"],
             state: mcq6,
             setState: setMcq6,
@@ -141,7 +145,7 @@ const QuizPage = () => {
         },
         {
             id: "mcq7",
-            text: `Scenario 2: I am in the dangerous zone and the current asset trend is +1. If I choose to sell 10 shares and the asset trend switches to -1, what will my payoff be?`,
+            text: `Scenario 2: I am in the dangerous zone and the current asset trend is +1. If I choose to sell 10 shares (-10) and the asset trend switches to -1, what will my payoff be?`,
             options: ["Win of $10", "Loss of $10", "Win of $100", "Loss of $100"],
             state: mcq7,
             setState: setMcq7,
@@ -150,7 +154,7 @@ const QuizPage = () => {
         },
         {
             id: "mcq8",
-            text: `Scenario 3: I am in the dangerous zone and the current asset trend is +1. If I choose to buy 10 shares and the asset trend switches to -1, what will my payoff be?`,
+            text: `Scenario 3: I am in the dangerous zone and the current asset trend is +1. If I choose to buy 10 shares (+10) and the asset trend switches to -1, what will my payoff be?`,
             options: ["Win of $10", "Loss of $10", "Win of $100", "Loss of $100"],
             state: mcq8,
             setState: setMcq8,
@@ -159,7 +163,7 @@ const QuizPage = () => {
         },
         {
             id: "mcq9",
-            text: `Scenario 4: I am outside the dangerous zone and the current asset trend is +1. If I choose to buy 10 shares and the asset trend switches to -1, what will my payoff be?`,
+            text: `Scenario 4: I am outside the dangerous zone and the current asset trend is +1. If I choose to buy 10 (+10) shares and the asset trend switches to -1, what will my payoff be?`,
             options: ["Win of $10", "Loss of $10", "Win of $100", "Loss of $100"],
             state: mcq9,
             setState: setMcq9,

@@ -51,7 +51,7 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
   const showMathFinalQuizPageS = useSelector(showMathFinalQuizPage);
   const showMathZoneQuizIndexS = useSelector(showMathZoneQuizIndex);
   const showMathAberrQuizIndexS = useSelector(showMathAberrQuizIndex);
-  
+
 
 
   const xpData = useSelector(xpDataS);
@@ -170,7 +170,7 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
   return (
     <Container maxWidth="lg">
       <Grid container justifyContent="center">
-        <Grid item xs={12}>
+        <Grid item xs={12} sx={{my: 2}}>
           {isTrainingMode && <>
             <Typography variant="h5" align="center" sx={{ mt: 2, mb: 1 }}>
               Training
@@ -194,7 +194,8 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
                 <Box
                   sx={{
                     // position: 'absolute', top: 450, left: 0
-                    width: '100%'
+                    width: '100%',
+                    my: 4
                   }}
                 >
                   <Choice xpData={xpData} xpConfig={xpConfig} />

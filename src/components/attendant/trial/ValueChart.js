@@ -265,11 +265,11 @@ export default function ValueChart({ xpData, xpConfig }) {
             <Box style={{ position: "relative" }}>
                 <>
                     <Box sx={{
-                        mt: 6,
+                        pt: 12,
                         opacity: (xpConfig.hideVolumeChartWhenShowOutcome && showMoneyOutcomeS) ? '0' : (showVolumeChartS ? '1' : '0'),
                     }} onClick={onClickAssetChart}>
                         <Bar style={{ paddingLeft: '25px' }} data={data2} options={options2} />
-                        <Typography variant="p" sx={{ position: "absolute", top: 110, left: -40, width: 70, textAlign: 'center' }}>
+                        <Typography variant="p" sx={{ position: "absolute", top: 200, left: -40, width: 70, textAlign: 'center' }}>
                             Indicator
                         </Typography>
                         <Typography variant="p" sx={{ position: "absolute", bottom: -30, left: 560, width: 70, textAlign: 'center' }}>
