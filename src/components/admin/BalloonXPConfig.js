@@ -164,6 +164,11 @@ const schema = {
             "title": "Show Maths ZONE Quiz",
             default: true
         },
+        zoneQuizTrigger: {
+            "type": "integer",
+            "title": "Zone Quiz trigger",
+            default: 2
+        },
         zoneQuizDelayIndex: {
             "type": "integer",
             "title": "Zone Quiz delay index count",
@@ -173,6 +178,11 @@ const schema = {
             "type": "integer",
             "title": "Time of Maths ZONE Quiz Page in seconds",
             "default": 120
+        },
+        aberrQuizTrigger: {
+            "type": "integer",
+            "title": "Aberr Quiz trigger",
+            default: 1
         },
         aberrQuizDelayIndex: {
             "type": "integer",

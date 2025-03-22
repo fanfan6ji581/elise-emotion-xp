@@ -142,7 +142,7 @@ const gameSlice = createSlice({
                 }
 
 
-                if (state.zoneBreakCount >= 2 && state.showMathZoneQuizIndex === -1) {
+                if (state.zoneBreakCount >= (xpConfig.zoneQuizTrigger || 2) && state.showMathZoneQuizIndex === -1) {
                     state.showMathZoneQuizIndex = Math.min(trialIndex + (xpConfig.zoneQuizDelayIndex || 0), xpConfig.numberOfTrials - 1);
                 }
             }
@@ -159,7 +159,7 @@ const gameSlice = createSlice({
                     state.aberrBreakCount++;
                 }
 
-                if (state.aberrBreakCount >= 1 && state.showMathAberrQuizIndex === -1) {
+                if (state.aberrBreakCount >= (xpConfig.aberrQuizTrigger || 1) && state.showMathAberrQuizIndex === -1) {
                     state.showMathAberrQuizIndex = Math.min(trialIndex + (xpConfig.aberrQuizDelayIndex || 0), xpConfig.numberOfTrials - 1);
                 }
             }
