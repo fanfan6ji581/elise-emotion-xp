@@ -139,7 +139,7 @@ const gameSlice = createSlice({
                 }
             }
 
-            if (xpConfig.showMathsZoneQuiz && !state.mathZoneQuiz && !missed && state.zoneBreakCount < (xpConfig.zoneQuizTrigger || 2)) {
+            if (xpConfig.showMathsZoneQuiz && !state.mathZoneQuiz && !missed) {
                 if (state.zoneBreakCount >= (xpConfig.zoneQuizTrigger || 2) && state.showMathZoneQuizIndex === -1) {
                     state.showMathZoneQuizIndex = Math.min(trialIndex + (xpConfig.zoneQuizDelayIndex || 0), xpConfig.numberOfTrials - 1);
                 }
