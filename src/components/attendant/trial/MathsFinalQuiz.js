@@ -170,6 +170,7 @@ const MathsFinalQuizPage = () => {
     const q1Options = [
         "Choosing +10 (following the current trend)",
         "Choosing -10 (going against the current trend)", // correct
+        "It depends on where we are in the zone",
         "Choosing Pass",
         "All three choices have the same expected value"
     ];

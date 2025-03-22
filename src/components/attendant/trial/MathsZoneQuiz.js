@@ -37,7 +37,6 @@ const MathsQuizPage = () => {
     const { alias, trialIndexParam } = useParams();
     const navigate = useNavigate();
 
-    // Default to 120 if xpConfig.secondsBriefMathsQuiz is undefined
     const totalTime = xpConfig.secondsBriefMathsQuiz || 120;
 
     const [q1, setQ1] = useState(0);
@@ -61,7 +60,6 @@ const MathsQuizPage = () => {
         const fetchData = async () => {
             const refreshedAttendant = await getAttendant(loginAttendantS.id);
             if (refreshedAttendant?.mathZoneQuiz) {
-                // Already answered previously, retrieve data
                 const { q1, q2, earnedAmount } = refreshedAttendant.mathZoneQuiz;
                 setQ1(q1);
                 setSliderValue(q2);
@@ -70,13 +68,12 @@ const MathsQuizPage = () => {
                 setEarnedAmount(earnedAmount || 0);
                 dispatch(hideShowMathZoneQuizPage());
             } else {
-                // Not answered yet
                 setDisableForm(false);
             }
         };
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [loginAttendantS.id]);
+    }, [loginAttendantS.id, dispatch]);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -116,7 +113,6 @@ const MathsQuizPage = () => {
     }, [submitted]);
 
     const handleSubmit = async (missed = false) => {
-        // If already submitted or no option chosen, do nothing
         if (submitted || q1 === 0) return;
 
         const endTime = Date.now();
@@ -141,9 +137,7 @@ const MathsQuizPage = () => {
         };
 
         await updateAttendant(loginAttendantS.id, updateObj);
-        // Update Redux store
         dispatch(login(Object.assign({}, loginAttendantS, updateObj)));
-        // Hide the quiz page
         dispatch(hideShowMathZoneQuizPage());
         setSubmitted(true);
     };
@@ -156,8 +150,9 @@ const MathsQuizPage = () => {
     const q1Options = [
         "Choosing -10 (following the current trend)",
         "Choosing +10 (going against the current trend)",
+        "It depends on where we are in the zone",
         "Choosing Pass",
-        "All three choices offer similar results on average"
+        "All choices offer similar results on average"
     ];
 
     return (
@@ -184,15 +179,14 @@ const MathsQuizPage = () => {
                 </i>
             </Typography>
             <Typography variant="h5" sx={{ mt: 5, mb: 2 }}>
-                <b>Quick Scenario</b>: The indicator just jumped to 1 and the current trend is -1.
+                <b>Quick Scenario</b>: The indicator is currently at 1 and the current trend is -1.
             </Typography>
 
             <Typography variant="h5" sx={{ my: 2 }}>
                 <b>Step 1: Select your answer</b>
             </Typography>
             <Typography variant="h5" sx={{ mb: 1 }}>
-                From a pure maths perspective, which option results in higher average
-                outcomes if repeated many times in this scenario?
+                From a pure maths perspective, which option results in higher average outcomes if repeated many times in this scenario?
             </Typography>
 
             <RadioGroup
@@ -205,10 +199,7 @@ const MathsQuizPage = () => {
                     const isUserSelection = q1 === idx + 1 && q1 !== correctAnswer;
 
                     return (
-                        <Box
-                            key={idx}
-                            sx={{ display: "flex", alignItems: "flex-start", mb: 1 }}
-                        >
+                        <Box key={idx} sx={{ display: "flex", alignItems: "flex-start", mb: 1 }}>
                             <FormControlLabel
                                 control={
                                     <Radio
@@ -274,24 +265,20 @@ const MathsQuizPage = () => {
                         disabled={disableForm || submitted}
                     />
                     <Typography variant="h5" align="center">
-                        Confidence: {sliderValue}%
-                        <br />
-                        Potential bonus/penalty: $
-                        {((sliderValue / 100) * maxBonus).toFixed(2)}
+                        {sliderValue}%<br />${((sliderValue / 100) * maxBonus).toFixed(2)}
                     </Typography>
                 </Grid>
             </Grid>
 
-            {/* Single button to confirm (previously "Submit") */}
             {!submitted && (
                 <Grid textAlign="center">
                     <Button
                         variant="contained"
                         onClick={() => handleSubmit(false)}
                         disabled={disableForm || q1 === 0}
-                        sx={{fontSize: '1.25rem'}}
+                        sx={{ fontSize: '1.25rem' }}
                     >
-                        Confirm Confidence
+                        Confirm and Reveal Outcome
                     </Button>
                 </Grid>
             )}
@@ -312,68 +299,29 @@ const MathsQuizPage = () => {
                         </>
                     ) : (
                         <>
-                            <Grid container>
-                                <Grid item xs={12}>
-                                    <Typography
-                                        variant="h5"
-                                        textAlign="left"
-                                        gutterBottom
-                                    >
-                                        <b>Thanks for your input!</b> Your reply will help us better
-                                        understand the experimental results.
-                                    </Typography>
-                                    <Typography
-                                        variant="h5"
-                                        textAlign="left"
-                                        gutterBottom
-                                    >
-                                        <b>Quick Math Reminder:</b>
-                                    </Typography>
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Typography
-                                        variant="h5"
-                                        sx={{ mb: 2, textAlign: "left", color: 'success.main', fontWeight: 'bold', fontSize: '1.5rem' }}
-                                    >
-                                        From a pure maths perspective, when in the dangerous
-                                        zone (indicator = 1):
-                                    </Typography>
-                                    <Typography
-                                        variant="h5"
-                                        sx={{ mb: 2, textAlign: "left", color: 'success.main', fontWeight: 'bold', fontSize: '1.5rem' }}
-                                    >
-                                        - Choosing with the current trend: 0.85 × $10 win - 0.15 × $100
-                                        loss <b>&lt; 0</b>
-                                    </Typography>
-                                    <Typography
-                                        variant="h5"
-                                        sx={{ mb: 2, textAlign: "left", color: 'success.main', fontWeight: 'bold', fontSize: '1.5rem' }}
-                                    >
-                                        - Choosing against the current trend: 0.15 × $100 win - 0.85 ×
-                                        $10 loss <b>&gt; 0</b>
-                                    </Typography>
-                                    <Typography
-                                        variant="h5"
-                                        gutterBottom
-                                        sx={{ textAlign: "left" }}
-                                    >
-                                        <b>Let's continue the game now.</b>
-                                    </Typography>
-                                </Grid>
-                            </Grid>
+                            <Typography variant="h5" gutterBottom>
+                                <b>Thanks for your input!</b> Your reply will help us better understand the experimental results.
+                            </Typography>
+                            <Typography variant="h5" gutterBottom>
+                                <b>Quick Math Reminder:</b>
+                            </Typography>
+                            <Typography variant="h5" sx={{ mb: 2, color: 'success.main', fontWeight: 'bold', fontSize: '1.25rem' }}>
+                                From a pure maths perspective, when in the dangerous zone (indicator = 1):
+                                <br />- Choosing with the current trend: 0.85 × $10 win - 0.15 × $100 loss &lt; 0
+                                <br />- Choosing against the current trend: 0.15 × $100 win - 0.85 × $10 loss &gt; 0
+                            </Typography>
+                            <Typography variant="h5" sx={{ mb: 2, color: 'success.main', fontWeight: 'bold', fontSize: '1.25rem' }} gutterBottom>
+                                These expected values remain constant for every single trial when the indicator equals 1. Whether it's your first trial in the dangerous zone or any subsequent trial, the math doesn't change: going against the current trend offers a positive expected value while following the trend always has a negative expected value.
+                            </Typography>
+                            <Typography variant="h5" gutterBottom>
+                                <b>Let's continue the game now.</b>
+                            </Typography>
                         </>
                     )}
-                    <Grid
-                        container
-                        justifyContent="center"
-                        alignItems="center"
-                        sx={{ my: 2 }}
-                    >
-                        <Grid item>
-                            <Button variant="contained" onClick={handleBackToTrial}>
-                                Continue the game
-                            </Button>
-                        </Grid>
+                    <Grid container justifyContent="center" alignItems="center" sx={{ my: 2 }}>
+                        <Button variant="contained" onClick={handleBackToTrial}>
+                            Continue the game
+                        </Button>
                     </Grid>
                     <Typography variant="body1" textAlign="right" sx={{ mt: 2 }}>
                         You will be redirected in <strong>{autoTimeLeft}</strong> seconds...
