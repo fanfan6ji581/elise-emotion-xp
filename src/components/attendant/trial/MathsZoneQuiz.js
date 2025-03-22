@@ -9,7 +9,11 @@ import {
     Slider,
     Box,
     Grid,
-    Alert
+    Alert,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions
 } from "@mui/material";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { xpConfigS, hideShowMathZoneQuizPage } from "../../../slices/gameSlice";
@@ -49,7 +53,10 @@ const MathsQuizPage = () => {
     const [timeLeft, setTimeLeft] = useState(totalTime);
     const startTimeRef = useRef(Date.now());
 
-    const [autoTimeLeft, setAutoTimeLeft] = useState(30);
+    const [autoTimeLeft, setAutoTimeLeft] = useState(10);
+
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [hasConfirmedSlider, setHasConfirmedSlider] = useState(false);
 
     const marks = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map((val) => ({
         value: val,
@@ -72,7 +79,6 @@ const MathsQuizPage = () => {
             }
         };
         fetchData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loginAttendantS.id, dispatch]);
 
     useEffect(() => {
@@ -171,13 +177,7 @@ const MathsQuizPage = () => {
             <Typography variant="h5" textAlign="center" sx={{ my: 2 }}>
                 <b>⭐ Get it right and earn up to a $20 bonus! ⭐</b>
             </Typography>
-            <Typography variant="h5" gutterBottom>
-                <i>
-                    Your confidence level determines both potential gain AND loss: high
-                    confidence means bigger rewards if correct, but larger penalties if
-                    wrong.
-                </i>
-            </Typography>
+
             <Typography variant="h5" sx={{ mt: 5, mb: 2 }}>
                 <b>Quick Scenario</b>: The indicator is currently at 1 and the current trend is -1.
             </Typography>
@@ -255,6 +255,8 @@ const MathsQuizPage = () => {
                         onChange={(e, val) => {
                             if (!disableForm && !submitted) {
                                 setSliderValue(val);
+                                setHasConfirmedSlider(false);
+                                setIsConfirmOpen(true);
                             }
                         }}
                         step={5}
@@ -274,7 +276,13 @@ const MathsQuizPage = () => {
                 <Grid textAlign="center">
                     <Button
                         variant="contained"
-                        onClick={() => handleSubmit(false)}
+                        onClick={() => {
+                            if (!hasConfirmedSlider) {
+                                setIsConfirmOpen(true);
+                            } else {
+                                handleSubmit(false);
+                            }
+                        }}
                         disabled={disableForm || q1 === 0}
                         sx={{ fontSize: '1.25rem' }}
                     >
@@ -288,10 +296,7 @@ const MathsQuizPage = () => {
                     {isCorrect ? (
                         <>
                             <Typography variant="h5" gutterBottom>
-                                <b>Correct reply</b> 👍. Thanks for your input, it will help us
-                                better understand the experimental results. An extra $
-                                {Math.abs(earnedAmount).toFixed(2)} will be added to your net balance
-                                ⭐.
+                                <b>Correct reply</b> 👍. Thanks for your input, it will help us better understand the experimental results. An extra ${Math.abs(earnedAmount).toFixed(2)} will be added to your final score ⭐.
                             </Typography>
                             <Typography variant="h5" gutterBottom>
                                 <b>Let's continue the game now.</b>
@@ -310,7 +315,7 @@ const MathsQuizPage = () => {
                                 <br />- Choosing with the current trend: 0.85 × $10 win - 0.15 × $100 loss &lt; 0
                                 <br />- Choosing against the current trend: 0.15 × $100 win - 0.85 × $10 loss &gt; 0
                             </Typography>
-                            <Typography variant="h5" sx={{ mb: 2, color: 'success.main', fontWeight: 'bold', fontSize: '1.25rem' }} gutterBottom>
+                            <Typography variant="body1" gutterBottom>
                                 These expected values remain constant for every single trial when the indicator equals 1. Whether it's your first trial in the dangerous zone or any subsequent trial, the math doesn't change: going against the current trend offers a positive expected value while following the trend always has a negative expected value.
                             </Typography>
                             <Typography variant="h5" gutterBottom>
@@ -328,6 +333,35 @@ const MathsQuizPage = () => {
                     </Typography>
                 </Alert>
             )}
+
+            <Dialog open={isConfirmOpen} onClose={() => setIsConfirmOpen(false)}>
+                <DialogTitle>Confirm Your Confidence Level</DialogTitle>
+                <DialogContent>
+                    <Typography variant="h6" sx={{ my: 1 }}>
+                        Your bonus/penalty will match your confidence:
+                    </Typography>
+                    <Typography variant="body1" sx={{ mb: 1 }}>
+                        - Correct answer: Win up to ${maxBonus} based on your confidence<br />
+                        - Incorrect answer: Lose up to ${maxBonus} based on your confidence
+                    </Typography>
+                    <Typography variant="body1" sx={{ mb: 1 }}>
+                        Example: {sliderValue}% confidence = ${maxBonus} × {sliderValue}% = ${((sliderValue / 100) * maxBonus).toFixed(2)} if correct, -${((sliderValue / 100) * maxBonus).toFixed(2)} if incorrect.
+                    </Typography>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setIsConfirmOpen(false)}>Go Back</Button>
+                    <Button
+                        variant="contained"
+                        onClick={() => {
+                            setHasConfirmedSlider(true);
+                            setIsConfirmOpen(false);
+                            handleSubmit(false);
+                        }}
+                    >
+                        Confirm and Submit
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Container>
     );
 };

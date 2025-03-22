@@ -9,7 +9,11 @@ import {
     Slider,
     Box,
     Grid,
-    Alert
+    Alert,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions
 } from "@mui/material";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { useSelector, useDispatch } from "react-redux";
@@ -56,6 +60,10 @@ const MathsFinalQuizPage = () => {
 
     // For measuring time used
     const startTimeRef = useRef(Date.now());
+
+    // Dialog control
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const [hasConfirmedSlider, setHasConfirmedSlider] = useState(false);
 
     // Slider marks
     const marks = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map((val) => ({
@@ -280,6 +288,8 @@ const MathsFinalQuizPage = () => {
                         onChange={(e, val) => {
                             if (!submitted && !disableForm) {
                                 setSliderValue(val);
+                                setHasConfirmedSlider(false);
+                                setIsConfirmOpen(true);
                             }
                         }}
                         step={5}
@@ -290,10 +300,8 @@ const MathsFinalQuizPage = () => {
                         disabled={disableForm || submitted}
                     />
                     <Typography variant="h5" align="center">
-                        Confidence: {sliderValue}%
-                        <br />
-                        Potential bonus/penalty: $
-                        {((sliderValue / 100) * maxBonus).toFixed(2)}
+                        Confidence: {sliderValue}%<br />
+                        Potential bonus/penalty: ${((sliderValue / 100) * maxBonus).toFixed(2)}
                     </Typography>
                 </Grid>
             </Grid>
@@ -303,9 +311,15 @@ const MathsFinalQuizPage = () => {
                 <Grid textAlign="center">
                     <Button
                         variant="contained"
-                        onClick={() => handleSubmit(false)}
+                        onClick={() => {
+                            if (!hasConfirmedSlider) {
+                                setIsConfirmOpen(true);
+                            } else {
+                                handleSubmit(false);
+                            }
+                        }}
                         disabled={disableForm || q1 === 0}
-                        sx={{fontSize: '1.25rem'}}
+                        sx={{ fontSize: '1.25rem' }}
                     >
                         Confirm Confidence
                     </Button>
@@ -361,6 +375,36 @@ const MathsFinalQuizPage = () => {
                     </Grid>
                 </Grid>
             )}
+
+            {/* Confirmation Dialog */}
+            <Dialog open={isConfirmOpen} onClose={() => setIsConfirmOpen(false)}>
+                <DialogTitle>Confirm Your Confidence Level</DialogTitle>
+                <DialogContent>
+                    <Typography variant="h6" sx={{ my: 1 }}>
+                        Your bonus/penalty will match your confidence:
+                    </Typography>
+                    <Typography variant="body1" sx={{ mb: 1 }}>
+                        - Correct answer: Win up to ${maxBonus} based on your confidence<br />
+                        - Incorrect answer: Lose up to ${maxBonus} based on your confidence
+                    </Typography>
+                    <Typography variant="body1" sx={{ mb: 1 }}>
+                        Example: {sliderValue}% confidence = ${maxBonus} × {sliderValue}% = ${((sliderValue / 100) * maxBonus).toFixed(2)} if correct, -${((sliderValue / 100) * maxBonus).toFixed(2)} if incorrect.
+                    </Typography>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setIsConfirmOpen(false)}>Go Back</Button>
+                    <Button
+                        variant="contained"
+                        onClick={() => {
+                            setHasConfirmedSlider(true);
+                            setIsConfirmOpen(false);
+                            handleSubmit(false);
+                        }}
+                    >
+                        Confirm and Submit
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Container>
     );
 };
