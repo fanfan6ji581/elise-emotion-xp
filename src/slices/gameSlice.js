@@ -139,30 +139,30 @@ const gameSlice = createSlice({
                 }
             }
 
-            if (xpConfig.showMathsZoneQuiz && !state.mathZoneQuiz && !missed) {
+            if (!missed) {
                 if (state.zoneBreakCount >= (xpConfig.zoneQuizTrigger || 2) && state.showMathZoneQuizIndex === -1) {
                     state.showMathZoneQuizIndex = Math.min(trialIndex + (xpConfig.zoneQuizDelayIndex || 0), xpConfig.numberOfTrials - 1);
                 }
             }
 
-            if (trialIndex === state.showMathZoneQuizIndex) {
+            if (xpConfig.showMathsZoneQuiz && !state.mathZoneQuiz &&
+                trialIndex === state.showMathZoneQuizIndex) {
                 state.showMathZoneQuizPage = true
             }
 
-            if (xpConfig.showMathsAberrQuiz && !state.mathAberrQuiz && !missed) {
-                if (trialIndex > 0 &&
-                    aber === 1 && xpData.aberration[trialIndex + 10 - 1] === 1 &&
-                    outcome !== xpConfig.magnifyChoice * xpConfig.aberShift
-                ) {
-                    state.aberrBreakCount++;
-                }
-
-                if (state.aberrBreakCount >= (xpConfig.aberrQuizTrigger || 1) && state.showMathAberrQuizIndex === -1) {
-                    state.showMathAberrQuizIndex = Math.min(trialIndex + (xpConfig.aberrQuizDelayIndex || 0), xpConfig.numberOfTrials - 1);
-                }
+            if (trialIndex > 0 &&
+                aber === 1 && xpData.aberration[trialIndex + 10 - 1] === 1 &&
+                outcome !== xpConfig.magnifyChoice * xpConfig.aberShift
+            ) {
+                state.aberrBreakCount++;
             }
 
-            if (trialIndex === state.showMathAberrQuizIndex) {
+            if (state.aberrBreakCount >= (xpConfig.aberrQuizTrigger || 1) && state.showMathAberrQuizIndex === -1) {
+                state.showMathAberrQuizIndex = Math.min(trialIndex + (xpConfig.aberrQuizDelayIndex || 0), xpConfig.numberOfTrials - 1);
+            }
+
+            if (xpConfig.showMathsAberrQuiz && !state.mathAberrQuiz &&
+                trialIndex === state.showMathAberrQuizIndex) {
                 state.showMathAberrQuizPage = true
             }
 

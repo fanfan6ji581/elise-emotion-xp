@@ -13,12 +13,13 @@ export default function PaymentPage() {
     // const [finalEarning, setFinalEarning] = useState("...");
     const [adjustedEarning, setAdjustedEarning] = useState("...");
     const [loadingOpen, setLoadingOpen] = useState(true);
+    // eslint-disable-next-line
     const [xp, setXp] = useState({});
 
     const fetchXP = async () => {
-        const xp = await getXp(alias);
-        setXp(xp);
-        await calculateFinalOutcomes();
+        const fetchedXP = await getXp(alias);
+        setXp(fetchedXP);
+        await calculateFinalOutcomes(fetchedXP);
     }
 
     useEffect(() => {
@@ -26,7 +27,7 @@ export default function PaymentPage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const calculateFinalOutcomes = async () => {
+    const calculateFinalOutcomes = async (xp) => {
         const attendantRef = doc(db, "attendant", loginAttendantS.id);
         const docSnap = await getDoc(attendantRef);
         if (!docSnap.exists()) {
@@ -34,8 +35,9 @@ export default function PaymentPage() {
         }
 
         const attendant = docSnap.data();
-        let { xpRecord, pickedOutcomeIndexes, finalEarning, adjustedEarning } = attendant;
-        const { outcomeHistory, missHistory } = xpRecord;
+        let { xpRecord, pickedOutcomeIndexes,
+            finalEarning, adjustedEarning } = attendant;
+        const { outcomeHistory, missHistory, zoneBreakCount, aberrBreakCount } = xpRecord;
 
         if (typeof finalEarning !== 'undefined' && adjustedEarning) {
             // setFinalEarning(attendant.finalEarning)
@@ -82,9 +84,9 @@ export default function PaymentPage() {
             adjustedEarning = 100;
         }
 
-        if (adjustedEarning < 50 && !loginAttendantS?.mathZoneQuiz &&
-            !loginAttendantS?.mathAberrQuiz &&
-            !loginAttendantS?.mathFinalQuiz
+        if (adjustedEarning < 50 &&
+            zoneBreakCount < (xp.zoneQuizTrigger || 2) &&
+            aberrBreakCount < (xp.aberrQuizTrigger || 1)
         ) {
             adjustedEarning = 50;
         }
