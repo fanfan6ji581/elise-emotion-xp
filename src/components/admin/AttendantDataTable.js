@@ -116,6 +116,8 @@ const AttendentDataTable = ({ attendant, xp }) => {
       }
       <p>Number of Missed trials: {attendant.xpRecord.missHistory.reduce((accumulator, currentValue) => accumulator + currentValue, 0)}</p>
       <p>Miss reach limit: {attendant.missTooMuch ? 'Yes' : ''}</p>
+      <p>Zone Quiz Error Count: {attendant?.xpRecord?.zoneBreakCount ? attendant.xpRecord?.zoneBreakCount : 'N/A'}</p>
+      <p>Abeer Quiz Error Count: {attendant?.xpRecord?.aberrBreakCount ? attendant.xpRecord?.aberrBreakCount : 'N/A'}</p>
 
 
       <DataGrid
