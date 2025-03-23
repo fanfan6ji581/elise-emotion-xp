@@ -85,8 +85,8 @@ export default function PaymentPage() {
         }
 
         if (adjustedEarning < 50 &&
-            zoneBreakCount < (xp.zoneQuizTrigger || 2) &&
-            aberrBreakCount < (xp.aberrQuizTrigger || 1)
+            zoneBreakCount <= 0 &&
+            aberrBreakCount <= 0
         ) {
             adjustedEarning = 50;
         }
