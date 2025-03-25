@@ -22,7 +22,7 @@ const TrialBreakPage = () => {
     const loginAttendantS = useSelector(loginAttendant);
 
     // Example: 10 seconds (or any configured value)
-    const [countDown] = useState(xpConfig.trialBreak2Seconds || 10);
+    const [countDown] = useState(xpConfig.trialBreak2Seconds);
 
     // We'll store the current time and the target end time
     const currentime = Date.now();
