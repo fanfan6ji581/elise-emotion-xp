@@ -33,7 +33,8 @@ const TrialBreakPage = () => {
         const breakPageTimeTakes = Date.now() - currentime;
         await updateAttendant(loginAttendantS.id, { breakPageTimeTakes });
         dispatch(setIsTrialBreakTaken(true));
-        navigate(`/xp/${alias}/trial-break2`);
+        navigate(`/xp/${alias}/trial`);
+        // navigate(`/xp/${alias}/trial-break2`);
     }
 
     return (
