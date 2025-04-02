@@ -31,6 +31,7 @@ const initialState = {
     showMathZoneQuizPage: false,
     showMathAberrQuizPage: false,
     showMathFinalQuizPage: false,
+    showMathFinalAberrQuizPage: false,
 };
 
 const gameSlice = createSlice({
@@ -285,13 +286,16 @@ const gameSlice = createSlice({
         hideShowMathFinalQuizPage: (state) => {
             state.showMathFinalQuizPage = false
         },
+        hideShowAberFinalQuizPage: (state) => {
+            state.showMathFinalAberrQuizPage = false
+        },
     },
 });
 
 export const { recordChoice, setProgressStartTime,
     setTimerProgress, nextTrial, onLogin, onLoginTraining,
     setShowMoneyOutcome, reset, setXpConfig, doShowVolumeChart, setIsTrialBreakTaken,
-    hideShowMathZoneQuizPage, hideShowMathAberrQuizPage, hideShowMathFinalQuizPage } = gameSlice.actions;
+    hideShowMathZoneQuizPage, hideShowMathAberrQuizPage, hideShowMathFinalQuizPage, hideShowAberFinalQuizPage } = gameSlice.actions;
 
 export const trialIndex = (state) => state.game.trialIndex;
 export const showVolumeChart = (state) => state.game.showVolumeChart;

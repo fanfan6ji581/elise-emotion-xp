@@ -120,7 +120,7 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
       }
 
       if (showMathFinalQuizPageS) {
-        navigate(`/xp/${alias}/maths-final-quiz/`);
+        navigate(`/xp/${alias}/maths-final-zone-quiz/`);
         return;
       }
     }
