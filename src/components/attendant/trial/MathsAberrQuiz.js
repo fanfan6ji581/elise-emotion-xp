@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { useSelector, useDispatch } from "react-redux";
-import { xpConfigS, hideShowMathAberrQuizPage } from "../../../slices/gameSlice";
+import { xpConfigS, hideShowMathAberrQuizPage, setMathAberrQuiz } from "../../../slices/gameSlice";
 import { loginAttendant, login } from "../../../slices/attendantSlice";
 import { updateAttendant, getAttendant } from "../../../database/attendant";
 import { useParams, useNavigate } from "react-router-dom";
@@ -160,7 +160,7 @@ const MathsAberrQuizPage = () => {
 
         // Update Redux
         dispatch(login(Object.assign({}, loginAttendantS, updateObj)));
-
+        dispatch(setMathAberrQuiz(updateObj));
         // Hide page
         dispatch(hideShowMathAberrQuizPage());
         setSubmitted(true);

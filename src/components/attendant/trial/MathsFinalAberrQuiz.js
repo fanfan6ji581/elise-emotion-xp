@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { useSelector, useDispatch } from "react-redux";
-import { xpConfigS, hideShowAberFinalQuizPage } from "../../../slices/gameSlice";
+import { xpConfigS, hideShowAberFinalQuizPage, setAberFinalQuiz } from "../../../slices/gameSlice";
 import { loginAttendant, login } from "../../../slices/attendantSlice";
 import { updateAttendant, getAttendant } from "../../../database/attendant";
 import { useParams, useNavigate } from "react-router-dom";
@@ -166,6 +166,7 @@ const FinalAberQuizPage = () => {
 
         // 更新 Redux 并隐藏页面
         dispatch(login(Object.assign({}, loginAttendantS, updateObj)));
+        dispatch(setAberFinalQuiz(updateObj));
         dispatch(hideShowAberFinalQuizPage());
 
         setSubmitted(true);

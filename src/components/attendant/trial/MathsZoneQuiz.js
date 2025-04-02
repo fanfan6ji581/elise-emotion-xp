@@ -12,7 +12,7 @@ import {
     Alert
 } from "@mui/material";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import { xpConfigS, hideShowMathZoneQuizPage } from "../../../slices/gameSlice";
+import { xpConfigS, hideShowMathZoneQuizPage, setMathZoneQuiz } from "../../../slices/gameSlice";
 import { loginAttendant } from "../../../slices/attendantSlice";
 import { updateAttendant, getAttendant } from "../../../database/attendant";
 import { useParams, useNavigate } from "react-router-dom";
@@ -138,6 +138,7 @@ const MathsQuizPage = () => {
 
         await updateAttendant(loginAttendantS.id, updateObj);
         dispatch(login(Object.assign({}, loginAttendantS, updateObj)));
+        dispatch(setMathZoneQuiz(updateObj));
         dispatch(hideShowMathZoneQuizPage());
         setSubmitted(true);
     };
@@ -265,7 +266,10 @@ const MathsQuizPage = () => {
                         disabled={disableForm || submitted}
                     />
                     <Typography variant="h5" align="center">
-                        {sliderValue}%<br />${((sliderValue / 100) * maxBonus).toFixed(2)}
+                        Confidence: {sliderValue}%
+                        <br />
+                        Potential bonus/penalty: $
+                        {((sliderValue / 100) * maxBonus).toFixed(2)}
                     </Typography>
                 </Grid>
             </Grid>

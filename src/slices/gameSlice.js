@@ -26,6 +26,8 @@ const initialState = {
     mathZoneQuiz: null,
     mathAberrQuiz: null,
     mathFinalQuiz: null,
+    aberFinalQuiz: null,
+    doubleFinalQuiz: null,
     showMathZoneQuizIndex: -1,
     showMathAberrQuizIndex: -1,
     showMathZoneQuizPage: false,
@@ -168,10 +170,23 @@ const gameSlice = createSlice({
                 state.showMathAberrQuizPage = true
             }
 
-            if (xpConfig.showFinalMathsQuiz && !state.mathFinalQuiz) {
-                // only shows when math zone quiz
-                if (trialIndex >= xpConfig.numberOfTrials - 1 && state.zoneBreakCount >= (xpConfig.zoneQuizTrigger || 2)) {
-                    state.showMathFinalQuizPage = true
+            if (!state.mathFinalQuiz) {
+
+                if (trialIndex >= xpConfig.numberOfTrials - 1) {
+                    const zoneQuizTriggered = state.zoneBreakCount >= (xpConfig.zoneQuizTrigger || 2);
+                    const aberrQuizTriggered = state.aberrBreakCount >= (xpConfig.aberrQuizTrigger || 1);
+
+                    // need to check if previous quiz showed, and user answered incorrectly, then show final quiz
+                    const zoneQuizWrong = zoneQuizTriggered && ((xpConfig.showMathsZoneQuiz && !!state.mathZoneQuiz && state.mathZoneQuiz.earnedAmount < 0) || (!xpConfig.showMathsZoneQuiz));
+                    const aberrQuizWrong = aberrQuizTriggered && ((xpConfig.showMathsAberrQuiz && !!state.mathAberrQuiz && state.mathAberrQuiz.earnedAmount < 0) || (!xpConfig.showMathsAberrQuiz));
+
+                    if (zoneQuizWrong && aberrQuizWrong) {
+                        state.showMathFinalDoubleQuizPage = true;
+                    } else if (zoneQuizWrong) {
+                        state.showMathFinalQuizPage = true;
+                    } else if (aberrQuizWrong) {
+                        state.showMathFinalAberrQuizPage = true;
+                    }
                 }
             }
 
@@ -234,7 +249,7 @@ const gameSlice = createSlice({
 
         },
         onLogin: (state, action) => {
-            const { xpData, xpRecord, xpConfig, mathZoneQuiz, mathAberrQuiz, mathFinalQuiz } = action.payload
+            const { xpData, xpRecord, xpConfig, mathZoneQuiz, mathAberrQuiz, mathFinalQuiz, aberFinalQuiz, doubleFinalQuiz } = action.payload
             const {
                 trialIndex,
                 choiceHistory,
@@ -261,6 +276,8 @@ const gameSlice = createSlice({
             state.mathZoneQuiz = mathZoneQuiz;
             state.mathAberrQuiz = mathAberrQuiz;
             state.mathFinalQuiz = mathFinalQuiz;
+            state.aberFinalQuiz = aberFinalQuiz;
+            state.doubleFinalQuiz = doubleFinalQuiz;
 
             state.xpData = xpData;
             state.timerProgress = 0;
@@ -293,6 +310,22 @@ const gameSlice = createSlice({
         hideShowDoubleFinalQuizPage: (state) => {
             state.showMathFinalDoubleQuizPage = false
         },
+        setMathFinalQuiz: (state, action) => {
+            state.mathFinalQuiz = action.payload
+        },
+        setAberFinalQuiz: (state, action) => {
+            state.aberFinalQuiz = action.payload
+        },
+        setDoubleFinalQuiz: (state, action) => {
+            state.doubleFinalQuiz = action.payload
+        },
+        setMathZoneQuiz: (state, action) => {
+            state.mathZoneQuiz = action.payload
+        },
+        setMathAberrQuiz: (state, action) => {
+            state.mathAberrQuiz = action.payload
+        },
+
     },
 });
 
@@ -300,7 +333,8 @@ export const { recordChoice, setProgressStartTime,
     setTimerProgress, nextTrial, onLogin, onLoginTraining,
     setShowMoneyOutcome, reset, setXpConfig, doShowVolumeChart, setIsTrialBreakTaken,
     hideShowMathZoneQuizPage, hideShowMathAberrQuizPage, hideShowMathFinalQuizPage,
-    hideShowAberFinalQuizPage, hideShowDoubleFinalQuizPage } = gameSlice.actions;
+    hideShowAberFinalQuizPage, hideShowDoubleFinalQuizPage,
+    setMathFinalQuiz, setAberFinalQuiz, setDoubleFinalQuiz, setMathZoneQuiz, setMathAberrQuiz } = gameSlice.actions;
 
 export const trialIndex = (state) => state.game.trialIndex;
 export const showVolumeChart = (state) => state.game.showVolumeChart;

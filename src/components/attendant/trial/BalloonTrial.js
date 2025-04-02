@@ -21,6 +21,8 @@ import {
   showMathFinalQuizPage,
   showMathZoneQuizIndex,
   showMathAberrQuizIndex,
+  showMathFinalAberrQuizPage,
+  showMathFinalDoubleQuizPage,
 } from "../../../slices/gameSlice";
 import { login } from "../../../slices/attendantSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -49,6 +51,8 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
   const showMathZoneQuizPageS = useSelector(showMathZoneQuizPage);
   const showMathAberrQuizPageS = useSelector(showMathAberrQuizPage);
   const showMathFinalQuizPageS = useSelector(showMathFinalQuizPage);
+  const showMathFinalAberrQuizPageS = useSelector(showMathFinalAberrQuizPage);
+  const showMathFinalDoubleQuizPageS = useSelector(showMathFinalDoubleQuizPage);
   const showMathZoneQuizIndexS = useSelector(showMathZoneQuizIndex);
   const showMathAberrQuizIndexS = useSelector(showMathAberrQuizIndex);
 
@@ -123,6 +127,16 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
         navigate(`/xp/${alias}/maths-final-zone-quiz/`);
         return;
       }
+
+      if (showMathFinalAberrQuizPageS) {
+        navigate(`/xp/${alias}/maths-final-aberr-quiz/`);
+        return;
+      }
+
+      if (showMathFinalDoubleQuizPageS) {
+        navigate(`/xp/${alias}/maths-final-double-quiz/`);
+        return;
+      }
     }
 
     if (missHistoryS &&
@@ -165,6 +179,8 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
     showMathFinalQuizPageS,
     showMathZoneQuizIndexS,
     showMathAberrQuizIndexS,
+    showMathFinalAberrQuizPageS,
+    showMathFinalDoubleQuizPageS,
   ]);
 
   return (
