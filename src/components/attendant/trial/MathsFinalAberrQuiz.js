@@ -49,11 +49,11 @@ const FinalAberQuizPage = () => {
     const navigate = useNavigate();
 
     // 计时器：默认 120 秒
-    const totalTime = xpConfig.secondsBriefMathsQuiz || 120;
+    const totalTime = xpConfig.secondsBriefMathsQuiz * 2 || 120;
     const [timeLeft, setTimeLeft] = useState(totalTime);
 
     // 提交后自动跳转倒计时（PDF 示例 10 秒）
-    const [autoTimeLeft, setAutoTimeLeft] = useState(10);
+    const [autoTimeLeft, setAutoTimeLeft] = useState(30);
 
     // 表单状态
     const [q1, setQ1] = useState(0);

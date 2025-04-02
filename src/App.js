@@ -22,6 +22,7 @@ import MathsZoneQuiz from './components/attendant/trial/MathsZoneQuiz';
 import MathsAberrQuiz from './components/attendant/trial/MathsAberrQuiz';
 import MathsFinalZoneQuiz from './components/attendant/trial/MathsFinalZoneQuiz';
 import MathsFinalAberrQuiz from './components/attendant/trial/MathsFinalAberrQuiz';
+import MathsFinalDoubleQuiz from './components/attendant/trial/MathsFinalDoubleQuiz';
 import PaymentPage from "./components/attendant/PaymentPage";
 import InstructionPage from "./components/attendant/instruction/InstructionPage";
 import Instruction1Page from "./components/attendant/instruction/Instruction1Page";
@@ -107,6 +108,7 @@ function App() {
                                 <Route path="xp/:alias/maths-aberr-quiz/:trialIndexParam" element={<MathsAberrQuiz />} />
                                 <Route path="xp/:alias/maths-final-zone-quiz" element={<MathsFinalZoneQuiz />} />
                                 <Route path="xp/:alias/maths-final-aberr-quiz" element={<MathsFinalAberrQuiz />} />
+                                <Route path="xp/:alias/maths-final-double-quiz" element={<MathsFinalDoubleQuiz />} />
                                 <Route path="xp/:alias/start-game" element={<StartGamePage />} />
                                 <Route path="xp/:alias/start-game-quick-refresher" element={<StartGameQuickRefresherPage />} />
                                 <Route path="xp/:alias/trial-history" element={<TrialHistoryPage />} />
