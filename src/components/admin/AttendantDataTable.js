@@ -81,9 +81,18 @@ const columns = [
   { field: 'aberrQuizAnswer', headerName: 'Aberr Quiz Answer', width: 180 },
   { field: 'aberrQuizConfidence', headerName: 'Aberr Quiz Confidence', width: 180 },
   { field: 'aberrQuizTrialIndex', headerName: 'Aberr Quiz Trial Index', width: 180 },
-  { field: 'finalQuizHappened', headerName: 'Final Quiz Happend', width: 180 },
-  { field: 'finalQuizAnswer', headerName: 'Final Quiz Answer', width: 180 },
-  { field: 'finalQuizConfidence', headerName: 'Final Quiz Confidence', width: 180 },
+  { field: 'finalZoneQuizHappened', headerName: 'Final Zone Quiz Happend', width: 180 },
+  { field: 'finalZoneQuizAnswer', headerName: 'Final Zone Quiz Answer', width: 180 },
+  { field: 'finalZoneQuizConfidence', headerName: 'Final Zone Quiz Confidence', width: 180 },
+  { field: 'finalAberrQuizHappened', headerName: 'Final Aberr Quiz Happend', width: 180 },
+  { field: 'finalAberrQuizAnswer', headerName: 'Final Aberr Quiz Answer', width: 180 },
+  { field: 'finalAberrQuizConfidence', headerName: 'Final Aberr Quiz Confidence', width: 180 },
+  { field: 'finalDoubleQuizHappened', headerName: 'Final Double Quiz Happend', width: 180 },
+  { field: 'finalDoubleQuizAnswer1', headerName: 'Final Double Quiz Answer 1', width: 180 },
+  { field: 'finalDoubleQuizConfidence1', headerName: 'Final Double Quiz Confidence 1', width: 180 },
+  { field: 'finalDoubleQuizAnswer2', headerName: 'Final Double Quiz Answer 2', width: 180 },
+  { field: 'finalDoubleQuizConfidence2', headerName: 'Final Double Quiz Confidence 2', width: 180 },
+  
 
   { field: 'finalEarning_$xx', headerName: 'finalEarning_$xx', width: 200 },
   { field: 'adjustedEarning_$yy', headerName: 'adjustedEarning_$yy', width: 200 },
@@ -109,8 +118,10 @@ const AttendentDataTable = ({ attendant, xp }) => {
       <p>Final picked earning ($xx): ${attendant.finalEarning}</p>
       <p>Zone Quiz: {attendant.mathZoneQuiz ? `$${attendant.mathZoneQuiz.earnedAmount}` : 'N/A'}</p>
       <p>Aberr Quiz: {attendant.mathAberrQuiz ? `$${attendant.mathAberrQuiz.earnedAmount}` : 'N/A'}</p>
-      <p>Final Quiz: {attendant.mathFinalQuiz ? `$${attendant.mathFinalQuiz.earnedAmount}` : 'N/A'}</p>
-      <p>Adjusted picked earning ($yy): ${attendant.adjustedEarning}</p>
+      <p>Final Zone Quiz: {attendant.mathFinalQuiz ? `$${attendant.mathFinalQuiz.earnedAmount}` : 'N/A'}</p>
+      <p>Final Aberr Quiz: {attendant.aberFinalQuiz ? `$${attendant.aberFinalQuiz.earnedAmount}` : 'N/A'}</p>
+      <p>Final Double Quiz: {attendant.doubleFinalQuiz ? `$${attendant.doubleFinalQuiz.earnedAmount}` : 'N/A'}</p>
+      <p><b>Adjusted picked earning ($yy)</b>: ${attendant.adjustedEarning}</p>
       {attendant.xpRecord.outcomeHistory &&
         <p>Accumulate earning: ${attendant.xpRecord.outcomeHistory.reduce((accumulator, currentValue) => accumulator + currentValue, 0)}</p>
       }

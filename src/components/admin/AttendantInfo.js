@@ -58,10 +58,19 @@ const AttendentInfo = ({ attendant }) => {
             aberrQuizConfidence: attendant?.mathAberrQuiz?.q2,
             aberrQuizTrialIndex: attendant?.mathAberrQuiz?.trialIndexParam,
     
-            finalQuizHappened: !!attendant?.mathFinalQuiz,
-            finalQuizAnswer: attendant?.mathFinalQuiz?.q1,
-            finalQuizConfidence: attendant?.mathFinalQuiz?.q2,
+            finalZoneQuizHappened: !!attendant?.mathFinalQuiz,
+            finalZoneQuizAnswer: attendant?.mathFinalQuiz?.q1,
+            finalZoneQuizConfidence: attendant?.mathFinalQuiz?.q2,
 
+            finalAberrQuizHappened: !!attendant?.aberFinalQuiz,
+            finalAberrQuizAnswer: attendant?.aberFinalQuiz?.q1,
+            finalAberrQuizConfidence: attendant?.aberFinalQuiz?.q2,
+
+            finalDoubleQuizHappened: !!attendant?.doubleFinalQuiz,
+            finalDoubleQuizAnswer1: attendant?.doubleFinalQuiz?.q1,
+            finalDoubleQuizConfidence1: attendant?.doubleFinalQuiz?.slider1,
+            finalDoubleQuizAnswer2: attendant?.doubleFinalQuiz?.q2,
+            finalDoubleQuizConfidence2: attendant?.doubleFinalQuiz?.slider2,
         }),
     ];
 

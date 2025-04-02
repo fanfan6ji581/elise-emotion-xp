@@ -74,7 +74,7 @@ export default function PaymentPage() {
         let afterQuizEarning = medianOutcome + (loginAttendantS?.mathZoneQuiz?.earnedAmount || 0) +
             (loginAttendantS?.mathAberrQuiz?.earnedAmount || 0) +
             (loginAttendantS?.mathFinalQuiz?.earnedAmount || 0) +
-            (loginAttendantS?.mathFinalAberrQuiz?.earnedAmount || 0) +
+            (loginAttendantS?.aberFinalQuiz?.earnedAmount || 0) +
             (loginAttendantS?.doubleFinalQuiz?.earnedAmount || 0);
         finalEarning = Math.round(0.8 * afterQuizEarning) - 600;
 
