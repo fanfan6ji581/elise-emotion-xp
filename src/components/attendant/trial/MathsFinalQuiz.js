@@ -27,7 +27,7 @@ function formatTimeLeft(seconds) {
 }
 
 const MathsFinalQuizPage = () => {
-    // The second option is correct: "Choosing -10 (going against the current trend)"
+    // 根据 PDF：Choosing -10 (going against the current trend) 是正确答案（第2个）
     const correctAnswer = 2;
     const maxBonus = 20;
 
@@ -40,13 +40,14 @@ const MathsFinalQuizPage = () => {
     const { alias } = useParams();
     const navigate = useNavigate();
 
-    // Timer states
-    // Default to 120 seconds if xpConfig.secondsBriefMathsQuiz is undefined
+    // 计时器：默认 120 秒
     const totalTime = xpConfig.secondsBriefMathsQuiz || 120;
     const [timeLeft, setTimeLeft] = useState(totalTime);
-    const [autoTimeLeft, setAutoTimeLeft] = useState(30);
 
-    // Form states
+    // 提交后，自动跳转倒计时（PDF 要求示例是 10 秒）
+    const [autoTimeLeft, setAutoTimeLeft] = useState(10);
+
+    // 表单状态
     const [q1, setQ1] = useState(0);
     const [sliderValue, setSliderValue] = useState(50);
     const [submitted, setSubmitted] = useState(false);
@@ -54,21 +55,21 @@ const MathsFinalQuizPage = () => {
     const [earnedAmount, setEarnedAmount] = useState(0);
     const [disableForm, setDisableForm] = useState(true);
 
-    // For measuring time used
+    // 用于计算耗时
     const startTimeRef = useRef(Date.now());
 
-    // Slider marks
-    const marks = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map((val) => ({
+    // Slider 的刻度，从 5% 到 100%，步长 5
+    const marks = [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map((val) => ({
         value: val,
         label: `${val}%`
     }));
 
-    // Fetch attendant data on mount
+    // 获取最新用户信息，判断是否已经做过测验
     useEffect(() => {
         const fetchData = async () => {
             const refreshedAttendant = await getAttendant(loginAttendantS.id);
             if (refreshedAttendant?.mathFinalQuiz) {
-                // If user already completed this final quiz
+                // 如果已经做过，读取其答题信息
                 const { q1, q2, earnedAmount } = refreshedAttendant.mathFinalQuiz;
                 setQ1(q1);
                 setSliderValue(q2);
@@ -76,17 +77,17 @@ const MathsFinalQuizPage = () => {
                 setIsCorrect(q1 === correctAnswer);
                 setEarnedAmount(earnedAmount || 0);
 
-                // Hide this page if already completed
+                // 隐藏页面
                 dispatch(hideShowMathFinalQuizPage());
             } else {
-                // Enable the form if quiz not done
+                // 未做过，启用表单
                 setDisableForm(false);
             }
         };
         fetchData();
     }, [loginAttendantS.id, dispatch]);
 
-    // Main countdown for auto-submit
+    // 主倒计时，每秒更新
     useEffect(() => {
         const timer = setInterval(() => {
             setTimeLeft((prev) => {
@@ -102,7 +103,7 @@ const MathsFinalQuizPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // Post-submit countdown for auto-redirect
+    // 提交后自动跳转倒计时
     useEffect(() => {
         let autoTimer = null;
         if (submitted) {
@@ -122,25 +123,24 @@ const MathsFinalQuizPage = () => {
         return () => {
             if (autoTimer) clearInterval(autoTimer);
         };
-        // eslint-disable-next-line 
     }, [submitted]);
 
-    // Single submit function
     const handleSubmit = async (missed = false) => {
-        // If already submitted or no option chosen, do nothing
+        // 若已提交 or 没选答案，直接返回
         if (submitted || q1 === 0) return;
 
         const endTime = Date.now();
         const totalTimeUsed = (endTime - startTimeRef.current) / 1000;
 
+        // 判断正误
         const correct = q1 === correctAnswer;
         setIsCorrect(correct);
 
-        // The final confidence is whatever the slider is set to
+        // 计算盈亏
         const money = (sliderValue / 100) * maxBonus * (correct ? 1 : -1);
         setEarnedAmount(money);
 
-        // Update DB
+        // 更新数据库
         const updateObj = {
             mathFinalQuiz: {
                 q1,
@@ -152,32 +152,29 @@ const MathsFinalQuizPage = () => {
         };
         await updateAttendant(loginAttendantS.id, updateObj);
 
-        // Update Redux store
+        // 更新 Redux 并隐藏页面
         dispatch(login(Object.assign({}, loginAttendantS, updateObj)));
-
-        // Hide the page
         dispatch(hideShowMathFinalQuizPage());
+
         setSubmitted(true);
     };
 
-    // After quiz: go to next page
     const handleBackToTrial = () => {
         dispatch(hideShowMathFinalQuizPage());
         navigate(`/xp/${alias}/earning-questions`);
     };
 
-    // The question options
+    // 题目选项（对齐 PDF，只保留四个）
     const q1Options = [
         "Choosing +10 (following the current trend)",
         "Choosing -10 (going against the current trend)", // correct
-        "It depends on where we are in the zone",
         "Choosing Pass",
         "All three choices have the same expected value"
     ];
 
     return (
         <Container sx={{ position: "relative", my: 4 }}>
-            {/* Timer if not submitted */}
+            {/* 未提交时显示剩余时间 */}
             {!submitted && (
                 <Box sx={{ position: "absolute", top: 16, right: 16 }}>
                     <Typography variant="h5">
@@ -186,15 +183,15 @@ const MathsFinalQuizPage = () => {
                 </Box>
             )}
 
-            {/* Title & Intro */}
+            {/* 标题和开场文案，对齐 PDF */}
             <Typography variant="h4" textAlign="center" sx={{ my: 2 }}>
-                FINAL MATHS QUIZ
+                FINAL CHALLENGE
             </Typography>
             <Typography variant="h5" textAlign="center" sx={{ my: 2 }}>
-                <b>
-                    ⭐ Get it right and earn a bonus up to $20 plus a chance at a special secret prize!
-                    ⭐
-                </b>
+                💰 YOUR FINAL OPPORTUNITY TO BOOST YOUR EARNINGS 💰
+            </Typography>
+            <Typography variant="h5" textAlign="center" sx={{ my: 2 }}>
+                ⭐ Get it right and earn a bonus up to $20! ⭐
             </Typography>
             <Typography variant="h5" gutterBottom>
                 <i>
@@ -202,9 +199,13 @@ const MathsFinalQuizPage = () => {
                     means bigger rewards if correct, but larger penalties if wrong.
                 </i>
             </Typography>
-            <Typography variant="h5" sx={{ mt: 5, mb: 2 }}>
+
+            {/* Quick Scenario */}
+            <Typography variant="h5" sx={{ mt: 4, mb: 2 }}>
                 <b>Quick Scenario</b>: The indicator = 1 and the current trend is +1.
             </Typography>
+
+            {/* Step 1 */}
             <Typography variant="h5" sx={{ my: 2 }}>
                 <b>Step 1: Select your answer</b>
             </Typography>
@@ -213,7 +214,7 @@ const MathsFinalQuizPage = () => {
                 (the average outcome when considering all possible results and their probabilities)?
             </Typography>
 
-            {/* RadioGroup for Q1 */}
+            {/* Radio 选项 */}
             <RadioGroup
                 value={q1}
                 onChange={(e) => setQ1(Number(e.target.value))}
@@ -222,7 +223,6 @@ const MathsFinalQuizPage = () => {
                 {q1Options.map((option, idx) => {
                     const isOptionCorrect = idx + 1 === correctAnswer;
                     const isUserSelection = q1 === idx + 1 && q1 !== correctAnswer;
-
                     return (
                         <Box key={idx} sx={{ display: "flex", alignItems: "flex-start", mb: 1 }}>
                             <FormControlLabel
@@ -234,7 +234,7 @@ const MathsFinalQuizPage = () => {
                                     />
                                 }
                                 label={
-                                    submitted && correctAnswer === idx + 1 ? (
+                                    submitted && isOptionCorrect ? (
                                         <Typography sx={{ color: 'success.main', fontWeight: 'bold', fontSize: '1.125rem' }}>
                                             {option}
                                         </Typography>
@@ -243,6 +243,7 @@ const MathsFinalQuizPage = () => {
                                     )
                                 }
                             />
+                            {/* 正确答案标识 */}
                             {submitted && isOptionCorrect && (
                                 <Alert
                                     severity="success"
@@ -260,6 +261,7 @@ const MathsFinalQuizPage = () => {
                                     Correct Answer
                                 </Alert>
                             )}
+                            {/* 如果用户选错，显示一个小红叉 */}
                             {submitted && isUserSelection && (
                                 <Box sx={{ ml: 2 }}>
                                     <ErrorOutlineIcon color="error" />
@@ -270,9 +272,18 @@ const MathsFinalQuizPage = () => {
                 })}
             </RadioGroup>
 
+            {/* Step 2 */}
             <Typography variant="h5" sx={{ my: 2 }}>
                 <b>Step 2: How confident are you in your answer?</b>
             </Typography>
+            <Typography variant="h6" sx={{ mb: 2 }}>
+                <i>
+                    Your bonus/penalty will match your confidence:<br />
+                    - Correct answer: Win up to $20 based on your confidence<br />
+                    - Incorrect answer: Lose up to $20 based on your confidence<br />
+                </i>
+            </Typography>
+
             <Grid container sx={{ mb: 2 }}>
                 <Grid item xs={6} sx={{ mx: "auto" }}>
                     <Slider
@@ -283,7 +294,7 @@ const MathsFinalQuizPage = () => {
                             }
                         }}
                         step={5}
-                        min={0}
+                        min={5}
                         max={100}
                         marks={marks}
                         valueLabelDisplay="auto"
@@ -298,21 +309,21 @@ const MathsFinalQuizPage = () => {
                 </Grid>
             </Grid>
 
-            {/* Single button: "Confirm Confidence" */}
+            {/* 提交按钮 */}
             {!submitted && (
                 <Grid textAlign="center">
                     <Button
                         variant="contained"
                         onClick={() => handleSubmit(false)}
                         disabled={disableForm || q1 === 0}
-                        sx={{fontSize: '1.25rem'}}
+                        sx={{ fontSize: '1.25rem' }}
                     >
                         Confirm Confidence
                     </Button>
                 </Grid>
             )}
 
-            {/* If submitted, show final outcome */}
+            {/* 提交后展示结果 */}
             {submitted && (
                 <Grid container>
                     <Grid item xs={12}>
@@ -326,10 +337,9 @@ const MathsFinalQuizPage = () => {
                                 <Grid item xs={12}>
                                     {isCorrect ? (
                                         <Typography variant="h5" gutterBottom>
-                                            <b>Correct!</b> 👍 An extra ${Math.abs(earnedAmount).toFixed(2)} will be added
-                                            to your net balance, and you're now entered into our drawing for
-                                            the special secret prize! We'll notify the winner at the end of
-                                            the experiment. ⭐
+                                            <b>Correct!</b> 👍 An extra ${Math.abs(earnedAmount).toFixed(2)} 
+                                            will be added to your final score. Thanks for participating, 
+                                            we truly appreciate your input! ⭐
                                         </Typography>
                                     ) : (
                                         <Typography variant="h5" textAlign="center" gutterBottom>
@@ -351,6 +361,7 @@ const MathsFinalQuizPage = () => {
                                     </Button>
                                 </Grid>
 
+                                {/* 10秒自动跳转提示 */}
                                 <Grid item xs={12} textAlign="right" sx={{ mt: 2 }}>
                                     <Typography variant="body1">
                                         You will be redirected in <strong>{autoTimeLeft}</strong> seconds...
