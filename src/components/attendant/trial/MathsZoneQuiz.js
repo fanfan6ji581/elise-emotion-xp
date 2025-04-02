@@ -258,7 +258,7 @@ const MathsQuizPage = () => {
                             }
                         }}
                         step={5}
-                        min={0}
+                        min={5}
                         max={100}
                         marks={marks}
                         valueLabelDisplay="auto"
