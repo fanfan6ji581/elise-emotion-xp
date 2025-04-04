@@ -160,7 +160,7 @@ export default function ValueChart({ xpData, xpConfig }) {
         let color = '#d32f2f';
         if (blinkActive && validIndices2.includes(index)) {
             // 当 blinkToggle 为 true 显示浅红色，否则显示深红色
-            color = blinkToggle ? '#ef5350' : '#d32f2f';
+            color = blinkToggle ? '#8B0000' : '#d32f2f';
         }
         return color;
     });
