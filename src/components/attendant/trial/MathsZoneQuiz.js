@@ -49,7 +49,7 @@ const MathsQuizPage = () => {
     const [timeLeft, setTimeLeft] = useState(totalTime);
     const startTimeRef = useRef(Date.now());
 
-    const [autoTimeLeft, setAutoTimeLeft] = useState(30);
+    const [autoTimeLeft, setAutoTimeLeft] = useState(120);
 
     const marks = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map((val) => ({
         value: val,
@@ -93,7 +93,7 @@ const MathsQuizPage = () => {
     useEffect(() => {
         let autoTimer = null;
         if (submitted) {
-            setAutoTimeLeft(30);
+            setAutoTimeLeft(120);
             autoTimer = setInterval(() => {
                 setAutoTimeLeft((prev) => {
                     const nextVal = prev - 1;

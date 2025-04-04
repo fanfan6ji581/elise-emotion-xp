@@ -56,7 +56,7 @@ const FinalDoubleQuizPage = () => {
     const [timeLeft, setTimeLeft] = useState(totalTime);
 
     // 提交后自动跳转倒计时(示例为30s)
-    const [autoTimeLeft, setAutoTimeLeft] = useState(30);
+    const [autoTimeLeft, setAutoTimeLeft] = useState(120);
 
     // 两道题的选择
     const [q1, setQ1] = useState(0);
@@ -133,7 +133,7 @@ const FinalDoubleQuizPage = () => {
     useEffect(() => {
         let autoTimer = null;
         if (submitted) {
-            setAutoTimeLeft(30);
+            setAutoTimeLeft(120);
             autoTimer = setInterval(() => {
                 setAutoTimeLeft((prev) => {
                     const nextVal = prev - 1;

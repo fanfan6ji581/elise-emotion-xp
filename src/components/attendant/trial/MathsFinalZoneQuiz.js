@@ -107,7 +107,7 @@ const MathsFinalQuizPage = () => {
     useEffect(() => {
         let autoTimer = null;
         if (submitted) {
-            setAutoTimeLeft(30);
+            setAutoTimeLeft(120);
             autoTimer = setInterval(() => {
                 setAutoTimeLeft((prev) => {
                     const nextVal = prev - 1;

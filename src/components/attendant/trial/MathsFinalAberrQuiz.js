@@ -53,7 +53,7 @@ const FinalAberQuizPage = () => {
     const [timeLeft, setTimeLeft] = useState(totalTime);
 
     // 提交后自动跳转倒计时（PDF 示例 10 秒）
-    const [autoTimeLeft, setAutoTimeLeft] = useState(30);
+    const [autoTimeLeft, setAutoTimeLeft] = useState(120);
 
     // 表单状态
     const [q1, setQ1] = useState(0);
@@ -115,7 +115,7 @@ const FinalAberQuizPage = () => {
     useEffect(() => {
         let autoTimer = null;
         if (submitted) {
-            setAutoTimeLeft(30);
+            setAutoTimeLeft(120);
             autoTimer = setInterval(() => {
                 setAutoTimeLeft((prev) => {
                     const nextVal = prev - 1;
