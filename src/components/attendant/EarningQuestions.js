@@ -80,12 +80,12 @@ const EarningQuestionPage = () => {
 
   const questions = [
     {
-      label: "Did you follow a clear strategy during the game?",
+      label: "Did you follow a strategy during the game?",
       options: [
-        "Yes, I have a clear strategy throughout the game.",
+        "Yes, I had a strategy throughout the game.",
         "Yes, but I found myself greatly deviating from my initial strategy at some point during the game.",
         "Yes, I had a strategy in the beginning but gave up after some trials.",
-        "No, I didn’t have a clear strategy."
+        "No, I didn’t have a strategy."
       ],
       name: "question1",
     },
@@ -109,7 +109,7 @@ const EarningQuestionPage = () => {
       name: "question3",
     },
     {
-      label: "Please describe your strategy during the game. If applicable, please describe how you used the indicator chart to deal with shifts and aberrations. If you changed your strategy during the game, please tell us a bit more. (If you don’t have a strategy, please click NA) ",
+      label: "Please describe your strategy during the game. If applicable, please describe how you used the indicator chart to deal with shifts and aberrations. If you changed your strategy during the game, please tell us a bit more. (If you didn't have a strategy, please click NA) ",
       options: [
         "NA",
       ],

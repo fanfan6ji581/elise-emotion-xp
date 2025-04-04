@@ -38,10 +38,15 @@ export default function MoneyOutcome({ xpData, xpConfig }) {
     }
 
     useEffect(() => {
+        let time = (moneyEarned === 0 ? (outcome0ShowTime || outcomeShowTime) : outcomeShowTime);
+        if (missedTrial) {
+            // set a min of 2 seconds for missed trial
+            time = Math.max(time, 2 * 1000);
+        } 
         if (showMoneyOutcomeS) {
             loadingInterval.current = setTimeout(() => {
                 dispatch(nextTrial())
-            }, (moneyEarned === 0 ? (outcome0ShowTime || outcomeShowTime) : outcomeShowTime))
+            }, time)
         }
 
         return () => clearInterval(loadingInterval.current);
