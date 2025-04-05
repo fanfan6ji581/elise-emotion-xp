@@ -249,14 +249,14 @@ const FinalDoubleQuizPage = () => {
                 Congratulations on completing the main experiment! Now to the final bit: 
                 your chance to significantly boost your earnings with our Double Quiz Challenge.
             </Typography>
-            <Typography variant="body1" sx={{ my: 1 }}>
+            <Typography variant="h6" sx={{ my: 1 }}>
                 <b>HOW "DOUBLE OR NOTHING" WORKS (per your custom logic):</b><br/>
                 - You'll face TWO consecutive math quizzes as a single challenge.<br/>
                 - If both answers are correct: you earn a positive bonus.<br/>
                 - If either is incorrect: you get a negative bonus.<br/>
                 - Each quiz can earn or lose up to $15, so total can be up to $30.
             </Typography>
-            <Typography variant="body1" sx={{ my: 2 }}>
+            <Typography variant="h6" sx={{ my: 2 }}>
                 <b>STRATEGY WARNING:</b> Even if you nail the first quiz, 
                 getting the second quiz wrong means your total will be negative. 
                 So choose carefully!

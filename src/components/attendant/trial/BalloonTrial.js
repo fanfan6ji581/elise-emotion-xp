@@ -105,11 +105,6 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
       storeToDB();
     }
 
-    // trial break page
-    if (!isTrainingMode && trialIndexS === xpConfig.numberOfTrials / 2 && !isTrialBreakTakenS) {
-      navigate(`/xp/${alias}/trial-break`);
-      return;
-    }
 
     if (!isTrainingMode) {
       // do math quizpage checking when not training mode
@@ -135,6 +130,12 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
 
       if (showMathFinalDoubleQuizPageS) {
         navigate(`/xp/${alias}/maths-final-double-quiz/`);
+        return;
+      }
+
+      // trial break page
+      if (trialIndexS === xpConfig.numberOfTrials / 2 && !isTrialBreakTakenS) {
+        navigate(`/xp/${alias}/trial-break`);
         return;
       }
     }
@@ -186,7 +187,7 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
   return (
     <Container maxWidth="lg">
       <Grid container justifyContent="center">
-        <Grid item xs={12} sx={{my: 2}}>
+        <Grid item xs={12} sx={{ my: 2 }}>
           {isTrainingMode && <>
             <Typography variant="h5" align="center" sx={{ mt: 2, mb: 1 }}>
               Training

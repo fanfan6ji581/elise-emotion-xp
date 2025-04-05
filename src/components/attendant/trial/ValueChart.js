@@ -13,7 +13,7 @@ import {
 } from 'chart.js';
 import { Line, Bar } from 'react-chartjs-2';
 import { Box, Typography } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
     trialIndex, showMoneyOutcome, showVolumeChart, choiceHistory,
@@ -43,6 +43,8 @@ export default function ValueChart({ xpData, xpConfig }) {
     // 用于控制 Indicator 图的 blink 动画状态
     const [blinkActive, setBlinkActive] = useState(false);
     const [blinkToggle, setBlinkToggle] = useState(false);
+    // 用来保存 blink interval 的 id
+    const blinkIntervalRef = useRef(null);
 
     const historyLength = 10;
     // 当 trialIndexS == 0 时，originalLabels 包含 10 个历史值加上一个空值标签
@@ -178,23 +180,41 @@ export default function ValueChart({ xpData, xpConfig }) {
         ],
     };
 
-    // 如果 Indicator 图一直显示且满足 blink 条件，则自动触发 blink 动画
+    // 原有 blink 动画 useEffect，增加了 blinkIntervalRef 用于后续强制结束 blink
     useEffect(() => {
         if (showVolumeChartS && blinkCondition) {
             setBlinkActive(true);
             let count = 0;
-            const interval = setInterval(() => {
+            blinkIntervalRef.current = setInterval(() => {
                 setBlinkToggle(prev => !prev);
                 count++;
-                if (count >= 10) { // 200ms 一次，共 8 次切换
-                    clearInterval(interval);
+                if (count >= 10) { // 200ms 一次，共 10 次切换
+                    clearInterval(blinkIntervalRef.current);
+                    blinkIntervalRef.current = null;
                     setBlinkActive(false);
                     setBlinkToggle(false);
                 }
             }, 200);
-            return () => clearInterval(interval);
+            return () => {
+                if (blinkIntervalRef.current) {
+                    clearInterval(blinkIntervalRef.current);
+                    blinkIntervalRef.current = null;
+                    setBlinkActive(false);
+                    setBlinkToggle(false);
+                }
+            };
         }
     }, [showVolumeChartS, blinkCondition]);
+
+    // 新增 useEffect，当 trialIndex 改变时，强制结束 blink 动画
+    useEffect(() => {
+        if (blinkIntervalRef.current) {
+            clearInterval(blinkIntervalRef.current);
+            blinkIntervalRef.current = null;
+            setBlinkActive(false);
+            setBlinkToggle(false);
+        }
+    }, [trialIndexS]);
 
     // 点击仅用于切换 Indicator 图的显示
     const onClickAssetChart = () => {
