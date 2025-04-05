@@ -52,7 +52,7 @@ const FinalDoubleQuizPage = () => {
     const navigate = useNavigate();
 
     // 计时器：默认 240 秒，如果 xpConfig 没定义就用 120*2
-    const totalTime = (xpConfig.secondsBriefMathsQuiz * 2) || 240;
+    const totalTime = (xpConfig.secondsBriefMathsQuiz * 3) || 360;
     const [timeLeft, setTimeLeft] = useState(totalTime);
 
     // 提交后自动跳转倒计时(示例为30s)

@@ -134,7 +134,7 @@ const BalloonTrial = ({ isTrainingMode, onFinish }) => {
       }
 
       // trial break page
-      if (trialIndexS === xpConfig.numberOfTrials / 2 && !isTrialBreakTakenS) {
+      if (trialIndexS >= xpConfig.numberOfTrials / 2 && !isTrialBreakTakenS) {
         navigate(`/xp/${alias}/trial-break`);
         return;
       }
