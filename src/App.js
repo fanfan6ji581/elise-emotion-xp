@@ -2,7 +2,10 @@ import { Provider } from 'react-redux';
 import React from 'react';
 import './App.css';
 import { ThemeProvider, StyledEngineProvider, createTheme } from '@mui/material/styles';
-import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import {
+    BrowserRouter, Outlet, Route, Routes,
+    // Navigate
+} from "react-router-dom";
 import { store } from './app/store';
 import AdminLayout from "./components/admin/Layout";
 import AdminLoginPage from "./components/admin/Login";
@@ -51,17 +54,18 @@ import PretaskPaymentPage from './components/attendant/pretask/PretaskPaymentPag
 import PretaskInstruction1Page from './components/attendant/instruction/PretaskInstruction1Page';
 import StartPretaskPage from './components/attendant/pretask/StartPretaskPage';
 import AfterSignupWaitPage from './components/attendant/AfterSignupWaitPage';
+import ExperimentFlowPage from './components/attendant/instruction/ExperimentFlowPage';
 
 const theme = createTheme({
     palette: {
         green: {
-            main: '#4caf50', // Example green color
-            light: '#81c784', // Example green color
-            dark: '#388e3c', // Example green color
+            main: '#4caf50',
+            light: '#81c784',
+            dark: '#388e3c',
             contrastText: '#ffffff',
         },
         black: {
-            main: '#242424', 
+            main: '#242424',
             light: '#484848',
             dark: '#000000',
             contrastText: '#ffffff',
@@ -87,6 +91,7 @@ function App() {
                                 <Route path="xp/:alias/instruction1" element={<Instruction1Page />} />
                                 <Route path="xp/:alias/instruction2" element={<Instruction2Page />} />
                                 <Route path="xp/:alias/instruction3" element={<Instruction3Page />} />
+                                <Route path="xp/:alias/flow" element={<ExperimentFlowPage />} />
                                 <Route path="xp/:alias/instruction-payment" element={<InstructionPaymentPage />} />
                                 <Route path="xp/:alias/instruction-ready" element={<InstructionReadyPage />} />
                                 <Route path="xp/:alias/instruction-before-training" element={<InstructionBeforeTrainingStart />} />
