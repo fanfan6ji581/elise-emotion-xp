@@ -101,7 +101,7 @@ const schema = {
         },
         clickToShowVolumeChart: {
             "type": "boolean",
-            "title": "Need to click asset chart to show volume chart",
+            "title": "Need to click chart to show volume chart",
             default: false
         },
         hideVolumeChartWhenShowOutcome: {
