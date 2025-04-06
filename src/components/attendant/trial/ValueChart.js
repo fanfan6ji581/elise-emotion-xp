@@ -13,7 +13,7 @@ import {
 } from 'chart.js';
 import { Line, Bar } from 'react-chartjs-2';
 import { Box, Typography } from "@mui/material";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
     trialIndex, showMoneyOutcome, showVolumeChart, choiceHistory,
@@ -40,26 +40,21 @@ export default function ValueChart({ xpData, xpConfig }) {
     const showVolumeChartS = useSelector(showVolumeChart);
     const choiceHistoryS = useSelector(choiceHistory);
 
-    // 用于控制 Indicator 图的 blink 动画状态
+    // 控制 Indicator 图的 blink 动画状态
     const [blinkActive, setBlinkActive] = useState(false);
     const [blinkToggle, setBlinkToggle] = useState(false);
-    // 用来保存 blink interval 的 id
-    const blinkIntervalRef = useRef(null);
 
     const historyLength = 10;
-    // 当 trialIndexS == 0 时，originalLabels 包含 10 个历史值加上一个空值标签
     let originalLabels = Array.from({ length: historyLength + trialIndexS + 1 }, (_, i) => i);
     let labels = _.clone(originalLabels);
     let lengthLimit = xpConfig.trialWindowLength || 20;
     let originalLabelLength = labels.length;
 
     useEffect(() => {
-        // dispatch(doShowVolumeChart);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // 可以根据 showVolumeChartS 做其他处理
     }, [showVolumeChartS]);
 
     if (originalLabelLength < lengthLimit) {
-        // 如果长度不足，则补充空值
         labels = _.concat(labels, Array.from({ length: lengthLimit - originalLabelLength }, () => null));
     }
     if (labels.length > lengthLimit) {
@@ -79,7 +74,7 @@ export default function ValueChart({ xpData, xpConfig }) {
     }
     labels = labels.map(l => l === null ? '' : l < historyLength ? '' : l - historyLength + 1);
 
-    // 对于 Asset Trend 图，计算最后两个有效数据点的索引及颜色
+    // 计算 Asset Trend 图中最后两个有效数据点的索引及颜色
     let validIndices1 = [];
     for (let i = dataValues1.length - 1; i >= 0; i--) {
         if (dataValues1[i] !== null && typeof dataValues1[i] === 'number') {
@@ -92,10 +87,10 @@ export default function ValueChart({ xpData, xpConfig }) {
         if (isDifferent1 && (index === validIndices1[0] || index === validIndices1[1])) {
             return '#d32f2f';
         }
-        return 'rgb(0,0,0)'; // 默认颜色
+        return 'rgb(0,0,0)';
     });
 
-    // Asset Trend 图配置
+    // Asset Trend 图数据配置
     const data = {
         labels: labels,
         datasets: [
@@ -110,7 +105,6 @@ export default function ValueChart({ xpData, xpConfig }) {
                         const { p0DataIndex, p1DataIndex, chart, datasetIndex } = ctx;
                         const currentDataset = chart.data.datasets[datasetIndex];
                         const data = currentDataset.data;
-                        // 找出最后两个有效的数据点索引
                         const validIndices = [];
                         for (let i = data.length - 1; i >= 0; i--) {
                             if (data[i] !== null && typeof data[i] === 'number') {
@@ -121,7 +115,6 @@ export default function ValueChart({ xpData, xpConfig }) {
                         if (validIndices.length < 2) {
                             return 'rgba(0,0,0,0.2)';
                         }
-                        // 如果当前线段正好连接最后两个有效数据点，且数值不相等，则显示深红色
                         if (p0DataIndex === validIndices[0] && p1DataIndex === validIndices[1]) {
                             if (data[validIndices[0]] !== data[validIndices[1]]) {
                                 return '#d32f2f';
@@ -134,7 +127,7 @@ export default function ValueChart({ xpData, xpConfig }) {
         ],
     };
 
-    // Indicator history 图使用 volume 数据，数据与 dataValues1 类似
+    // Indicator history 图使用 volume 数据
     let dataValues2 = volume && _.slice(
         volume,
         originalLabels[0],
@@ -144,7 +137,6 @@ export default function ValueChart({ xpData, xpConfig }) {
         dataValues2 = _.concat(dataValues2, Array.from({ length: lengthLimit - originalLabelLength }, () => null));
     }
 
-    // 计算 dataValues2 中最后两个有效数据点的索引
     let validIndices2 = [];
     for (let i = dataValues2.length - 1; i >= 0; i--) {
         if (dataValues2[i] !== null && typeof dataValues2[i] === 'number') {
@@ -157,11 +149,10 @@ export default function ValueChart({ xpData, xpConfig }) {
         dataValues2[validIndices2[0]] === 0 &&
         dataValues2[validIndices2[1]] === 1;
 
-    // Indicator 图柱子的背景色：如果处于 blink 状态，则最后两个有效柱子在深红和浅红之间交替
+    // Indicator 图柱子的背景色：当 blinkActive 为 true 时，在深红和浅红之间切换
     const barBgColors = dataValues2.map((value, index) => {
         let color = '#d32f2f';
         if (blinkActive && validIndices2.includes(index)) {
-            // 当 blinkToggle 为 true 显示浅红色，否则显示深红色
             color = blinkToggle ? '#fefefe' : '#d32f2f';
         }
         return color;
@@ -180,43 +171,17 @@ export default function ValueChart({ xpData, xpConfig }) {
         ],
     };
 
-    // 原有 blink 动画 useEffect，增加了 blinkIntervalRef 用于后续强制结束 blink
+    // 如果满足条件，则启动 blink 效果，不再取消 interval
     useEffect(() => {
         if (showVolumeChartS && blinkCondition) {
             setBlinkActive(true);
-            let count = 0;
-            blinkIntervalRef.current = setInterval(() => {
+            setInterval(() => {
                 setBlinkToggle(prev => !prev);
-                count++;
-                if (count >= 10) { // 200ms 一次，共 10 次切换
-                    clearInterval(blinkIntervalRef.current);
-                    blinkIntervalRef.current = null;
-                    setBlinkActive(false);
-                    setBlinkToggle(false);
-                }
             }, 200);
-            return () => {
-                if (blinkIntervalRef.current) {
-                    clearInterval(blinkIntervalRef.current);
-                    blinkIntervalRef.current = null;
-                    setBlinkActive(false);
-                    setBlinkToggle(false);
-                }
-            };
         }
     }, [showVolumeChartS, blinkCondition]);
 
-    // 新增 useEffect，当 trialIndex 改变时，强制结束 blink 动画
-    useEffect(() => {
-        if (blinkIntervalRef.current) {
-            clearInterval(blinkIntervalRef.current);
-            blinkIntervalRef.current = null;
-            setBlinkActive(false);
-            setBlinkToggle(false);
-        }
-    }, [trialIndexS]);
-
-    // 点击仅用于切换 Indicator 图的显示
+    // 点击切换 Indicator 图显示
     const onClickAssetChart = () => {
         if (showMoneyOutcomeS) return;
         dispatch(doShowVolumeChart());
