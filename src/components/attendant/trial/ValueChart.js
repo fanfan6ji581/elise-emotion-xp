@@ -13,7 +13,7 @@ import {
 } from 'chart.js';
 import { Line, Bar } from 'react-chartjs-2';
 import { Box, Typography } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
     trialIndex, showMoneyOutcome, showVolumeChart, choiceHistory,
@@ -40,19 +40,19 @@ export default function ValueChart({ xpData, xpConfig }) {
     const showVolumeChartS = useSelector(showVolumeChart);
     const choiceHistoryS = useSelector(choiceHistory);
 
-    // 控制 Indicator 图的 blink 动画状态
+    // 控制 Indicator 图 blink 动画的状态
     const [blinkActive, setBlinkActive] = useState(false);
     const [blinkToggle, setBlinkToggle] = useState(false);
+    // 将 blinkCondition 存入 state
+    const [blinkCondition, setBlinkCondition] = useState(false);
+    // 保存 interval id
+    const blinkIntervalRef = useRef(null);
 
     const historyLength = 10;
     let originalLabels = Array.from({ length: historyLength + trialIndexS + 1 }, (_, i) => i);
     let labels = _.clone(originalLabels);
     let lengthLimit = xpConfig.trialWindowLength || 20;
     let originalLabelLength = labels.length;
-
-    useEffect(() => {
-        // 可以根据 showVolumeChartS 做其他处理
-    }, [showVolumeChartS]);
 
     if (originalLabelLength < lengthLimit) {
         labels = _.concat(labels, Array.from({ length: lengthLimit - originalLabelLength }, () => null));
@@ -144,12 +144,17 @@ export default function ValueChart({ xpData, xpConfig }) {
             if (validIndices2.length === 2) break;
         }
     }
-    // blink 条件：倒数第二个有效值为 0，最后一个有效值为 1
-    const blinkCondition = validIndices2.length === 2 &&
-        dataValues2[validIndices2[0]] === 0 &&
-        dataValues2[validIndices2[1]] === 1;
 
-    // Indicator 图柱子的背景色：当 blinkActive 为 true 时，在深红和浅红之间切换
+    // 计算 blinkCondition 并存入 state
+    useEffect(() => {
+        const condition = validIndices2.length === 2 &&
+            dataValues2[validIndices2[0]] === 0 &&
+            dataValues2[validIndices2[1]] === 1;
+        setBlinkCondition(condition);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dataValues2]); // 当 volume 数据更新时
+
+    // Indicator 图柱子的背景色：blinkActive 为 true 时在两种颜色间切换
     const barBgColors = dataValues2.map((value, index) => {
         let color = '#d32f2f';
         if (blinkActive && validIndices2.includes(index)) {
@@ -171,15 +176,32 @@ export default function ValueChart({ xpData, xpConfig }) {
         ],
     };
 
-    // 如果满足条件，则启动 blink 效果，不再取消 interval
+    // 启动 blink 效果：当满足条件时启动 interval
     useEffect(() => {
         if (showVolumeChartS && blinkCondition) {
             setBlinkActive(true);
-            setInterval(() => {
+            let count = 0;
+            blinkIntervalRef.current = setInterval(() => {
                 setBlinkToggle(prev => !prev);
+                count++;
+                if (count >= 10) { // 200ms 一次，共 10 次切换后自动结束
+                    clearInterval(blinkIntervalRef.current);
+                    blinkIntervalRef.current = null;
+                    setBlinkActive(false);
+                    setBlinkToggle(false);
+                }
             }, 200);
+            return () => {
+                if (blinkIntervalRef.current) {
+                    clearInterval(blinkIntervalRef.current);
+                    blinkIntervalRef.current = null;
+                    setBlinkActive(false);
+                    setBlinkToggle(false);
+                }
+            };
         }
     }, [showVolumeChartS, blinkCondition]);
+
 
     // 点击切换 Indicator 图显示
     const onClickAssetChart = () => {
