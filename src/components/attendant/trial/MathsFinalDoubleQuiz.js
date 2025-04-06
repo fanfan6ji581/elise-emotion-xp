@@ -232,7 +232,7 @@ const FinalDoubleQuizPage = () => {
             {/* 若未提交，显示倒计时 */}
             {!submitted && (
                 <Box sx={{ position: "absolute", top: 16, right: 16 }}>
-                    <Typography variant="h5">
+                    <Typography variant="h5" sx={{ fontWeight: "bold", color: "red" }}>
                         Time Left: {formatTimeLeft(timeLeft)}
                     </Typography>
                 </Box>

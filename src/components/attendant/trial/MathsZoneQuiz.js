@@ -160,7 +160,7 @@ const MathsQuizPage = () => {
         <Container sx={{ position: "relative", my: 4 }}>
             {!submitted && (
                 <Box sx={{ position: "absolute", top: 16, right: 16 }}>
-                    <Typography variant="body1">
+                    <Typography variant="h5" sx={{ fontWeight: "bold", color: "red" }}>
                         Time Left: {formatTimeLeft(timeLeft)}
                     </Typography>
                 </Box>

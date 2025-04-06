@@ -179,7 +179,7 @@ const MathsFinalQuizPage = () => {
             {/* 未提交时显示剩余时间 */}
             {!submitted && (
                 <Box sx={{ position: "absolute", top: 16, right: 16 }}>
-                    <Typography variant="h5">
+                    <Typography variant="h5" sx={{ fontWeight: "bold", color: "red" }}>
                         Time Left: {formatTimeLeft(timeLeft)}
                     </Typography>
                 </Box>

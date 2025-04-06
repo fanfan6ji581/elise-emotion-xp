@@ -184,7 +184,7 @@ const MathsAberrQuizPage = () => {
             {/* Timer display if not submitted */}
             {!submitted && (
                 <Box sx={{ position: "absolute", top: 16, right: 16 }}>
-                    <Typography variant="h5">
+                    <Typography variant="h5" sx={{ fontWeight: "bold", color: "red" }}>
                         Time Left: {formatTimeLeft(timeLeft)}
                     </Typography>
                 </Box>
