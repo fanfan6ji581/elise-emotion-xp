@@ -12,7 +12,7 @@ const TrainingTimer = ({ trainingSessionSeconds, onFinish, text }) => {
         <>
             {
                 <Box sx={{ position: 'absolute', top: 10, right: 10 }}>
-                    <Typography variant="body1" textAlign="center" sx={{ mr: 1 }}>
+                    <Typography variant="h6" textAlign="center" sx={{ mr: 3, fontWeight: "bold" }}>
                         {text ? text : "Training time left"}: <Countdown date={Date.now() + trainingSessionSeconds * 1000} renderer={renderer} onComplete={onFinish} />
                     </Typography>
                 </Box>
