@@ -3,8 +3,7 @@ import React from 'react';
 import './App.css';
 import { ThemeProvider, StyledEngineProvider, createTheme } from '@mui/material/styles';
 import {
-    BrowserRouter, Outlet, Route, Routes,
-    // Navigate
+    BrowserRouter, Outlet, Route, Routes, Navigate
 } from "react-router-dom";
 import { store } from './app/store';
 import AdminLayout from "./components/admin/Layout";
@@ -12,7 +11,7 @@ import AdminLoginPage from "./components/admin/Login";
 import DashboardPage from "./components/admin/DashboardPage";
 import ExperimentPage from "./components/admin/ExperimentPage";
 import AttendantPage from "./components/admin/AttendantPage";
-
+import NoLayout from "./components/attendant/NoLayout";
 import AttendantLayout from "./components/attendant/Layout";
 import LoginPage from "./components/attendant/LoginPage";
 import TrialPage from "./components/attendant/trial/TrialPage";
@@ -80,6 +79,13 @@ function App() {
                 <ThemeProvider theme={theme}>
                     <BrowserRouter basename="/">
                         <Routes>
+                            <Route index element={<Navigate replace to="/flow" />} />
+
+                            {/* 新增一个使用 NoLayout 的路由父级 */}
+                            <Route element={<NoLayout />}>
+                                <Route path="/flow" element={<ExperimentFlowPage />} />
+                            </Route>
+
                             <Route path="/" element={<AttendantLayout />}>
                                 <Route path="xp/:alias/login/:username?/:password?" element={<LoginPage />} />
                                 <Route path="xp/:alias/signup" element={<SignupPage />} />
@@ -91,7 +97,6 @@ function App() {
                                 <Route path="xp/:alias/instruction1" element={<Instruction1Page />} />
                                 <Route path="xp/:alias/instruction2" element={<Instruction2Page />} />
                                 <Route path="xp/:alias/instruction3" element={<Instruction3Page />} />
-                                <Route path="xp/:alias/flow" element={<ExperimentFlowPage />} />
                                 <Route path="xp/:alias/instruction-payment" element={<InstructionPaymentPage />} />
                                 <Route path="xp/:alias/instruction-ready" element={<InstructionReadyPage />} />
                                 <Route path="xp/:alias/instruction-before-training" element={<InstructionBeforeTrainingStart />} />
