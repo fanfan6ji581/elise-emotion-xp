@@ -81,7 +81,7 @@ const QuizPage = () => {
             text: "",
             extra: <>
                 <Typography variant="span" sx={{}}>
-                    In the dangerous zone, from a pure maths perspective, what is the expected outcome if you follow <b>the current asset trend</b> (for example, selling (-10) on Day 33 as shown earlier,
+                    In the dangerous zone, from a pure maths perspective, what is the expected value of the outcome if you follow <b>the current asset trend</b> (for example, selling (-10) on Day 33 as shown earlier,
 
                     click&nbsp;
                     <MuiLink onClick={handleClickOpen} sx={{ cursor: 'pointer' }}>
@@ -89,7 +89,7 @@ const QuizPage = () => {
                     </MuiLink>
                     &nbsp;to go back to the previous example&#41; ?
                     <br />
-                    <i>Note: Please seek clarifications if you are not sure about what “expected outcome” means.</i>
+                    <i>Note: Please seek clarifications if you are not sure about what “expected value means.</i>
                 </Typography>
             </>,
             options: ["It’s negative", "It’s positive", "I’m not quite sure"],
