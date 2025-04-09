@@ -291,7 +291,7 @@ const QuizPage = () => {
             mcq12, mcq13
         };
         const attendantRef = doc(db, "attendant", loginAttendantS.id);
-        await updateDoc(attendantRef, { submitted: true, quizAnswers });
+        await updateDoc(attendantRef, { quizAnswers, submitted: true });
         validateForm(quizAnswers);
     };
 
@@ -325,16 +325,16 @@ const QuizPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    useEffect(() => {
-        const handleBeforeUnload = async () => {
-            await saveFormWithoutSubmit();
-        };
-        window.addEventListener('beforeunload', handleBeforeUnload);
-        return () => {
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    // useEffect(() => {
+    //     const handleBeforeUnload = async () => {
+    //         await saveFormWithoutSubmit();
+    //     };
+    //     window.addEventListener('beforeunload', handleBeforeUnload);
+    //     return () => {
+    //         window.removeEventListener('beforeunload', handleBeforeUnload);
+    //     };
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, []);
 
     return (
         <Container maxWidth="lg">
