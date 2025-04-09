@@ -56,6 +56,8 @@ const Attendants = ({ xp }) => {
     const [finalAberrQuizCorrectAnswers, setFinalAberrQuizCorrectAnswers] = useState(0);
     const [finalDoubleQuizOccurrences, setFinalDoubleQuizOccurrences] = useState(0);
     const [finalDoubleQuizCorrectAnswers, setFinalDoubleQuizCorrectAnswers] = useState(0);
+    const [finalDoubleQuizQ1CorrectAnswers, setFinalDoubleQuizQ1CorrectAnswers] = useState(0);
+    const [finalDoubleQuizQ2CorrectAnswers, setFinalDoubleQuizQ2CorrectAnswers] = useState(0);
 
 
 
@@ -135,6 +137,8 @@ const Attendants = ({ xp }) => {
         let finalAberrQuizCorrectAnswers = 0;
         let finalDoubleQuizOccurrences = 0;
         let finalDoubleQuizCorrectAnswers = 0;
+        let finalDoubleQuizQ1CorrectAnswers = 0;
+        let finalDoubleQuizQ2CorrectAnswers = 0;
 
         for (let i = 0; i < attendants.length; i++) {
             const attendant = attendants[i];
@@ -157,6 +161,8 @@ const Attendants = ({ xp }) => {
             if (attendant.doubleFinalQuiz) {
                 finalDoubleQuizOccurrences += 1;
                 finalDoubleQuizCorrectAnswers += attendant.doubleFinalQuiz.earnedAmount > 0 ? 1 : 0;
+                finalDoubleQuizQ1CorrectAnswers += attendant.doubleFinalQuiz.q1 === 2 ? 1 : 0;
+                finalDoubleQuizQ2CorrectAnswers += attendant.doubleFinalQuiz.q3 === 1 ? 1 : 0;
             }
         }
 
@@ -170,6 +176,8 @@ const Attendants = ({ xp }) => {
         setFinalAberrQuizCorrectAnswers(finalAberrQuizCorrectAnswers);
         setFinalDoubleQuizOccurrences(finalDoubleQuizOccurrences);
         setFinalDoubleQuizCorrectAnswers(finalDoubleQuizCorrectAnswers);
+        setFinalDoubleQuizQ1CorrectAnswers(finalDoubleQuizQ1CorrectAnswers);
+        setFinalDoubleQuizQ2CorrectAnswers(finalDoubleQuizQ2CorrectAnswers);
 
         setLoadingOpen(false);
     };
@@ -330,8 +338,9 @@ const Attendants = ({ xp }) => {
                     <Typography>Final Aberr Quiz Occurrs: {finalAberrQuizOccurrences}</Typography>
                     <Typography>Final Aberr Quiz Correct: {finalAberrQuizCorrectAnswers}</Typography>
                     <Typography>Final Double Quiz Occurrs: {finalDoubleQuizOccurrences}</Typography>
-                    <Typography>Final Double Quiz Correct: {finalDoubleQuizCorrectAnswers}</Typography>
-
+                    <Typography>Final Double Both Correct: {finalDoubleQuizCorrectAnswers}</Typography>
+                    <Typography>Final Double Zone Correct: {finalDoubleQuizQ1CorrectAnswers}</Typography>
+                    <Typography>Final Double Aber Correct: {finalDoubleQuizQ2CorrectAnswers}</Typography>
                     <Divider sx={{ my: 3 }} />
 
                     <Typography>Add more attendants</Typography>
