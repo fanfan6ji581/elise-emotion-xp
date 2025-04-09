@@ -45,6 +45,21 @@ const Attendants = ({ xp }) => {
     const [loadingOpen, setLoadingOpen] = useState(true);
     const [assigning, setAssigning] = useState(false);
 
+    // need to collect the sum of each quiz occurs and the sum of correct answers
+    const [zoneQuizOccurrences, setZoneQuizOccurrences] = useState(0);
+    const [zoneQuizCorrectAnswers, setZoneQuizCorrectAnswers] = useState(0);
+    const [aberQuizOccurrences, setAberQuizOccurrences] = useState(0);
+    const [aberQuizCorrectAnswers, setAberQuizCorrectAnswers] = useState(0);
+    const [finalZoneQuizOccurrences, setFinalZoneQuizOccurrences] = useState(0);
+    const [finalZoneQuizCorrectAnswers, setFinalZoneQuizCorrectAnswers] = useState(0);
+    const [finalAberrQuizOccurrences, setFinalAberrQuizOccurrences] = useState(0);
+    const [finalAberrQuizCorrectAnswers, setFinalAberrQuizCorrectAnswers] = useState(0);
+    const [finalDoubleQuizOccurrences, setFinalDoubleQuizOccurrences] = useState(0);
+    const [finalDoubleQuizCorrectAnswers, setFinalDoubleQuizCorrectAnswers] = useState(0);
+
+
+
+
     const columns = [
         { field: 'username', headerName: 'Username', width: 250 },
         { field: 'password', headerName: 'Password', width: 200 },
@@ -109,6 +124,53 @@ const Attendants = ({ xp }) => {
         setLoadingOpen(true);
         const attendants = await getAttendants(alias);
         setAttendants(attendants);
+
+        let zoneQuizOccurrences = 0;
+        let zoneQuizCorrectAnswers = 0;
+        let aberQuizOccurrences = 0;
+        let aberQuizCorrectAnswers = 0;
+        let finalZoneQuizOccurrences = 0;
+        let finalZoneQuizCorrectAnswers = 0;
+        let finalAberrQuizOccurrences = 0;
+        let finalAberrQuizCorrectAnswers = 0;
+        let finalDoubleQuizOccurrences = 0;
+        let finalDoubleQuizCorrectAnswers = 0;
+
+        for (let i = 0; i < attendants.length; i++) {
+            const attendant = attendants[i];
+            if (attendant.mathZoneQuiz) {
+                zoneQuizOccurrences += 1;
+                zoneQuizCorrectAnswers += attendant.mathZoneQuiz.earnedAmount > 0 ? 1 : 0;
+            }
+            if (attendant.mathAberrQuiz) {
+                aberQuizOccurrences += 1;
+                aberQuizCorrectAnswers += attendant.mathAberrQuiz.earnedAmount > 0 ? 1 : 0;
+            }
+            if (attendant.mathFinalQuiz) {
+                finalZoneQuizOccurrences += 1;
+                finalZoneQuizCorrectAnswers += attendant.mathFinalQuiz.earnedAmount > 0 ? 1 : 0;
+            }
+            if (attendant.aberFinalQuiz) {
+                finalAberrQuizOccurrences += 1;
+                finalAberrQuizCorrectAnswers += attendant.aberFinalQuiz.earnedAmount > 0 ? 1 : 0;
+            }
+            if (attendant.doubleFinalQuiz) {
+                finalDoubleQuizOccurrences += 1;
+                finalDoubleQuizCorrectAnswers += attendant.doubleFinalQuiz.earnedAmount > 0 ? 1 : 0;
+            }
+        }
+
+        setZoneQuizOccurrences(zoneQuizOccurrences);
+        setZoneQuizCorrectAnswers(zoneQuizCorrectAnswers);
+        setAberQuizOccurrences(aberQuizOccurrences);
+        setAberQuizCorrectAnswers(aberQuizCorrectAnswers);
+        setFinalZoneQuizOccurrences(finalZoneQuizOccurrences);
+        setFinalZoneQuizCorrectAnswers(finalZoneQuizCorrectAnswers);
+        setFinalAberrQuizOccurrences(finalAberrQuizOccurrences);
+        setFinalAberrQuizCorrectAnswers(finalAberrQuizCorrectAnswers);
+        setFinalDoubleQuizOccurrences(finalDoubleQuizOccurrences);
+        setFinalDoubleQuizCorrectAnswers(finalDoubleQuizCorrectAnswers);
+
         setLoadingOpen(false);
     };
 
@@ -258,6 +320,20 @@ const Attendants = ({ xp }) => {
                     <Button variant="contained" sx={{ mx: 3 }} disabled={!selectionModel.length} onClick={onDeleteAttdendants}><DeleteIcon /> Delete</Button>
                 </Grid>
                 <Grid item xs={3}>
+
+                    <Typography>Zone Quiz Occurrs: {zoneQuizOccurrences}</Typography>
+                    <Typography>Zone Quiz Correct: {zoneQuizCorrectAnswers}</Typography>
+                    <Typography>Aber Quiz Occurrs: {aberQuizOccurrences}</Typography>
+                    <Typography>Aber Quiz Correct: {aberQuizCorrectAnswers}</Typography>
+                    <Typography>Final Zone Quiz Occurrs: {finalZoneQuizOccurrences}</Typography>
+                    <Typography>Final Zone Quiz Correct: {finalZoneQuizCorrectAnswers}</Typography>
+                    <Typography>Final Aberr Quiz Occurrs: {finalAberrQuizOccurrences}</Typography>
+                    <Typography>Final Aberr Quiz Correct: {finalAberrQuizCorrectAnswers}</Typography>
+                    <Typography>Final Double Quiz Occurrs: {finalDoubleQuizOccurrences}</Typography>
+                    <Typography>Final Double Quiz Correct: {finalDoubleQuizCorrectAnswers}</Typography>
+
+                    <Divider sx={{ my: 3 }} />
+
                     <Typography>Add more attendants</Typography>
                     <Form schema={schema} onSubmit={onCreateAttendants} validator={validator} />
 
