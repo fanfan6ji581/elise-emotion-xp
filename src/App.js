@@ -36,6 +36,7 @@ import InstructionPaymentPage from "./components/attendant/instruction/Instructi
 import InstructionReadyPage from "./components/attendant/instruction/InstructionReadyPage";
 import InstructionBeforeTrainingStart from "./components/attendant/instruction/InstructionBeforeTrainingStart";
 import SkipTrainingPage from "./components/attendant/instruction/SkipTrainingPage";
+import InstructionHeadUpPage from "./components/attendant/instruction/InstructionHeadupPage";
 import QuizPage from "./components/attendant/QuizPage";
 import StartQuizPage from "./components/attendant/StartQuizPage";
 import Quiz1Page from "./components/attendant/Quiz1Page";
@@ -102,6 +103,7 @@ function App() {
                                 <Route path="xp/:alias/instruction-before-training" element={<InstructionBeforeTrainingStart />} />
                                 <Route path="xp/:alias/instruction-how-to-play" element={<InstructionHowToPlayPage />} />
                                 <Route path="xp/:alias/instruction-almost-ready-to-start" element={<InstructionAlmostReadyToStartPage />} />
+                                <Route path="xp/:alias/instruction-head-up" element={<InstructionHeadUpPage />} />
                                 <Route path="xp/:alias/skip-training" element={<SkipTrainingPage />} />
                                 <Route path="xp/:alias/quiz" element={<QuizPage />} />
                                 <Route path="xp/:alias/start-quiz" element={<StartQuizPage />} />

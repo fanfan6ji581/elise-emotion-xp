@@ -76,7 +76,7 @@ const InstructionHowToPlayPage = () => {
                 </Grid>
 
                 <Box textAlign="center" sx={{ my: 10 }}>
-                    <Button component={Link} variant="contained" size="large" to={`/xp/${alias}/instruction-ready`} sx={{ mx: 2 }} >Prev</Button>
+                    <Button component={Link} variant="contained" size="large" to={`/xp/${alias}/instruction-head-up`} sx={{ mx: 2 }} >Prev</Button>
                     <Button component={Link} variant="contained" size="large" to={`/xp/${alias}/start-quiz`} sx={{ mx: 2 }} disabled={!fetched || (fetched && !enable)}>Next</Button>
                 </Box>
             </Container>
