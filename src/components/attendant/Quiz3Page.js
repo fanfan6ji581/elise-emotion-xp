@@ -89,7 +89,7 @@ const QuizPage = () => {
                     </MuiLink>
                     &nbsp;to go back to the previous example&#41; ?
                     <br />
-                    <i>Note: Please seek clarifications if you are not sure about what “expected value means.</i>
+                    <i>Note: Please seek clarifications if you are not sure about what “expected value“ means.</i>
                 </Typography>
             </>,
             options: ["It’s negative", "It’s positive", "I’m not quite sure"],
