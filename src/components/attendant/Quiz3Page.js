@@ -296,13 +296,16 @@ const QuizPage = () => {
     };
 
     const saveFormWithoutSubmit = async () => {
-        const quizAnswers = {
-            mcq1, mcq2, mcq3, mcq4, mcq5, mcq6,
-            mcq7, mcq8, mcq9, mcq10, mcq11,
-            mcq12, mcq13
-        };
-        const attendantRef = doc(db, "attendant", loginAttendantS.id);
-        await updateDoc(attendantRef, { submitted: false, quizAnswers });
+        // if (loginAttendantS.submitted) {
+        //     return;
+        // }
+        // const quizAnswers = {
+        //     mcq1, mcq2, mcq3, mcq4, mcq5, mcq6,
+        //     mcq7, mcq8, mcq9, mcq10, mcq11,
+        //     mcq12, mcq13
+        // };
+        // const attendantRef = doc(db, "attendant", loginAttendantS.id);
+        // await updateDoc(attendantRef, { submitted: false, quizAnswers });
     };
 
     const handleLinkClick = async (path) => {
