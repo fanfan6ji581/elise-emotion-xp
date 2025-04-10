@@ -311,7 +311,7 @@ const QuizPage = () => {
     };
 
     const onKeyDown = (e) => {
-        if ((e.ctrlKey && e.key === 'm') || e.key === ' ') {
+        if ((e.ctrlKey && e.key === 'm')) {
             navigate(`/xp/${alias}/start-game`);
         }
     };

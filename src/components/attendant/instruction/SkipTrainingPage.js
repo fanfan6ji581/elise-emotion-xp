@@ -10,8 +10,7 @@ const SkipTraining = () => {
     
     const onKeyDown = (e) => {
         if (
-            (e.ctrlKey && e.key === 'm') ||
-            (e.key === ' ')
+            (e.ctrlKey && e.key === 'm')
         ) {
             navigate(`/xp/${alias}/instruction-ready`);
         }

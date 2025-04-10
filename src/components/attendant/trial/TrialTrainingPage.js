@@ -16,9 +16,9 @@ const BalloonTrialTrainingPage = () => {
     const { trainingSessionSeconds } = xpConfig;
 
     const onKeyDown = (e) => {
-        if (e.key === ' ') {
-            navigate(`/xp/${alias}/instruction-ready`);
-        }
+        // if (e.key === ' ') {
+        //     navigate(`/xp/${alias}/instruction-ready`);
+        // }
         if (e.ctrlKey && e.key === 'm') {
             navigate(`/xp/${alias}/instruction-head-up`);
         }
