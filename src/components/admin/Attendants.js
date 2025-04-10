@@ -162,7 +162,7 @@ const Attendants = ({ xp }) => {
                 finalDoubleQuizOccurrences += 1;
                 finalDoubleQuizCorrectAnswers += attendant.doubleFinalQuiz.earnedAmount > 0 ? 1 : 0;
                 finalDoubleQuizQ1CorrectAnswers += attendant.doubleFinalQuiz.q1 === 2 ? 1 : 0;
-                finalDoubleQuizQ2CorrectAnswers += attendant.doubleFinalQuiz.q3 === 1 ? 1 : 0;
+                finalDoubleQuizQ2CorrectAnswers += attendant.doubleFinalQuiz.q2 === 1 ? 1 : 0;
             }
         }
 

@@ -3,7 +3,7 @@ import {
     FormControlLabel, RadioGroup, Radio, Backdrop, CircularProgress, Link as MuiLink,
     Dialog, DialogTitle, DialogContent, DialogActions,
 } from "@mui/material";
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+// import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { useNavigate, useParams } from "react-router-dom";
 import { loginAttendant } from "../../slices/attendantSlice";
 import { useSelector } from "react-redux";
@@ -31,6 +31,7 @@ const QuizPage = () => {
     const [mcq12, setMcq12] = useState(0);
     const [mcq13, setMcq13] = useState(0);
 
+    // eslint-disable-next-line no-unused-vars
     const [correction, setCorrection] = useState({});
     const [disableForm, setDisableForm] = useState(false);
     const [loadingOpen, setLoadingOpen] = useState(true);
@@ -386,7 +387,10 @@ const QuizPage = () => {
                                         }
                                         label={
                                             disableForm && q.solution === idx + 1 ? (
-                                                <Typography sx={{ color: 'success.main', fontWeight: 'bold' }}>
+                                                <Typography sx={{ 
+                                                    // color: 'success.main',
+                                                    // fontWeight: 'bold' 
+                                                }}>
                                                     {option}
                                                 </Typography>
                                             ) : (
@@ -394,7 +398,7 @@ const QuizPage = () => {
                                             )
                                         }
                                     />
-                                    {disableForm && q.solution === idx + 1 && (
+                                    {/* {disableForm && q.solution === idx + 1 && (
                                         <Alert
                                             severity="success"
                                             sx={{
@@ -414,12 +418,12 @@ const QuizPage = () => {
                                         >
                                             {q.solutionText}
                                         </Alert>
-                                    )}
-                                    {disableForm && correction[q.id] && q.state === idx + 1 && (
+                                    )} */}
+                                    {/* {disableForm && correction[q.id] && q.state === idx + 1 && (
                                         <Box sx={{ ml: 2 }}>
                                             <ErrorOutlineIcon color="error" />
                                         </Box>
-                                    )}
+                                    )} */}
                                 </Box>
                             ))}
                         </RadioGroup>
@@ -430,7 +434,7 @@ const QuizPage = () => {
 
                 <Box textAlign="center" sx={{ py: 3 }}>
                     <Button
-                        onClick={() => handleLinkClick(`/xp/${alias}/instruction-almost-ready-to-start`)}
+                        onClick={() => handleLinkClick(`/xp/${alias}/start-quiz`)}
                         sx={{ mx: 3 }}
                         variant="outlined"
                         size="large"
