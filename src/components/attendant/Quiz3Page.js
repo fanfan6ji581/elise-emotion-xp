@@ -3,7 +3,7 @@ import {
     FormControlLabel, RadioGroup, Radio, Backdrop, CircularProgress, Link as MuiLink,
     Dialog, DialogTitle, DialogContent, DialogActions,
 } from "@mui/material";
-// import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { useNavigate, useParams } from "react-router-dom";
 import { loginAttendant } from "../../slices/attendantSlice";
 import { useSelector } from "react-redux";
@@ -419,11 +419,11 @@ const QuizPage = () => {
                                             {q.solutionText}
                                         </Alert>
                                     )} */}
-                                    {/* {disableForm && correction[q.id] && q.state === idx + 1 && (
+                                    {disableForm && correction[q.id] && q.state === idx + 1 && (
                                         <Box sx={{ ml: 2 }}>
-                                            <ErrorOutlineIcon color="error" />
+                                            <ErrorOutlineIcon color="error" sx={{ fontSize: '2rem' }}/>
                                         </Box>
-                                    )} */}
+                                    )}
                                 </Box>
                             ))}
                         </RadioGroup>
