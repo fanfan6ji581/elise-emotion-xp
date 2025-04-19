@@ -58,6 +58,8 @@ const Attendants = ({ xp }) => {
     const [finalDoubleQuizCorrectAnswers, setFinalDoubleQuizCorrectAnswers] = useState(0);
     const [finalDoubleQuizQ1CorrectAnswers, setFinalDoubleQuizQ1CorrectAnswers] = useState(0);
     const [finalDoubleQuizQ2CorrectAnswers, setFinalDoubleQuizQ2CorrectAnswers] = useState(0);
+    const [maxAccumulatedEarning, setMaxAccumulatedEarning] = useState(0);
+    const [maxAccumulatedEarningAttendant, setMaxAccumulatedEarningAttendant] = useState('');
 
 
 
@@ -139,6 +141,8 @@ const Attendants = ({ xp }) => {
         let finalDoubleQuizCorrectAnswers = 0;
         let finalDoubleQuizQ1CorrectAnswers = 0;
         let finalDoubleQuizQ2CorrectAnswers = 0;
+        let maxAccumulatedEarning = 0;
+        let maxAccumulatedEarningAttendant = '';
 
         for (let i = 0; i < attendants.length; i++) {
             const attendant = attendants[i];
@@ -164,7 +168,18 @@ const Attendants = ({ xp }) => {
                 finalDoubleQuizQ1CorrectAnswers += attendant.doubleFinalQuiz.q1 === 2 ? 1 : 0;
                 finalDoubleQuizQ2CorrectAnswers += attendant.doubleFinalQuiz.q2 === 1 ? 1 : 0;
             }
+
+            if (attendant.xpRecord.outcomeHistory) {
+                const accumulatedEarning = attendant.xpRecord.outcomeHistory.reduce((acc, curr) => acc + curr, 0);
+                if (accumulatedEarning > maxAccumulatedEarning) {
+                    maxAccumulatedEarning = accumulatedEarning;
+                    maxAccumulatedEarningAttendant = attendant.username;
+                }
+            }
         }
+
+        setMaxAccumulatedEarning(maxAccumulatedEarning);
+        setMaxAccumulatedEarningAttendant(maxAccumulatedEarningAttendant);
 
         setZoneQuizOccurrences(zoneQuizOccurrences);
         setZoneQuizCorrectAnswers(zoneQuizCorrectAnswers);
@@ -341,6 +356,11 @@ const Attendants = ({ xp }) => {
                     <Typography>Final Double Both Correct: {finalDoubleQuizCorrectAnswers}</Typography>
                     <Typography>Final Double Zone Correct: {finalDoubleQuizQ1CorrectAnswers}</Typography>
                     <Typography>Final Double Aber Correct: {finalDoubleQuizQ2CorrectAnswers}</Typography>
+                    
+                    <Divider sx={{ my: 3 }} />
+
+                    <Typography>Max Accumulated Earning: ${maxAccumulatedEarning}</Typography>
+                    <Typography>Max Accumulated Earning Attendant: {maxAccumulatedEarningAttendant}</Typography>
                     <Divider sx={{ my: 3 }} />
 
                     <Typography>Add more attendants</Typography>
