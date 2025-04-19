@@ -169,7 +169,7 @@ const Attendants = ({ xp }) => {
                 finalDoubleQuizQ2CorrectAnswers += attendant.doubleFinalQuiz.q2 === 1 ? 1 : 0;
             }
 
-            if (attendant.xpRecord.outcomeHistory) {
+            if (attendant?.xpRecord?.outcomeHistory) {
                 const accumulatedEarning = attendant.xpRecord.outcomeHistory.reduce((acc, curr) => acc + curr, 0);
                 if (accumulatedEarning > maxAccumulatedEarning) {
                     maxAccumulatedEarning = accumulatedEarning;
