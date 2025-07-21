@@ -40,7 +40,7 @@ const Instruction4Page = () => {
                     </Typography>
 
                     <Typography variant="h6" sx={{ my: 5 }}>
-                        You have only 10 seconds to make your decision on each trial. If you do not reply within the allowed time, you <b>lose $1</b> and move to the next trial. After 10 missed trials the game automatically stops, so make sure you keep up with the pace 😊.
+                        You have only 15 seconds to make your decision on each trial. If you do not reply within the allowed time, you <b>lose $1</b> and move to the next trial. After 10 missed trials the game automatically stops, so make sure you keep up with the pace 😊.
                     </Typography>
 
                     <Box textAlign="center" sx={{ my: 10 }}>
